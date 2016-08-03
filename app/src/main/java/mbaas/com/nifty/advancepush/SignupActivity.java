@@ -48,12 +48,11 @@ public class SignupActivity extends AppCompatActivity  {
         _backButton_onsignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start the Signup activity
+                // Start the Login activity
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
-
     }
 
     protected void doSignupByEmail()

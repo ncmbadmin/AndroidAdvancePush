@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="txtNickname"
-        android:id="@+id/txtNickname" />
+        android:id="@+id/txtNickname_Info" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,13 +37,13 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="txtGender"
-        android:id="@+id/textView15" />
+        android:id="@+id/txtGender_Info" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Postcode"
+        android:text="Prefecture"
         android:id="@+id/textView16" />
 
     <TextView
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="txtPostcode"
-        android:id="@+id/textView17" />
+        android:id="@+id/txtPrefecture_Info" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -65,5 +65,5 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="txtEmail"
-        android:id="@+id/textView19" />
+        android:id="@+id/txtEmail_Info" />
 </LinearLayout>

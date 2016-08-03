@@ -22,6 +22,7 @@ import android.widget.Toast;
 public class
 LoginActivity extends AppCompatActivity {
 
+    private Common common;
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
@@ -31,6 +32,12 @@ LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
+        // グローバル変数を扱うクラスを取得する
+        common = (Common) getApplication();
+
+        // グローバル変数を扱うクラスを初期化する
+        common.init();
 
         //NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
         NCMB.initialize(this.getApplicationContext(),"570024d33fc60874b39b5dfc665333824693a85d8dd03100e835273faf1de308","56f7d25cc6a826fc98566d8e3a3daaf2e097dfb8c802cde1286c614fd7194bdb");
@@ -58,7 +65,7 @@ LoginActivity extends AppCompatActivity {
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start the Signup activity
+                // Start the Login activity
                 doLogin();
             }
         });
@@ -81,17 +88,27 @@ LoginActivity extends AppCompatActivity {
                             .setPositiveButton("OK", null)
                             .show();
                 } else {
+                    common.currentUser = NCMBUser.getCurrentUser();
                     //保存成功
-                    new AlertDialog.Builder(LoginActivity.this)
+                    AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
                             .setTitle("Notification from Nifty")
-                            .setMessage("Login successfull! Please check your mail box.")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener(){
+                            .setMessage("Login successfull!")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    //Yesボタンが押された時の処理
-                                    Toast.makeText(LoginActivity.this, "Yes Clicked!", Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivityForResult(intent, REQUEST_SIGNUP);
-                                }})
+                                    String nickname = common.currentUser.getString("nickname");
+                                    if (nickname != null && !nickname.isEmpty() && !nickname.equals("null")) {
+                                        //Yesボタンが押された時の処理
+                                        Toast.makeText(LoginActivity.this, "Yes Clicked!", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivityForResult(intent, REQUEST_SIGNUP);
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "Register user information for the first time!", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                                        startActivityForResult(intent, REQUEST_SIGNUP);
+                                    }
+
+                                }
+                            })
                             .show();
 
                 }
