@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/editText3" />
+        android:id="@+id/txtSignupEmail" />
 
     <Button
         android:layout_width="wrap_content"
@@ -39,4 +39,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="We will send mail to your email so you can setup password for new account."
         android:id="@+id/textView7" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/btnBack_onsignup" />
 </LinearLayout>
