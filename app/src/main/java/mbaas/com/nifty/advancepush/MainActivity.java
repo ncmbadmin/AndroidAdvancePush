@@ -1,6 +1,8 @@
 package mbaas.com.nifty.advancepush;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,15 +13,18 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.nifty.cloud.mb.core.DoneCallback;
 import com.nifty.cloud.mb.core.FindCallback;
+import com.nifty.cloud.mb.core.NCMB;
 import com.nifty.cloud.mb.core.NCMBException;
 import com.nifty.cloud.mb.core.NCMBObject;
 import com.nifty.cloud.mb.core.NCMBQuery;
 import com.nifty.cloud.mb.core.NCMBUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +33,14 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_SIGNUP = 0;
     private Common common;
     ListView lstShop;
+    private ArrayAdapter<String> listAdapter ;
+
+    Context context;
+
+    ArrayList prgmName;
+    public static int [] prgmImages={R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher};
+    public static String [] prgmNameList={"Let Us C","c++","JAVA","Jsp","Microsoft .Net","Android","PHP","Jquery","JavaScript"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +66,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Load shop information
-        doLoadShop();
+        try {
+            doLoadShop();
+        } catch (NCMBException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -106,8 +123,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void doLoadShop() {
+    public void doLoadShop() throws NCMBException {
 
+        /*
         //TestClassを検索するためのNCMBQueryインスタンスを作成
         NCMBQuery<NCMBObject> query = new NCMBQuery<>("Shop");
         //データストアからデータを検索
@@ -119,11 +137,18 @@ public class MainActivity extends AppCompatActivity {
                     //検索失敗時の処理
                 } else {
 
-                    //検索成功時の処理
+                    ListView lv= (ListView) findViewById(R.id.lstShop);
+                    lv.setAdapter(new ShopListAdapter(MainActivity.class, prgmNameList,prgmImages));
+
                 }
             }
         });
+        */
 
-
+        NCMBQuery<NCMBObject> query = new NCMBQuery<>("Shop");
+        //データストアからデータを検索
+        List<NCMBObject> results = query.find();
+        ListView lv= (ListView) findViewById(R.id.lstShop);
+        lv.setAdapter(new ShopListAdapter(this, prgmNameList,prgmImages));
     }
 }
