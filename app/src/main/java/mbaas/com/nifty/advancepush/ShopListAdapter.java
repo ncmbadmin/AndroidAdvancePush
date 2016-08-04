@@ -1,12 +1,18 @@
 package mbaas.com.nifty.advancepush;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by sci01445 on 2016/08/04.
  */
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,23 +21,36 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.nifty.cloud.mb.core.FetchFileCallback;
+import com.nifty.cloud.mb.core.NCMB;
+import com.nifty.cloud.mb.core.NCMBException;
+import com.nifty.cloud.mb.core.NCMBFile;
+import com.nifty.cloud.mb.core.NCMBObject;
+
+
 public class ShopListAdapter extends BaseAdapter{
-    String [] result;
+
+
+    private static final String TAG = "LoginActivity";
+    private static final int REQUEST_SIGNUP = 0;
+    private Common common;
+
     Context context;
-    int [] imageId;
+    List<NCMBObject> shops;
+
     private static LayoutInflater inflater=null;
-    public ShopListAdapter(MainActivity mainActivity, String[] prgmNameList, int[] prgmImages) {
+    public ShopListAdapter(MainActivity mainActivity, List<NCMBObject> tmpShops) {
         // TODO Auto-generated constructor stub
-        result=prgmNameList;
         context=mainActivity;
-        imageId=prgmImages;
+        shops = tmpShops;
         inflater = ( LayoutInflater )context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return result.length;
+        return shops.size();
     }
 
     @Override
@@ -51,21 +70,52 @@ public class ShopListAdapter extends BaseAdapter{
         TextView tv;
         ImageView img;
     }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
-        Holder holder=new Holder();
+        final Holder holder=new Holder();
         View rowView;
         rowView = inflater.inflate(R.layout.row, null);
         holder.tv=(TextView) rowView.findViewById(R.id.textView1);
         holder.img=(ImageView) rowView.findViewById(R.id.imageView1);
-        holder.tv.setText(result[position]);
-        holder.img.setImageResource(imageId[position]);
+
+        NCMBObject tmpObj = shops.get(position);
+        holder.tv.setText(tmpObj.getString("name"));
+        String filename = tmpObj.getString("icon_image");
+
+        //File download
+
+        NCMBFile file = new NCMBFile(filename);
+        file.fetchInBackground(new FetchFileCallback() {
+            @Override
+            public void done(byte[] data, NCMBException e) {
+                if (e != null) {
+                    //失敗
+
+                } else {
+                    //成功
+                    Bitmap bmp = null;
+                    if (data != null) {
+                        bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    }
+
+                    holder.img.setImageBitmap(bmp);
+                }
+            }
+        });
+
         rowView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                NCMBObject tmpObj = shops.get(position);
                 // TODO Auto-generated method stub
-                Toast.makeText(context, "You Clicked "+result[position], Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "You Clicked "+tmpObj.getString("name"), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(context, ShopActivity.class);
+                intent.putExtra("objectId", tmpObj.getObjectId());
+                intent.putExtra("name", tmpObj.getString("name"));
+                intent.putExtra("shop_image", tmpObj.getString("shop_image"));
+                ((Activity)context).startActivityForResult(intent,REQUEST_SIGNUP);
             }
         });
         return rowView;

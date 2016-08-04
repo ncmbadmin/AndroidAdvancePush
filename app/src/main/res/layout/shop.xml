@@ -16,13 +16,13 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Shop: "
-        android:id="@+id/textView21"
+        android:id="@+id/txtShop"
         android:textSize="20dp" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView" />
+        android:id="@+id/imgShop" />
 
     <Button
         android:layout_width="wrap_content"

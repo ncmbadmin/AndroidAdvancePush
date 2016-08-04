@@ -37,10 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     Context context;
 
-    ArrayList prgmName;
-    public static int [] prgmImages={R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher};
-    public static String [] prgmNameList={"Let Us C","c++","JAVA","Jsp","Microsoft .Net","Android","PHP","Jquery","JavaScript"};
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +145,6 @@ public class MainActivity extends AppCompatActivity {
         //データストアからデータを検索
         List<NCMBObject> results = query.find();
         ListView lv= (ListView) findViewById(R.id.lstShop);
-        lv.setAdapter(new ShopListAdapter(this, prgmNameList,prgmImages));
+        lv.setAdapter(new ShopListAdapter(this,results));
     }
 }
