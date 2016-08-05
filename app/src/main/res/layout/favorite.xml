@@ -11,4 +11,12 @@
         android:id="@+id/textView22"
         android:layout_gravity="center_horizontal"
         android:textSize="30dp" />
+
+    <ListView
+        android:id="@+id/lstShopFavorite"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    </ListView>
+
+
 </LinearLayout>

@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                // Start the Info activity
+                Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
+                startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
 

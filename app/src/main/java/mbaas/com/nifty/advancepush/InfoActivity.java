@@ -41,6 +41,7 @@ public class InfoActivity extends AppCompatActivity {
         _email.setText(common.currentUser.getMailAddress());
 
 
+
     }
 
 
