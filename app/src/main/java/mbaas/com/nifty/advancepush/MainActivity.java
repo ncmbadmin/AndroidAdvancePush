@@ -147,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
         NCMBQuery<NCMBObject> query = new NCMBQuery<>("Shop");
         //データストアからデータを検索
         List<NCMBObject> results = query.find();
+        //update common 変数 for global
+        common.shops = results;
         ListView lv= (ListView) findViewById(R.id.lstShop);
         lv.setAdapter(new ShopListAdapter(this,results));
     }

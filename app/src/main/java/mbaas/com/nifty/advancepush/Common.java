@@ -5,7 +5,10 @@ package mbaas.com.nifty.advancepush;
  */
 import android.app.Application;
 
+import com.nifty.cloud.mb.core.NCMBObject;
 import com.nifty.cloud.mb.core.NCMBUser;
+
+import java.util.List;
 
 /**
  * グローバル変数を扱うクラス
@@ -14,11 +17,14 @@ import com.nifty.cloud.mb.core.NCMBUser;
 public class Common extends Application{
     // グローバルに扱う変数
     NCMBUser currentUser;
+    // List of shops that is loaded
+    List<NCMBObject> shops;
 
     /**
      * 変数を初期化する
      */
     public void init(){
         currentUser = null;
+        shops = null;
     }
 }
