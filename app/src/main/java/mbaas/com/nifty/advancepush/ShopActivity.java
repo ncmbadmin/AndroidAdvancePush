@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.nifty.cloud.mb.core.DoneCallback;
 import com.nifty.cloud.mb.core.FetchFileCallback;
 import com.nifty.cloud.mb.core.NCMBException;
 import com.nifty.cloud.mb.core.NCMBFile;
+import com.nifty.cloud.mb.core.NCMBInstallation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,6 +99,18 @@ public class ShopActivity extends AppCompatActivity {
                     doFavoriteRegister(objectId, name, shop_image);
                 }
             });
+
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.onHomeShopFab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Start the Info activity
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivityForResult(intent, REQUEST_SIGNUP);
+                }
+            });
+
+
         }
 
     }
@@ -106,7 +121,7 @@ public class ShopActivity extends AppCompatActivity {
         list = common.currentUser.getList("favorite");
         list.add(objId);
         common.currentUser.put("favorite", list);
-        common.currentUser.getList("favorite").add(objId);
+        //common.currentUser.getList("favorite").add(objId);
         common.currentUser.saveInBackground(new DoneCallback() {
             @Override
             public void done(NCMBException e) {
@@ -119,6 +134,7 @@ public class ShopActivity extends AppCompatActivity {
                             .setPositiveButton("OK", null)
                             .show();
                 } else {
+
                     //保存成功
                     new AlertDialog.Builder(ShopActivity.this)
                             .setTitle("Notification from Nifty")
@@ -138,6 +154,24 @@ public class ShopActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //installationを保存する
+        NCMBInstallation currInstallation  = NCMBInstallation.getCurrentInstallation();
+        currInstallation.put("favorite", list);
+        currInstallation.saveInBackground(new DoneCallback() {
+            @Override
+            public void done(NCMBException e) {
+                if (e != null) {
+                    //リクエストに失敗した場合の処理
+                    //保存失敗
+                    Log.d(TAG, "端末情報を保存失敗しました。");
+                } else {
+                    //保存成功
+                    Log.d(TAG, "端末情報を保存成功しました。");
+                }
+            }
+        });
+
     }
 
 }

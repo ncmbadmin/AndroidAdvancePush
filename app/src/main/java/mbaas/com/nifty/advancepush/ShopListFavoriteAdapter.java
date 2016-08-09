@@ -78,17 +78,19 @@ public class ShopListFavoriteAdapter extends BaseAdapter {
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                List<String> curFavList = common.currentUser.getList("favorite");
+
                 if(isChecked){
-                    if (!favList.contains(tmpShop.getObjectId())) {
-                        favList.add(tmpShop.getObjectId());
+                    if (!curFavList.contains(tmpShop.getObjectId())) {
+                        curFavList.add(tmpShop.getObjectId());
                     }
-                    common.currentUser.put("favorite", favList);
+                    common.currentUser.put("favorite", curFavList);
                     Log.d(TAG, "true");
                 } else {
-                    if (favList.contains(tmpShop.getObjectId())) {
-                        favList.remove(tmpShop.getObjectId());
+                    if (curFavList.contains(tmpShop.getObjectId())) {
+                        curFavList.remove(tmpShop.getObjectId());
                     }
-                    common.currentUser.put("favorite", favList);
+                    common.currentUser.put("favorite", curFavList);
                     Log.d(TAG," false");
                 }
             }

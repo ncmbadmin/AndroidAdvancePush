@@ -19,6 +19,8 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.nifty.cloud.mb.core.DoneCallback;
 import com.nifty.cloud.mb.core.NCMBException;
+import com.nifty.cloud.mb.core.NCMBInstallation;
+import com.nifty.cloud.mb.core.NCMBPush;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,6 +114,26 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        //installationを保存する
+        NCMBInstallation currInstallation  = NCMBInstallation.getCurrentInstallation();
+        currInstallation.put("prefecture", prefecture);
+        currInstallation.put("gender", selectedGender);
+        currInstallation.put("favorite", list);
+        currInstallation.saveInBackground(new DoneCallback() {
+            @Override
+            public void done(NCMBException e) {
+                if (e != null) {
+                    //リクエストに失敗した場合の処理
+                    //保存失敗
+                    Log.d(TAG, "端末情報を保存失敗しました。");
+                } else {
+                    //保存成功
+                    Log.d(TAG, "端末情報を保存成功しました。");
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivityForResult(intent, REQUEST_SIGNUP);
+                }
+            }
+        });
 
     }
 

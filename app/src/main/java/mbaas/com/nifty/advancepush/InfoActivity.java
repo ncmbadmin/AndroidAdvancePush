@@ -1,8 +1,12 @@
 package mbaas.com.nifty.advancepush;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -11,6 +15,7 @@ import android.widget.TextView;
  * Created by sci01445 on 2016/08/03.
  */
 public class InfoActivity extends AppCompatActivity {
+
 
     private Common common;
     private static final String TAG = "RegisterActivity";
@@ -41,6 +46,15 @@ public class InfoActivity extends AppCompatActivity {
         _email.setText(common.currentUser.getMailAddress());
 
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.onHomeInfoFab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Start the Info activity
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivityForResult(intent, REQUEST_SIGNUP);
+            }
+        });
 
     }
 

@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import com.nifty.cloud.mb.core.DoneCallback;
 import com.nifty.cloud.mb.core.NCMBException;
+import com.nifty.cloud.mb.core.NCMBInstallation;
 import com.nifty.cloud.mb.core.NCMBObject;
 
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
     private Common common;
     private static final int REQUEST_SIGNUP = 0;
+    private static final String TAG = "FavoriteActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,18 @@ public class FavoriteActivity extends AppCompatActivity {
                 doFavoriteSave();
             }
         });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.onHomeFavFab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Start the Info activity
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivityForResult(intent, REQUEST_SIGNUP);
+            }
+        });
+
+
     }
 
     protected void doFavoriteSave() {
@@ -80,6 +96,23 @@ public class FavoriteActivity extends AppCompatActivity {
                                 }
                             })
                             .show();
+                }
+            }
+        });
+
+        //installationを保存する
+        NCMBInstallation currInstallation  = NCMBInstallation.getCurrentInstallation();
+        currInstallation.put("favorite", list);
+        currInstallation.saveInBackground(new DoneCallback() {
+            @Override
+            public void done(NCMBException e) {
+                if (e != null) {
+                    //リクエストに失敗した場合の処理
+                    //保存失敗
+                    Log.d(TAG, "端末情報を保存失敗しました。");
+                } else {
+                    //保存成功
+                    Log.d(TAG, "端末情報を保存成功しました。");
                 }
             }
         });
