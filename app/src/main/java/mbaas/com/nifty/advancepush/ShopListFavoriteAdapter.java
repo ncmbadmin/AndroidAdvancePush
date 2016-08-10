@@ -11,34 +11,27 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.nifty.cloud.mb.core.NCMB;
 import com.nifty.cloud.mb.core.NCMBObject;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import mbaas.com.nifty.advancepush.R;
 
 public class ShopListFavoriteAdapter extends BaseAdapter {
 
     private Common common;
     private Context context = null;
-    //private ArrayList<CharSequence> data = null;
     List<NCMBObject> shops;
 
     private int resource = 0;
     private int listPosition;
-    private static final String TAG = "LoginActivity";
+    private static final String TAG = "ShopListFavoriteAdapter";
     public Activity activity;
 
     public ShopListFavoriteAdapter(Context context,List<NCMBObject> tmpShops ,int resource, Activity act){
-
         this.activity = act;
         this.context = context;
         this.shops = tmpShops;
         this.resource = resource;
     }
-
 
     @Override
     public int getCount() {
@@ -59,8 +52,6 @@ public class ShopListFavoriteAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         // グローバル変数を扱うクラスを取得する
         common = (Common) activity.getApplication();
-
-
         listPosition = i;
         final NCMBObject tmpShop = shops.get(i);
         final List<String> favList = common.currentUser.getList("favorite");

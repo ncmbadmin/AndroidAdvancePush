@@ -1,6 +1,5 @@
 package mbaas.com.nifty.advancepush;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,13 +7,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,8 +29,8 @@ import java.util.List;
  */
 public class ShopActivity extends AppCompatActivity {
 
-    private static final String TAG = "RegisterActivity";
-    private static final int REQUEST_SIGNUP = 0;
+    private static final String TAG = "ShopActivity";
+    private static final int REQUEST_RESULT  = 0;
 
     TextView _shop_name;
     ImageView _shop_image;
@@ -62,7 +59,6 @@ public class ShopActivity extends AppCompatActivity {
             final String shop_image = extras.getString("shop_image");
 
             _shop_name.setText(name);
-            //File download
 
             NCMBFile file = new NCMBFile(shop_image);
             file.fetchInBackground(new FetchFileCallback() {
@@ -106,35 +102,30 @@ public class ShopActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     // Start the Info activity
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivityForResult(intent, REQUEST_SIGNUP);
+                    startActivityForResult(intent, REQUEST_RESULT);
                 }
             });
-
-
         }
 
     }
 
+    //**************** 【mBaaS/User: 会員情報更新】***************
     protected void doFavoriteRegister(final String objId, final String name, final String shop_image) {
-
         List<String> list = new ArrayList<String>();
         list = common.currentUser.getList("favorite");
         list.add(objId);
         common.currentUser.put("favorite", list);
-        //common.currentUser.getList("favorite").add(objId);
         common.currentUser.saveInBackground(new DoneCallback() {
             @Override
             public void done(NCMBException e) {
                 if (e != null) {
                     //リクエストに失敗した場合の処理
-                    //保存失敗
                     new AlertDialog.Builder(ShopActivity.this)
                             .setTitle("Notification from Nifty")
                             .setMessage("Save failed! Error:" + e.getMessage())
                             .setPositiveButton("OK", null)
                             .show();
                 } else {
-
                     //保存成功
                     new AlertDialog.Builder(ShopActivity.this)
                             .setTitle("Notification from Nifty")
@@ -147,7 +138,7 @@ public class ShopActivity extends AppCompatActivity {
                                     intent.putExtra("objectId", objId);
                                     intent.putExtra("name", name);
                                     intent.putExtra("shop_image", shop_image);
-                                    startActivityForResult(intent,REQUEST_SIGNUP);
+                                    startActivityForResult(intent, REQUEST_RESULT);
                                 }
                             })
                             .show();
@@ -155,7 +146,7 @@ public class ShopActivity extends AppCompatActivity {
             }
         });
 
-        //installationを保存する
+        //**************** 【mBaaS/Push: 端末情報更新】***************
         NCMBInstallation currInstallation  = NCMBInstallation.getCurrentInstallation();
         currInstallation.put("favorite", list);
         currInstallation.saveInBackground(new DoneCallback() {
@@ -163,7 +154,6 @@ public class ShopActivity extends AppCompatActivity {
             public void done(NCMBException e) {
                 if (e != null) {
                     //リクエストに失敗した場合の処理
-                    //保存失敗
                     Log.d(TAG, "端末情報を保存失敗しました。");
                 } else {
                     //保存成功

@@ -5,29 +5,19 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-
 import com.nifty.cloud.mb.core.NCMBGcmListenerService;
-import com.nifty.cloud.mb.core.NCMBGcmReceiver;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 
-/**
- * Created by sci01445 on 2016/08/10.
- */
 public class CustomGcmListenerService extends NCMBGcmListenerService {
 
-    private static final String TAG = "MainActivity";
-    private static final int REQUEST_SIGNUP = 0;
-    private Common common;
+    private static final String TAG = "CustomGcmListenerService";
+    private static final int REQUEST_RESULT = 0;
 
+    //**************** 【mBaaS/Push: ペイロード】***************
     @Override
     public void onMessageReceived(String from, Bundle data) {
         //ペイロードデータの取得
@@ -62,7 +52,7 @@ public class CustomGcmListenerService extends NCMBGcmListenerService {
             }
         }
 
-        //デフォルトの通知が必要なければコメントアウトする
+        //デフォルトの通知
         super.onMessageReceived(from, data);
     }
 

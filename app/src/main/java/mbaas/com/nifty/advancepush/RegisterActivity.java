@@ -20,19 +20,15 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.nifty.cloud.mb.core.DoneCallback;
 import com.nifty.cloud.mb.core.NCMBException;
 import com.nifty.cloud.mb.core.NCMBInstallation;
-import com.nifty.cloud.mb.core.NCMBPush;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sci01445 on 2016/08/03.
- */
 public class RegisterActivity extends AppCompatActivity {
 
     private Common common;
     private static final String TAG = "RegisterActivity";
-    private static final int REQUEST_SIGNUP = 0;
+    private static final int REQUEST_RESULT  = 0;
 
     EditText _nickname;
     EditText _prefecture;
@@ -56,13 +52,12 @@ public class RegisterActivity extends AppCompatActivity {
         _prefecture = (EditText) findViewById(R.id.txtPrefecture);
         _groupGender = (RadioGroup) findViewById(R.id.radioGroupGender);
 
-
         Button _registerButton = (Button) findViewById(R.id.btnRegisterUser);
 
         _registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start the Signup activity
+                //サインアップ画面遷移する
                 doRegister();
             }
         });
@@ -72,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+    //**************** 【mBaaS/User: 会員情報更新】***************
     protected void doRegister() {
         String nickname = _nickname.getText().toString();
         String prefecture = _prefecture.getText().toString();
@@ -90,7 +86,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void done(NCMBException e) {
                 if (e != null) {
                     //リクエストに失敗した場合の処理
-                    //保存失敗
                     new AlertDialog.Builder(RegisterActivity.this)
                             .setTitle("Notification from Nifty")
                             .setMessage("Save failed! Error:" + e.getMessage())
@@ -106,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     //Yesボタンが押された時の処理
                                     Toast.makeText(RegisterActivity.this, "Go to Main!", Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivityForResult(intent, REQUEST_SIGNUP);
+                                    startActivityForResult(intent, REQUEST_RESULT );
                                 }
                             })
                             .show();
@@ -114,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        //installationを保存する
+        //**************** 【mBaaS/Push: 端末情報更新】***************
         NCMBInstallation currInstallation  = NCMBInstallation.getCurrentInstallation();
         currInstallation.put("prefecture", prefecture);
         currInstallation.put("gender", selectedGender);
@@ -124,13 +119,12 @@ public class RegisterActivity extends AppCompatActivity {
             public void done(NCMBException e) {
                 if (e != null) {
                     //リクエストに失敗した場合の処理
-                    //保存失敗
                     Log.d(TAG, "端末情報を保存失敗しました。");
                 } else {
                     //保存成功
                     Log.d(TAG, "端末情報を保存成功しました。");
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivityForResult(intent, REQUEST_SIGNUP);
+                    startActivityForResult(intent, REQUEST_RESULT );
                 }
             }
         });
@@ -141,7 +135,6 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();

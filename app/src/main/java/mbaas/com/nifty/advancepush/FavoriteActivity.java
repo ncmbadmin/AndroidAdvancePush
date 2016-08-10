@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import com.nifty.cloud.mb.core.DoneCallback;
 import com.nifty.cloud.mb.core.NCMBException;
 import com.nifty.cloud.mb.core.NCMBInstallation;
-import com.nifty.cloud.mb.core.NCMBObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +25,7 @@ import java.util.List;
 public class FavoriteActivity extends AppCompatActivity {
 
     private Common common;
-    private static final int REQUEST_SIGNUP = 0;
+    private static final int REQUEST_RESULT = 0;
     private static final String TAG = "FavoriteActivity";
 
     @Override
@@ -40,8 +38,8 @@ public class FavoriteActivity extends AppCompatActivity {
         common = (Common) getApplication();
 
         //Get shoplist
-        ShopListFavoriteAdapter  adapter = new ShopListFavoriteAdapter(this,common.shops,R.layout.row_favorite, this);
-        ListView listView = (ListView)this.findViewById(R.id.lstShopFavorite);
+        ShopListFavoriteAdapter adapter = new ShopListFavoriteAdapter(this, common.shops, R.layout.row_favorite, this);
+        ListView listView = (ListView) this.findViewById(R.id.lstShopFavorite);
         listView.setAdapter(adapter);
 
         Button _favRegisterBtn = (Button) findViewById(R.id.btnFavoriteSave);
@@ -59,15 +57,13 @@ public class FavoriteActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Start the Info activity
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
+                startActivityForResult(intent, REQUEST_RESULT);
             }
         });
-
-
     }
 
     protected void doFavoriteSave() {
-
+        //**************** 【mBaaS/User: 会員情報更新】***************
         List<String> list = new ArrayList<String>();
         list = common.currentUser.getList("favorite");
         common.currentUser.put("favorite", list);
@@ -76,7 +72,6 @@ public class FavoriteActivity extends AppCompatActivity {
             public void done(NCMBException e) {
                 if (e != null) {
                     //リクエストに失敗した場合の処理
-                    //保存失敗
                     new AlertDialog.Builder(FavoriteActivity.this)
                             .setTitle("Notification from Nifty")
                             .setMessage("Save failed! Error:" + e.getMessage())
@@ -92,7 +87,7 @@ public class FavoriteActivity extends AppCompatActivity {
                                     //Yesボタンが押された時の処理
                                     Toast.makeText(FavoriteActivity.this, "Go to Main!", Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
-                                    startActivityForResult(intent, REQUEST_SIGNUP);
+                                    startActivityForResult(intent, REQUEST_RESULT);
                                 }
                             })
                             .show();
@@ -100,8 +95,9 @@ public class FavoriteActivity extends AppCompatActivity {
             }
         });
 
-        //installationを保存する
-        NCMBInstallation currInstallation  = NCMBInstallation.getCurrentInstallation();
+        //**************** 【mBaaS/Push: 端末情報更新】***************
+        //端末情報を保存する
+        NCMBInstallation currInstallation = NCMBInstallation.getCurrentInstallation();
         currInstallation.put("favorite", list);
         currInstallation.saveInBackground(new DoneCallback() {
             @Override

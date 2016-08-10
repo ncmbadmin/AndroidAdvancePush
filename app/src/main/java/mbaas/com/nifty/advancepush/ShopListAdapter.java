@@ -1,18 +1,12 @@
 package mbaas.com.nifty.advancepush;
 
-import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by sci01445 on 2016/08/04.
- */
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nifty.cloud.mb.core.FetchFileCallback;
-import com.nifty.cloud.mb.core.NCMB;
 import com.nifty.cloud.mb.core.NCMBException;
 import com.nifty.cloud.mb.core.NCMBFile;
 import com.nifty.cloud.mb.core.NCMBObject;
@@ -32,8 +25,8 @@ import com.nifty.cloud.mb.core.NCMBObject;
 public class ShopListAdapter extends BaseAdapter{
 
 
-    private static final String TAG = "LoginActivity";
-    private static final int REQUEST_SIGNUP = 0;
+    private static final String TAG = "ShopListAdapter";
+    private static final int REQUEST_RESULT = 0;
     private Common common;
 
     Context context;
@@ -84,22 +77,19 @@ public class ShopListAdapter extends BaseAdapter{
         holder.tv.setText(tmpObj.getString("name"));
         String filename = tmpObj.getString("icon_image");
 
-        //File download
-
+        //**************** 【mBaaS/File: ショップ画像をダウンロードする】***************
         NCMBFile file = new NCMBFile(filename);
         file.fetchInBackground(new FetchFileCallback() {
             @Override
             public void done(byte[] data, NCMBException e) {
                 if (e != null) {
                     //失敗
-
                 } else {
                     //成功
                     Bitmap bmp = null;
                     if (data != null) {
                         bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
                     }
-
                     holder.img.setImageBitmap(bmp);
                 }
             }
@@ -115,7 +105,7 @@ public class ShopListAdapter extends BaseAdapter{
                 intent.putExtra("objectId", tmpObj.getObjectId());
                 intent.putExtra("name", tmpObj.getString("name"));
                 intent.putExtra("shop_image", tmpObj.getString("shop_image"));
-                ((Activity)context).startActivityForResult(intent,REQUEST_SIGNUP);
+                ((Activity)context).startActivityForResult(intent, REQUEST_RESULT);
             }
         });
         return rowView;

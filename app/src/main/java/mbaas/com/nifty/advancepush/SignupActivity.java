@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,18 +16,22 @@ import com.nifty.cloud.mb.core.NCMBException;
 import com.nifty.cloud.mb.core.NCMBUser;
 
 
-/**
- * Created by sci01445 on 2016/08/01.
- */
+public class SignupActivity extends AppCompatActivity {
 
-public class SignupActivity extends AppCompatActivity  {
-
+    private Common common;
     private static final String TAG = "SignActivity";
-    private static final int REQUEST_SIGNUP = 0;
+    private static final int REQUEST_RESULT = 0;
     EditText _signupEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // グローバル変数を扱うクラスを取得する
+        common = (Common) getApplication();
+
+        // グローバル変数を扱うクラスを初期化する
+        common.init();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 
@@ -50,14 +53,13 @@ public class SignupActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 // Start the Login activity
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
+                startActivityForResult(intent, REQUEST_RESULT);
             }
         });
     }
 
-    protected void doSignupByEmail()
-    {
-
+    //**************** 【mBaaS/User: 会員サインアップ】***************
+    protected void doSignupByEmail() {
         String email = _signupEmail.getText().toString();
         Log.d(TAG, email);
         NCMBUser.requestAuthenticationMailInBackground(email, new DoneCallback() {
@@ -65,32 +67,28 @@ public class SignupActivity extends AppCompatActivity  {
             public void done(NCMBException e) {
                 if (e != null) {
                     //リクエストに失敗した場合の処理
-                    //保存失敗
                     new AlertDialog.Builder(SignupActivity.this)
                             .setTitle("Notification from Nifty")
                             .setMessage("Send failed! Error:" + e.getMessage())
                             .setPositiveButton("OK", null)
                             .show();
-                }else {
+                } else {
                     //保存成功
                     new AlertDialog.Builder(SignupActivity.this)
                             .setTitle("Notification from Nifty")
                             .setMessage("Send successfull! Please check your mail box.")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener(){
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     //Yesボタンが押された時の処理
                                     Toast.makeText(SignupActivity.this, "Yes Clicked!", Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                    startActivityForResult(intent, REQUEST_SIGNUP);
-                                }})
+                                    startActivityForResult(intent, REQUEST_RESULT);
+                                }
+                            })
                             .show();
 
                 }
             }
         });
-
-
     }
-
-
 }
