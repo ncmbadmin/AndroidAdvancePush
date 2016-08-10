@@ -39,6 +39,9 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <!-- プッシュ通知タップ時に起動するActivityの設定 -->
+        <meta-data android:name="openPushStartActivity" android:value=".LoginActivity"/>
+
         <receiver
             android:name="com.nifty.cloud.mb.core.NCMBGcmReceiver"
             android:exported="true"
@@ -49,14 +52,30 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <!--<service-->
+            <!--android:name="com.nifty.cloud.mb.core.NCMBGcmListenerService"-->
+            <!--android:exported="false">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.android.c2dm.intent.RECEIVE"/>-->
+            <!--</intent-filter>-->
+        <!--</service>-->
+
 
         <service
-            android:name="com.nifty.cloud.mb.core.NCMBGcmListenerService"
+            android:name="mbaas.com.nifty.advancepush.CustomGcmListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
             </intent-filter>
         </service>
+
 
     </application>
 

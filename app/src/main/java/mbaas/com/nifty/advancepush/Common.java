@@ -20,6 +20,7 @@ public class Common extends Application{
     // List of shops that is loaded
     List<NCMBObject> shops;
 
+
     /**
      * 変数を初期化する
      */
