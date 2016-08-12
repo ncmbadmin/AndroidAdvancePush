@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="mBaaS Register user information"
+        android:text="新規会員登録"
         android:id="@+id/textView8"
         android:layout_gravity="center_horizontal"
         android:textSize="25dp" />
@@ -71,7 +71,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="登録"
         android:id="@+id/btnRegisterUser"
         android:layout_gravity="center_horizontal" />
 

@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="mBaaS shop favorite register"
+        android:text="お気に入り一覧"
         android:id="@+id/textView22"
         android:layout_gravity="center_horizontal"
         android:textSize="30dp" />
@@ -22,7 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="お気に入り保存"
-        android:id="@+id/btnFavoriteSave" />
+        android:id="@+id/btnFavoriteSave"
+        android:layout_gravity="center_horizontal" />
 
     <android.support.design.widget.FloatingActionButton android:id="@+id/onHomeFavFab"
         android:layout_width="wrap_content" android:layout_height="wrap_content"

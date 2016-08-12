@@ -7,15 +7,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="mBaaS Shop registed info"
+        android:text="会員ページ"
         android:id="@+id/textView12"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Nickname"
+        android:text="ニックネーム"
         android:id="@+id/textView13" />
 
     <TextView
@@ -29,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Gender"
+        android:text="性別"
         android:id="@+id/textView14" />
 
     <TextView
@@ -43,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Prefecture"
+        android:text="都道府県"
         android:id="@+id/textView16" />
 
     <TextView
@@ -57,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Email"
+        android:text="メールアドレス"
         android:id="@+id/textView18" />
 
     <TextView
