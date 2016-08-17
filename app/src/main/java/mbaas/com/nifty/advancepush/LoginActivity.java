@@ -57,9 +57,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
-    //**************** 【mBaaS/User: 会員ログイン】***************
     protected void doLogin() {
+        //**************** 【mBaaS/User②】: メールアドレスとパスワードでログイン】***************
         String email = _loginEmail.getText().toString();
         String password = _loginPassword.getText().toString();
 
@@ -74,20 +73,20 @@ public class LoginActivity extends AppCompatActivity {
                             .setPositiveButton("OK", null)
                             .show();
                 } else {
+                    //ログインに成功した場合の処理
                     common.currentUser = NCMBUser.getCurrentUser();
-                    //保存成功
                     AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
                             .setTitle("Notification from Nifty")
-                            .setMessage("Login successfull!")
+                            .setMessage("ログイン成功")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     String nickname = common.currentUser.getString("nickname");
                                     if (nickname != null && !nickname.isEmpty() && !nickname.equals("null")) {
-                                        //Yesボタンが押された時の処理
-                                        Toast.makeText(LoginActivity.this, "Yes Clicked!", Toast.LENGTH_LONG).show();
+                                        //メイン画面遷移します
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivityForResult(intent, REQUEST_RESULT);
                                     } else {
+                                        //初期ログイン会員登録画面遷移します
                                         Toast.makeText(LoginActivity.this, "Register user information for the first time!", Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                                         startActivityForResult(intent, REQUEST_RESULT);

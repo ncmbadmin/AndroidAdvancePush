@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -77,15 +78,16 @@ public class ShopListAdapter extends BaseAdapter{
         holder.tv.setText(tmpObj.getString("name"));
         String filename = tmpObj.getString("icon_image");
 
-        //**************** 【mBaaS/File: ショップ画像をダウンロードする】***************
+        //**************** 【mBaaS/File①: ショップ画像を習得】***************
         NCMBFile file = new NCMBFile(filename);
         file.fetchInBackground(new FetchFileCallback() {
             @Override
             public void done(byte[] data, NCMBException e) {
                 if (e != null) {
-                    //失敗
+                    // 取得失敗時の処理
+                    Log.d(TAG, e.getMessage());
                 } else {
-                    //成功
+                    // 取得成功時の処理
                     Bitmap bmp = null;
                     if (data != null) {
                         bmp = BitmapFactory.decodeByteArray(data, 0, data.length);

@@ -58,29 +58,28 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    //**************** 【mBaaS/User: 会員サインアップ】***************
+
     protected void doSignupByEmail() {
+        //**************** 【mBaaS/User①】: 会員登録用メールを要求する】***************
         String email = _signupEmail.getText().toString();
-        Log.d(TAG, email);
         NCMBUser.requestAuthenticationMailInBackground(email, new DoneCallback() {
             @Override
             public void done(NCMBException e) {
                 if (e != null) {
-                    //リクエストに失敗した場合の処理
+                    // 会員登録用メールの要求失敗時の処理
                     new AlertDialog.Builder(SignupActivity.this)
                             .setTitle("Notification from Nifty")
                             .setMessage("Send failed! Error:" + e.getMessage())
                             .setPositiveButton("OK", null)
                             .show();
                 } else {
-                    //保存成功
+                    // 会員登録用メールの要求失敗時の処理
                     new AlertDialog.Builder(SignupActivity.this)
                             .setTitle("Notification from Nifty")
-                            .setMessage("Send successfull! Please check your mail box.")
+                            .setMessage("メール送信完了しました! メールをご確認ください。")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    //Yesボタンが押された時の処理
-                                    Toast.makeText(SignupActivity.this, "Yes Clicked!", Toast.LENGTH_LONG).show();
+                                    //Login画面遷移します
                                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                     startActivityForResult(intent, REQUEST_RESULT);
                                 }

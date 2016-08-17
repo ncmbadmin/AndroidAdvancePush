@@ -60,14 +60,16 @@ public class ShopActivity extends AppCompatActivity {
 
             _shop_name.setText(name);
 
+            //**************** 【mBaaS/File②: ショップ詳細画像を習得】***************
             NCMBFile file = new NCMBFile(shop_image);
             file.fetchInBackground(new FetchFileCallback() {
                 @Override
                 public void done(byte[] data, NCMBException e) {
                     if (e != null) {
-                        //失敗
+                        //取得失敗時の処理
+                        Log.d(TAG, e.getMessage());
                     } else {
-                        //成功
+                        //取得成功時の処理
                         Bitmap bmp = null;
                         if (data != null) {
                             bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
@@ -109,8 +111,9 @@ public class ShopActivity extends AppCompatActivity {
 
     }
 
-    //**************** 【mBaaS/User: 会員情報更新】***************
+
     protected void doFavoriteRegister(final String objId, final String name, final String shop_image) {
+        //**************** 【mBaaS/User⑤: 会員情報更新】***************
         List<String> list = new ArrayList<String>();
         list = common.currentUser.getList("favorite");
         list.add(objId);
@@ -119,21 +122,19 @@ public class ShopActivity extends AppCompatActivity {
             @Override
             public void done(NCMBException e) {
                 if (e != null) {
-                    //リクエストに失敗した場合の処理
+                    //更新失敗時の処理
                     new AlertDialog.Builder(ShopActivity.this)
                             .setTitle("Notification from Nifty")
                             .setMessage("Save failed! Error:" + e.getMessage())
                             .setPositiveButton("OK", null)
                             .show();
                 } else {
-                    //保存成功
+                    //更新成功時の処理
                     new AlertDialog.Builder(ShopActivity.this)
                             .setTitle("Notification from Nifty")
-                            .setMessage("Save successfull! Thank you for registration.")
+                            .setMessage("お気に入り保存成功しました")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    //Yesボタンが押された時の処理
-                                    Toast.makeText(ShopActivity.this, "Go to Main!", Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(getApplicationContext(), ShopActivity.class);
                                     intent.putExtra("objectId", objId);
                                     intent.putExtra("name", name);
@@ -146,17 +147,17 @@ public class ShopActivity extends AppCompatActivity {
             }
         });
 
-        //**************** 【mBaaS/Push: 端末情報更新】***************
+        //****************【mBaaS：プッシュ通知⑤】installationにユーザー情報を紐づける***************
         NCMBInstallation currInstallation  = NCMBInstallation.getCurrentInstallation();
         currInstallation.put("favorite", list);
         currInstallation.saveInBackground(new DoneCallback() {
             @Override
             public void done(NCMBException e) {
                 if (e != null) {
-                    //リクエストに失敗した場合の処理
+                    //保存失敗した場合の処理
                     Log.d(TAG, "端末情報を保存失敗しました。");
                 } else {
-                    //保存成功
+                    //保存成功した場合の処理
                     Log.d(TAG, "端末情報を保存成功しました。");
                 }
             }

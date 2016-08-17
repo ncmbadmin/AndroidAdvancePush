@@ -67,15 +67,16 @@ public class RegisterActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    //**************** 【mBaaS/User: 会員情報更新】***************
+
     protected void doRegister() {
+
         String nickname = _nickname.getText().toString();
         String prefecture = _prefecture.getText().toString();
         Integer id = _groupGender.getCheckedRadioButtonId();
         String selectedGender = (String) ((RadioButton) findViewById(id)).getText();
-
         final List<String> list = new ArrayList<>();
 
+        //**************** 【mBaaS/User③: ユーザー情報更新】***************
         common.currentUser.put("nickname", nickname);
         common.currentUser.put("prefecture", prefecture);
         common.currentUser.put("gender", selectedGender);
@@ -85,21 +86,19 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void done(NCMBException e) {
                 if (e != null) {
-                    //リクエストに失敗した場合の処理
+                    // 更新失敗時の処理
                     new AlertDialog.Builder(RegisterActivity.this)
                             .setTitle("Notification from Nifty")
                             .setMessage("Save failed! Error:" + e.getMessage())
                             .setPositiveButton("OK", null)
                             .show();
                 } else {
-                    //保存成功
+                    // 更新成功時の処理
                     new AlertDialog.Builder(RegisterActivity.this)
                             .setTitle("Notification from Nifty")
-                            .setMessage("Save successfull! Thank you for registration.")
+                            .setMessage("保存成功しました! 入力ありがとうございます")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    //Yesボタンが押された時の処理
-                                    Toast.makeText(RegisterActivity.this, "Go to Main!", Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivityForResult(intent, REQUEST_RESULT );
                                 }
@@ -109,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        //**************** 【mBaaS/Push: 端末情報更新】***************
+        //**************** 【mBaaS：プッシュ通知②】installationにユーザー情報を紐づける ***************
         NCMBInstallation currInstallation  = NCMBInstallation.getCurrentInstallation();
         currInstallation.put("prefecture", prefecture);
         currInstallation.put("gender", selectedGender);
@@ -118,10 +117,10 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void done(NCMBException e) {
                 if (e != null) {
-                    //リクエストに失敗した場合の処理
+                    //更新失敗時の処理
                     Log.d(TAG, "端末情報を保存失敗しました。");
                 } else {
-                    //保存成功
+                    //更新成功時の処理
                     Log.d(TAG, "端末情報を保存成功しました。");
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivityForResult(intent, REQUEST_RESULT );

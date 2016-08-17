@@ -63,7 +63,7 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     protected void doFavoriteSave() {
-        //**************** 【mBaaS/User: 会員情報更新】***************
+        //**************** 【mBaaS/User ④: 会員情報更新】***************
         List<String> list = new ArrayList<String>();
         list = common.currentUser.getList("favorite");
         common.currentUser.put("favorite", list);
@@ -71,21 +71,19 @@ public class FavoriteActivity extends AppCompatActivity {
             @Override
             public void done(NCMBException e) {
                 if (e != null) {
-                    //リクエストに失敗した場合の処理
+                    //保存失敗時の処理
                     new AlertDialog.Builder(FavoriteActivity.this)
                             .setTitle("Notification from Nifty")
                             .setMessage("Save failed! Error:" + e.getMessage())
                             .setPositiveButton("OK", null)
                             .show();
                 } else {
-                    //保存成功
+                    //保存成功時の処理
                     new AlertDialog.Builder(FavoriteActivity.this)
                             .setTitle("Notification from Nifty")
-                            .setMessage("Save successfull! Thank you for registration.")
+                            .setMessage("お気に入り保存成功しました!")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    //Yesボタンが押された時の処理
-                                    Toast.makeText(FavoriteActivity.this, "Go to Main!", Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
                                     startActivityForResult(intent, REQUEST_RESULT);
                                 }
@@ -95,7 +93,7 @@ public class FavoriteActivity extends AppCompatActivity {
             }
         });
 
-        //**************** 【mBaaS/Push: 端末情報更新】***************
+        //**************** 【mBaaS：プッシュ通知④】installationにユーザー情報を紐づける***************
         //端末情報を保存する
         NCMBInstallation currInstallation = NCMBInstallation.getCurrentInstallation();
         currInstallation.put("favorite", list);
@@ -103,7 +101,6 @@ public class FavoriteActivity extends AppCompatActivity {
             @Override
             public void done(NCMBException e) {
                 if (e != null) {
-                    //リクエストに失敗した場合の処理
                     //保存失敗
                     Log.d(TAG, "端末情報を保存失敗しました。");
                 } else {

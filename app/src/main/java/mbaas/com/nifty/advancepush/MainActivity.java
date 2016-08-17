@@ -42,15 +42,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //**************** 【mBaaS/Initialization: APIキーを指定する】***************
-        //NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
-        NCMB.initialize(this.getApplicationContext(),"570024d33fc60874b39b5dfc665333824693a85d8dd03100e835273faf1de308","56f7d25cc6a826fc98566d8e3a3daaf2e097dfb8c802cde1286c614fd7194bdb");
+        NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
 
-        //**************** 【mBaaS/Push: 端末を登録】***************
+        //**************** 【mBaaS/Push①: 端末を登録】***************
         //端末情報を扱うNCMBInstallationのインスタンスを作成する
         final NCMBInstallation installation = NCMBInstallation.getCurrentInstallation();
 
         //GCMからRegistrationIdを取得しinstallationに設定する
-        installation.getRegistrationIdInBackground("848447765672", new DoneCallback() {
+        installation.getRegistrationIdInBackground("PROJECT_NUMBER", new DoneCallback() {
             @Override
             public void done(NCMBException e) {
                 if (e == null) {
@@ -59,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                         public void done(NCMBException e) {
                             if(e == null){
                                 //保存成功
+                                Log.d(TAG, "端末情報を保存成功しました。");
                             }else if(NCMBException.DUPLICATE_VALUE.equals(e.getCode())){
                                 //保存失敗 : registrationID重複
                                 updateInstallation(installation);
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //**************** 【mBaaS/User: 会員ログアウト】***************
+    //**************** 【mBaaS/User④: 会員ログアウト】***************
     public void doLogout() {
         NCMBUser.logoutInBackground(new DoneCallback() {
             @Override
@@ -181,8 +181,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //**************** 【mBaaS/Shop: お店一覧を表示する】***************
+
     public void doLoadShop() throws NCMBException {
+        //**************** 【mBaaS/Shop①: 「Shop」クラスのデータを取得】***************
+        // 「Shop」クラスのクエリを作成
         NCMBQuery<NCMBObject> query = new NCMBQuery<>("Shop");
         //データストアからデータを検索
         List<NCMBObject> results = query.find();
@@ -193,13 +195,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //**************** 【mBaaS/Push: りっちプッシュ】***************
     @Override
     public void onResume() {
-        Log.d(TAG, "Start resume");
-        Log.d(TAG, getIntent().toString());
         super.onResume();
 
+        //**************** 【mBaaS：プッシュ通知⑥】リッチプッシュ通知を表示させる処理 ***************
         //リッチプッシュ通知の表示
         NCMBPush.richPushHandler(this, getIntent());
 
