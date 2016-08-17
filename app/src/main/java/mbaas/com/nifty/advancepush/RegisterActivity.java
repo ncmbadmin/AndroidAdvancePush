@@ -77,56 +77,10 @@ public class RegisterActivity extends AppCompatActivity {
         final List<String> list = new ArrayList<>();
 
         //**************** 【mBaaS/User③: ユーザー情報更新】***************
-        common.currentUser.put("nickname", nickname);
-        common.currentUser.put("prefecture", prefecture);
-        common.currentUser.put("gender", selectedGender);
-        common.currentUser.put("favorite",list);
 
-        common.currentUser.saveInBackground(new DoneCallback() {
-            @Override
-            public void done(NCMBException e) {
-                if (e != null) {
-                    // 更新失敗時の処理
-                    new AlertDialog.Builder(RegisterActivity.this)
-                            .setTitle("Notification from Nifty")
-                            .setMessage("Save failed! Error:" + e.getMessage())
-                            .setPositiveButton("OK", null)
-                            .show();
-                } else {
-                    // 更新成功時の処理
-                    new AlertDialog.Builder(RegisterActivity.this)
-                            .setTitle("Notification from Nifty")
-                            .setMessage("保存成功しました! 入力ありがとうございます")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivityForResult(intent, REQUEST_RESULT );
-                                }
-                            })
-                            .show();
-                }
-            }
-        });
 
         //**************** 【mBaaS：プッシュ通知②】installationにユーザー情報を紐づける ***************
-        NCMBInstallation currInstallation  = NCMBInstallation.getCurrentInstallation();
-        currInstallation.put("prefecture", prefecture);
-        currInstallation.put("gender", selectedGender);
-        currInstallation.put("favorite", list);
-        currInstallation.saveInBackground(new DoneCallback() {
-            @Override
-            public void done(NCMBException e) {
-                if (e != null) {
-                    //更新失敗時の処理
-                    Log.d(TAG, "端末情報を保存失敗しました。");
-                } else {
-                    //更新成功時の処理
-                    Log.d(TAG, "端末情報を保存成功しました。");
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivityForResult(intent, REQUEST_RESULT );
-                }
-            }
-        });
+
 
     }
 

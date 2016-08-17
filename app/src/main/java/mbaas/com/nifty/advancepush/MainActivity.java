@@ -45,34 +45,7 @@ public class MainActivity extends AppCompatActivity {
         NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
 
         //**************** 【mBaaS/Push①: 端末を登録】***************
-        //端末情報を扱うNCMBInstallationのインスタンスを作成する
-        final NCMBInstallation installation = NCMBInstallation.getCurrentInstallation();
 
-        //GCMからRegistrationIdを取得しinstallationに設定する
-        installation.getRegistrationIdInBackground("PROJECT_NUMBER", new DoneCallback() {
-            @Override
-            public void done(NCMBException e) {
-                if (e == null) {
-                    installation.saveInBackground(new DoneCallback() {
-                        @Override
-                        public void done(NCMBException e) {
-                            if(e == null){
-                                //保存成功
-                                Log.d(TAG, "端末情報を保存成功しました。");
-                            }else if(NCMBException.DUPLICATE_VALUE.equals(e.getCode())){
-                                //保存失敗 : registrationID重複
-                                updateInstallation(installation);
-                            }else {
-                                //保存失敗 : その他
-                                Log.d(TAG, "端末情報を保存失敗しました。");
-                            }
-                        }
-                    });
-                } else {
-                    //ID取得失敗
-                }
-            }
-        });
 
         // グローバル変数を扱うクラスを取得する
         common = (Common) getApplication();
@@ -184,14 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void doLoadShop() throws NCMBException {
         //**************** 【mBaaS/Shop①: 「Shop」クラスのデータを取得】***************
-        // 「Shop」クラスのクエリを作成
-        NCMBQuery<NCMBObject> query = new NCMBQuery<>("Shop");
-        //データストアからデータを検索
-        List<NCMBObject> results = query.find();
-        //グローバル変数を更新する
-        common.shops = results;
-        ListView lv = (ListView) findViewById(R.id.lstShop);
-        lv.setAdapter(new ShopListAdapter(this, results));
+
     }
 
 
@@ -200,11 +166,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         //**************** 【mBaaS：プッシュ通知⑥】リッチプッシュ通知を表示させる処理 ***************
-        //リッチプッシュ通知の表示
-        NCMBPush.richPushHandler(this, getIntent());
 
-        //リッチプッシュを再表示させたくない場合はintentからURLを削除します
-        getIntent().removeExtra("com.nifty.RichUrl");
     }
 
 
