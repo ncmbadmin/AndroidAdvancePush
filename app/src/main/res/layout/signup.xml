@@ -7,15 +7,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="mBaaS Shop signup"
+        android:text="新規登録"
         android:id="@+id/textView5"
-        android:textSize="40dp" />
+        android:textSize="40dp"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
-        android:layout_width="96dp"
+        android:layout_width="246dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Email"
+        android:text="メールアドレス"
         android:id="@+id/textView6"
         android:textSize="30dp" />
 
@@ -24,12 +25,12 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/editText3" />
+        android:id="@+id/txtSignupEmail" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send mail"
+        android:text="メールを送信する"
         android:id="@+id/btnSignupByEmail"
         android:layout_gravity="center_horizontal" />
 
@@ -37,6 +38,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="We will send mail to your email so you can setup password for new account."
+        android:text="確認メールが送信されます。"
         android:id="@+id/textView7" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="戻る"
+        android:id="@+id/btnBack_onsignup" />
 </LinearLayout>

@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="mBaaS Shop detail"
+        android:text="ショップ詳細"
         android:id="@+id/textView20"
         android:textSize="35dp" />
 
@@ -16,18 +16,29 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Shop: "
-        android:id="@+id/textView21"
+        android:id="@+id/txtShop"
         android:textSize="20dp" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView" />
+        android:id="@+id/imgShop" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgFavorite" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Favorite register"
-        android:id="@+id/btnFavorite" />
+        android:text="お気に入り登録する"
+        android:id="@+id/btnFavorite"
+        android:layout_gravity="center_horizontal" />
+
+    <android.support.design.widget.FloatingActionButton android:id="@+id/onHomeShopFab"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_dialog_dialer" />
 
 </LinearLayout>
