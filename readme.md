@@ -7,7 +7,7 @@ class: center, middle, inverse
 @ncmbadmin
 
 .footnote[
-20160804作成
+20160817作成
 ]
 ---
 layout: false
@@ -93,7 +93,6 @@ layout: false
  * 後で処理を実装します
 
 ```java
-//**************** 【mBaaS/Initialization: APIキーを指定する】***************
 NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
 ```
 
@@ -112,6 +111,15 @@ NCMBObject obj = new NCMBObject("SaveObjectTest");
 obj.put("key", "value");
 obj.save();
 
+```
+
+---
+## ニフティクラウド mobile backendとは
+### Android SDKの特徴
+
+* サーバへリクエスト処理には、__同期処理__と__非同期処理__があります
+
+```java
 /* 非同期処理 */
 
 NCMBObject obj = new NCMBObject("SaveObjectTest");
@@ -131,7 +139,7 @@ obj.saveInBackground(new DoneCallback() {
 
 * 同期処理と非同期処理
  * 同期処理はその処理が完了するまで、次の処理が実行されません
- * 非同期処理はバックグラウンドで処理を実行し、次の処理を実行します
+ * 非同期処理はバックグラウンドで処理を実行し、次の処理を実行します. DoneCallback()にて処理後の実装を事前に指定できます
 
 ---
 ## ハンズオンの概要
@@ -196,18 +204,47 @@ layout: false
 
 下記リンクをクリックして、ZIPファイルでダウンロードしてください▼<br>
 .size_large[
-　　　 __[AdvancePushApp](https://github.com/ncmbadmin/AndroidAdvancePush/archive/master.zip)__
+　　　 __[AndroidAdvancePush](https://github.com/ncmbadmin/AndroidAdvancePush/archive/handson.zip)__
 ]
 
+* zipファイルを展開します。
 * AndroidStudioで先ほどダウンロードしたプロジェクトを開いてください。
+
+.center[
+![AndroidStudio 1](readme-image/android1.png)
+]
+
+---
+layout: false
+## ハンズオンの準備
+### プロジェクトを準備
+
+* AndroidStudioでプロジェクトのビューを調整します。
+  - 左上のビューオプション項目にて[Android]として選択します。
+
+.center[
+![AndroidStudio 2](readme-image/android2.png)
+]
+
+---
+layout: false
+## ハンズオンの準備
+### プロジェクトを準備
+
+* AndroidStudioでプロジェクトのファイル構成を確認します。
+  - 以下のようにビュー、処理のファイルが入っていることをご確認ください。
+
+.center[
+![AndroidStudio 3](readme-image/android4.png)
+]
 
 ---
 ## ハンズオンの準備
 ### プロジェクトにあらかじめ実施していること
 
-* mBaaS Android SDKのインストール
+* mBaaS Android SDK v.2.2.3のインストール, build.graddleの設定, AndroidManifestの設定は実装済み
 * mBaaSとの連携以外の処理のコーディング
- * アプリのデザインを`layoutフォルダー内ファイル`で作成し、処理は画面ごと`ViewController`にコーディングしています
+ * アプリのデザインを`layoutフォルダー内ファイル`で作成し、処理は画面ごと`Activityのファイル`にコーディングしています
 
 ---
 ## ハンズオンの準備
@@ -229,8 +266,16 @@ layout: false
 NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
 ```
 
+---
+## ハンズオンの準備
+### APIキーの設定とSDKの初期化
+
 * 初期化処理の「`APP_KEY`」，「`CLIENT_KEY`」の部分をアプリ作成時に発行されたAPIキーに書き換えてください
  * APIキーは、mBaaSのダッシュボードから「アプリ設定」→「基本」にあります
+
+.center[
+![mBaaSアプリキー設定](readme-image/apikey.png)
+]
 
 ---
 layout: true
@@ -260,20 +305,23 @@ layout: false
 ## 会員管理機能の作成
 ### 会員管理①：会員登録用メールを要求する[実装済み]
 
-* `SignUpViewController.java`を開きます
+* `SignupActivity.java`を開きます
+* doSignupByEmail()メソッドを開きます
 * 会員登録処理は以下のように実装されます
 
 ```java
-// 【mBaaS：会員管理①】会員登録用メールを要求する
-NCMBUser.requestAuthenticationMailInBackground(address.text) { (error: NSError!) -> Void in
-    if error != nil {
-        // 会員登録用メールの要求失敗時の処理
-
-    } else {
-        // 会員登録用メールの要求失敗時の処理
-
-    }
-}
+//**************** 【mBaaS/User①】: 会員登録用メールを要求する】***************
+String email = _signupEmail.getText().toString();
+NCMBUser.requestAuthenticationMailInBackground(email, new DoneCallback() {
+     @Override
+     public void done(NCMBException e) {
+         if (e != null) {
+             // 会員登録用メールの要求失敗時の処理
+         } else {
+             // 会員登録用メールの要求失敗時の処理
+         }
+     }
+ });
 ```
 
 ---
@@ -284,16 +332,26 @@ NCMBUser.requestAuthenticationMailInBackground(address.text) { (error: NSError!)
 
 ```java
 // 会員登録用メールの要求失敗時の処理
-print("エラーが発生しました：\(error!.code)")
-self.statusLabel.text = "エラーが発生しました：\(error!.code)"
+new AlertDialog.Builder(SignupActivity.this)
+        .setTitle("Notification from Nifty")
+        .setMessage("Send failed! Error:" + e.getMessage())
+        .setPositiveButton("OK", null)
+        .show();
 ```
 
 ```java
 // 会員登録用メールの要求失敗時の処理
-print("登録用メールを送信しました")
-self.statusLabel.text = "登録用メールを送信しました"
-// TextFieldを空にする
-self.address.text = ""
+new AlertDialog.Builder(SignupActivity.this)
+        .setTitle("Notification from Nifty")
+        .setMessage("メール送信完了しました! メールをご確認ください。")
+        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                //Login画面遷移します
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivityForResult(intent, REQUEST_RESULT);
+            }
+        })
+        .show();
 ```
 ---
 ## 会員管理機能の作成
@@ -307,20 +365,25 @@ self.address.text = ""
 ## 会員管理機能の作成
 ### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
 
-* `LoginViewController.java`を開きます
+* `LoginActivity.java`を開きます
+* doLogin()メソッドを開きます
 * ログイン処理は以下のように実装されます
 
 ```java
-// 【mBaaS：会員管理②】メールアドレスとパスワードでログイン
-NCMBUser.logInWithMailAddressInBackground(address.text, password: password.text) { (user: NCMBUser!, error: NSError!) -> Void in
-    if error != nil {
-        // ログイン失敗時の処理
+//**************** 【mBaaS/User②】: メールアドレスとパスワードでログイン】***************
+String email = _loginEmail.getText().toString();
+String password = _loginPassword.getText().toString();
 
-    }else{
-        // ログイン成功時の処理
-
+NCMBUser.loginWithMailAddressInBackground(email, password, new LoginCallback() {
+    @Override
+    public void done(NCMBUser user, NCMBException e) {
+        if (e != null) {
+            //ログインに失敗した場合の処理
+        } else {
+            //ログインに成功した場合の処理
+        }
     }
-}
+});
 ```
 
 ---
@@ -330,22 +393,42 @@ NCMBUser.logInWithMailAddressInBackground(address.text, password: password.text)
 * それぞれ処理を追記しています
 
 ```java
-// ログイン失敗時の処理
-print("ログインに失敗しました:\(error.code)")
-self.statusLabel.text = "ログインに失敗しました:\(error.code)"
+//ログインに失敗した場合の処理
+new AlertDialog.Builder(LoginActivity.this)
+        .setTitle("Notification from Nifty")
+        .setMessage("Login failed! Error:" + e.getMessage())
+        .setPositiveButton("OK", null)
+        .show();
 ```
 
+---
+## 会員管理機能の作成
+### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
+
+* それぞれ処理を追記しています（続き）
+
 ```java
-// ログイン成功時の処理
-print("ログインに成功しました:\(user.objectId)")
-// AppDelegateにユーザー情報を保持
-self.appDelegate.current_user = user as NCMBUser
-// TextFieldを空にする
-self.cleanTextField()
-// statusLabelを空にする
-self.statusLabel.text = ""
-// 画面遷移
-self.performSegueWithIdentifier("login", sender: self)
+//ログインに成功した場合の処理
+common.currentUser = NCMBUser.getCurrentUser();
+AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
+        .setTitle("Notification from Nifty")
+        .setMessage("ログイン成功")
+        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                String nickname = common.currentUser.getString("nickname");
+                if (nickname != null && !nickname.isEmpty() && !nickname.equals("null")) {
+                    //メイン画面遷移します
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivityForResult(intent, REQUEST_RESULT);
+                } else {
+                    //初期ログイン会員登録画面遷移します
+                    Toast.makeText(LoginActivity.this, "Register user information for the first time!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                    startActivityForResult(intent, REQUEST_RESULT);
+                }
+            }
+        })
+        .show();
 ```
 
 ---
@@ -355,13 +438,16 @@ self.performSegueWithIdentifier("login", sender: self)
 * ここではシュミレーターでビルドし、動作確認を行います
 * ログイン画面で「会員登録」をタップします
 * 会員登録画面でメールアドレスを入力し「登録メールを送信」をタップします
- * ログを確認してください
+ * メッセージを確認してください
+ * エラーが発生したらここを見てください。
+ [エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+
+---
+## 会員管理機能の作成
+### 動作確認(1)ログインをしてみましょう
 
 .center[
 ![動作確認①ログイン](readme-image/動作確認①ログイン.png)
-]
-.footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
 ]
 
 ---
@@ -403,12 +489,14 @@ self.performSegueWithIdentifier("login", sender: self)
 ### 会員管理③：ユーザー情報更新
 
 
-* `TopViewController.java`を開きます
+* `RegisterActivity.java`を開きます
+* `doRegister()`を開きます
 * 初回のみ表示されるユーザー情報登録画面に入力した情報をmBaaSのユーザー情報に追加する処理を実装します
 * コメントの下にコードを追記していきます
 
 ```java
-// 【mBaaS：会員管理③】ユーザー情報更新
+//**************** 【mBaaS/User③: ユーザー情報更新】***************
+
 
 ```
 
@@ -419,24 +507,25 @@ self.performSegueWithIdentifier("login", sender: self)
 ### 会員管理③：ユーザー情報更新
 
 ```java
-// 【mBaaS：会員管理③】ユーザー情報更新
-// ログイン中のユーザーを取得
-let user = NCMBUser.currentUser()
-// ユーザー情報を設定
-user.setObject(self.nickname.text, forKey: "nickname")
-user.setObject(self.GENDER_CONFIG[self.genderSegCon.selectedSegmentIndex], forKey: "gender")
-user.setObject(self.prefecture.text, forKey: "prefecture")
-user.setObject([] as Array<String>, forKey: "favorite")
-// user情報の更新
-user.saveInBackgroundWithBlock({(error: NSError!) -> Void in
-    if error != nil {
-        // 更新失敗時の処理
+//**************** 【mBaaS/User③: ユーザー情報更新】***************
+common.currentUser.put("nickname", nickname);
+common.currentUser.put("prefecture", prefecture);
+common.currentUser.put("gender", selectedGender);
+common.currentUser.put("favorite",list);
 
-    } else {
-        // 更新成功時の処理
+common.currentUser.saveInBackground(new DoneCallback() {
+    @Override
+    public void done(NCMBException e) {
+        if (e != null) {
+            // 更新失敗時の処理
 
+        } else {
+            // 更新成功時の処理
+
+        }
     }
-})
+});
+
 ```
 
 ---
@@ -447,23 +536,25 @@ user.saveInBackgroundWithBlock({(error: NSError!) -> Void in
 
 ```java
 // 更新失敗時の処理
-print("ユーザー情報更新に失敗しました:\(error.code)")
-self.viewLabel.text = "登録に失敗しました（更新）:\(error.code)"
+new AlertDialog.Builder(RegisterActivity.this)
+        .setTitle("Notification from Nifty")
+        .setMessage("Save failed! Error:" + e.getMessage())
+        .setPositiveButton("OK", null)
+        .show();
 ```
 
 ```java
 // 更新成功時の処理
-print("ユーザー情報更新に成功しました")
-// AppDelegateに保持していたユーザー情報の更新
-self.appDelegate.current_user = user as NCMBUser
-// 【mBaaS：プッシュ通知③】installationにユーザー情報を紐づける
-  /*****後でここに処理を記述します*****/
-// 画面を閉じる
-self.registerView.hidden = true
-// ニックネーム表示用ラベルの更新
-self.nicknameLabel.text = "\(self.appDelegate.current_user.objectForKey("nickname"))さん、こんにちは！"
-// 画面更新
-self.checkShop()
+new AlertDialog.Builder(RegisterActivity.this)
+       .setTitle("Notification from Nifty")
+       .setMessage("保存成功しました! 入力ありがとうございます")
+       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+           public void onClick(DialogInterface dialog, int which) {
+               Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+               startActivityForResult(intent, REQUEST_RESULT );
+           }
+       })
+       .show();
 ```
 
 ---
@@ -520,44 +611,33 @@ layout: false
 ## Shop情報の設定
 ### データストア：「Shop」クラスのデータを取得
 
-* `TopViewController.java`を開きます
+* `MainActivity.java`を開きます
+* `doLoadShop()`を開きます
 * インポートしたShopクラスのデータを取得する処理を実装します
+  - コメントの下にコードを追記していきます
 
 ```java
-// 【mBaaS：データストア】「Shop」クラスのデータを取得
-// 「Shop」クラスのクエリを作成
-let query = NCMBQuery(className: "Shop")
-// データストアを検索
-query.findObjectsInBackgroundWithBlock({ (objects: Array!, error: NSError!) -> Void in
-    if error != nil {
-        // 検索失敗時の処理
+//**************** 【mBaaS/Shop①: 「Shop」クラスのデータを取得】***************
 
-    } else {
-        // 検索成功時の処理
 
-    }
-})
 ```
 
 ---
 ## Shop情報の設定
 ### データストア：「Shop」クラスのデータを取得
 
-* それぞれ処理を追記します
-
 ```java
-// 検索失敗時の処理
-print("検索に失敗しました:\(error.code)")
+//**************** 【mBaaS/Shop①: 「Shop」クラスのデータを取得】***************
+// 「Shop」クラスのクエリを作成
+NCMBQuery<NCMBObject> query = new NCMBQuery<>("Shop");
+//データストアからデータを検索
+List<NCMBObject> results = query.find();
+//グローバル変数を更新する
+common.shops = results;
+ListView lv = (ListView) findViewById(R.id.lstShop);
+lv.setAdapter(new ShopListAdapter(this, results));
 ```
 
-```java
-// 検索成功時の処理
-print("検索に成功しました")
-// AppDelegateに「Shop」クラスの情報を保持
-self.appDelegate.shopList = objects as! Array
-// テーブルの更新
-self.shopTableView.reloadData()
-```
 
 ---
 ## Shop情報の設定
@@ -571,26 +651,35 @@ self.shopTableView.reloadData()
 ## Shop情報の設定
 ### ファイルストア①：icon画像の取得
 
-* `CustomCell.java`を開きます
- * `CustomCell.java`はテーブルのセルを作成するファイルです
+* `ShopListAdapter.java`を開きます
+ * `ShopListAdapter.java`はリストの項目を作成するファイルです
 * トップ画面に各ショップのアイコンをmBaaSから取得して表示する処理を実装します
+- コメントの下にコードを追記していきます
 
 ```java
-// 【mBaaS：ファイルストア①】icon画像の取得
-// 取得した「Shop」クラスデータからicon名を取得
-let imageName = object.objectForKey("icon_image") as! String
-// ファイル名を設定
-let imageFile = NCMBFile.fileWithName(imageName, data: nil)
-// ファイルを検索
-imageFile.getDataInBackgroundWithBlock { (data: NSData!, error: NSError!) -> Void in
-    if error != nil {
-        // ファイル取得失敗時の処理
+////**************** 【mBaaS/File①: ショップ画像を習得】***************
 
-    } else {
-        // ファイル取得成功時の処理
 
+```
+
+---
+## Shop情報の設定
+### ファイルストア①：icon画像の取得
+
+
+```java
+//**************** 【mBaaS/File①: ショップ画像を習得】***************
+NCMBFile file = new NCMBFile(filename);
+file.fetchInBackground(new FetchFileCallback() {
+    @Override
+    public void done(byte[] data, NCMBException e) {
+        if (e != null) {
+            // 取得失敗時の処理
+        } else {
+            // 取得成功時の処理
+        }
     }
-}
+});
 ```
 
 ---
@@ -600,16 +689,19 @@ imageFile.getDataInBackgroundWithBlock { (data: NSData!, error: NSError!) -> Voi
 * それぞれ処理を追記します
 
 ```java
-// ファイル取得失敗時の処理
-print("icon画像の取得に失敗しました:\(error.code)")
+// 取得失敗時の処理
+Log.d(TAG, e.getMessage());
 ```
 
 ```java
-// ファイル取得成功時の処理
-print("icon画像の取得に成功しました")
-// icon画像を設定
-self.iconImageView_top.image = UIImage.init(data: data)
+// 取得成功時の処理
+Bitmap bmp = null;
+if (data != null) {
+    bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+}
+holder.img.setImageBitmap(bmp);
 ```
+
 ---
 ## Shop情報の設定
 ### ファイルストア②：Shop画像の取得
@@ -622,25 +714,31 @@ self.iconImageView_top.image = UIImage.init(data: data)
 ## Shop情報の設定
 ### ファイルストア②：Shop画像の取得[実装済み]
 
-* `ShopViewController.java`を開きます
+* `ShopActivity.java`を開きます
+* `onCreate()`を開きます
 * Shop画面に各ショップの画像をmBaaSから取得して表示する処理も同様に実装できます
 
+
 ```java
-// 【mBaaS：ファイルストア②】Shop画像の取得
-// 取得した「Shop」クラスデータからshop画面用の画像名を取得
-let imageName = appDelegate.shopList[shopIndex].objectForKey("shop_image") as! String
-// ファイル名を設定
-let imageFile = NCMBFile.fileWithName(imageName, data: nil)
-// ファイルを検索
-imageFile.getDataInBackgroundWithBlock { (data: NSData!, error: NSError!) -> Void in
-    if error != nil {
-        // ファイル取得失敗時の処理
-        /* 省略 */
-    } else {
-        // ファイル取得成功時の処理
-        /* 省略 */
+
+//**************** 【mBaaS/File②: ショップ詳細画像を習得】***************
+NCMBFile file = new NCMBFile(shop_image);
+file.fetchInBackground(new FetchFileCallback() {
+    @Override
+    public void done(byte[] data, NCMBException e) {
+        if (e != null) {
+            //取得失敗時の処理
+            Log.d(TAG, e.getMessage());
+        } else {
+            //取得成功時の処理
+            Bitmap bmp = null;
+            if (data != null) {
+                bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+            }
+            _shop_image.setImageBitmap(bmp);
+        }
     }
-}
+});
 ```
 
 ---
@@ -700,25 +798,41 @@ layout: false
 ## お気に入り機能の作成
 ### 会員管理④：ユーザー情報の更新[実装済み]
 
-* `FavoriteViewController.java`を開きます
+* `FavoriteActivity.java`を開きます
+* `doFavoriteSave()`を開きます
 * お気に入り画面からfavoriteデータの更新処理はユーザー情報の登録と同様にして実装できます
 
+---
+## お気に入り機能の作成
+### 会員管理④：ユーザー情報の更新[実装済み]
+
+
 ```java
-// 【mBaaS：会員管理④】ユーザー情報の更新
-// ログイン中のユーザーを取得
-let user = NCMBUser.currentUser()
-// favoriteに更新された値を設定
-user.setObject(appDelegate.favoriteObjectIdTemporaryArray, forKey: "favorite")
-// ユーザー情報を更新
-user.saveInBackgroundWithBlock { (error: NSError!) -> Void in
-    if error != nil {
-        // 更新に失敗した場合の処理
-        /* 省略 */
-    } else {
-        // 更新に成功した場合の処理
-        /* 省略 */
+//**************** 【mBaaS/User ④: 会員情報更新】***************
+List<String> list = new ArrayList<String>();
+list = common.currentUser.getList("favorite");
+common.currentUser.put("favorite", list);
+common.currentUser.saveInBackground(new DoneCallback() {
+    @Override
+    public void done(NCMBException e) {
+        if (e != null) {
+            //保存失敗時の処理
+            <<省略>>
+        } else {
+            //保存成功時の処理
+            new AlertDialog.Builder(FavoriteActivity.this)
+                    .setTitle("Notification from Nifty")
+                    .setMessage("お気に入り保存成功しました!")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
+                            startActivityForResult(intent, REQUEST_RESULT);
+                        }
+                    })
+                    .show();
+        }
     }
-}
+});
 ```
 
 ---
@@ -726,25 +840,34 @@ user.saveInBackgroundWithBlock { (error: NSError!) -> Void in
 
 ### 会員管理⑤：ユーザー情報の更新[実装済み]
 
-* `ShopViewController.java`を開きます
+* `ShopActivity.java`を開きます
+* `doFavoriteRegister()`を開きます
 * Shop画面からもfavoriteデータの更新処理はユーザー情報の登録と同様にして実装できます
 
+---
+## お気に入り機能の作成
+
+### 会員管理⑤：ユーザー情報の更新[実装済み]
+
+
 ```java
-// 【mBaaS：会員管理⑤】ユーザー情報の更新
-// ログイン中のユーザーを取得
-let user = NCMBUser.currentUser()
-// 更新された値を設定
-user.setObject(favoriteObjectIdArray, forKey: "favorite")
-// ユーザー情報を更新
-user.saveInBackgroundWithBlock { (error: NSError!) -> Void in
-    if error != nil {
-        // 更新に失敗した場合の処理
-        /* 省略 */
-    } else {
-        // 更新に成功した場合の処理
-        /* 省略 */
+//**************** 【mBaaS/User⑤: 会員情報更新】***************
+List<String> list = new ArrayList<String>();
+list = common.currentUser.getList("favorite");
+list.add(objId);
+common.currentUser.put("favorite", list);
+common.currentUser.saveInBackground(new DoneCallback() {
+    @Override
+    public void done(NCMBException e) {
+        if (e != null) {
+            //更新失敗時の処理
+            <<省略>>
+        } else {
+            //更新成功時の処理
+          　<<省略>>
+        }
     }
-}
+});
 ```
 
 ---
@@ -787,16 +910,17 @@ layout: false
 ### このあとのデバッグについて
 
 * 以下の用意が必要です
- * デバッグ用の実機
- * プッシュ通知用証明書(p12形式)
-* 証明書の取得がまだの場合は下記をご参照ください
- * [【サンプル】アプリにプッシュ通知を組み込もう！](https://github.com/NIFTYCloud-mbaas/javaPushApp)
+ * デバッグ用のAndroid実機 (4.0~)
+ * GCMのプッシュ通知用APIキー
+* GCMのプッシュ通知用APIキーがまだの場合は下記をご参照ください
+ * [【サンプル】アプリにプッシュ通知を組み込もう！](https://github.com/NIFTYCloud-mbaas/https://github.com/NIFTYCloud-mbaas/android_push_demo)
 
 ---
 ## プッシュ通知の準備
 ### mBaaSの設定
 
-* プッシュ通知の許可とAPNsの証明書(p12形式)のアップロードを行います
+* プッシュ通知の許可を行います
+* GCMのプッシュ通知用APIキーを設定します
 
 .center[
 ![mBaaSプッシュ通知設定](readme-image/mBaaSプッシュ通知設定.png)
@@ -804,72 +928,57 @@ layout: false
 
 ---
 ## プッシュ通知の準備
-### プッシュ通知①：デバイストークンの取得
+### プッシュ通知①：端末を登録
 
-* `AppDelegate.java`を開きます
-* `applications(_:didFinishLaunchingWithOptions)`メソッド内のSDKの初期化を実装した部分の直ぐ下に処理を実装します
+* `MainActivity.java`を開きます
+* `onCreate()`メソッド内のSDKの初期化を実装した部分の直ぐ下に処理を実装します
 
 ```java
-// 【mBaaS：プッシュ通知①】デバイストークンの取得
-// デバイストークンの要求
-if (NSFoundationVersionNumber > NSFoundationVersionNumber_Android_7_1){
-    /** Android8以上 **/
-    //通知のタイプを設定したsettingを用意
-    let type : UIUserNotificationType = [.Alert, .Badge, .Sound]
-    let setting = UIUserNotificationSettings(forTypes: type, categories: nil)
-    //通知のタイプを設定
-    application.registerUserNotificationSettings(setting)
-    //DevoceTokenを要求
-    application.registerForRemoteNotifications()
-}else{
-    /** Android8未満 **/
-    let type : UIRemoteNotificationType = [.Alert, .Badge, .Sound]
-    UIApplication.sharedApplication().registerForRemoteNotificationTypes(type)
-}
+//**************** 【mBaaS/Push①: 端末を登録】***************
+
 ```
 
 ---
 ## プッシュ通知の準備
-### プッシュ通知②：デバイストークンの取得後に呼び出されるメソッド
-
-* 続けて`AppDelegate.java`を編集します
-* `applications(_:didFinishLaunchingWithOptions)`メソッド下(外)に次のメソッドを実装します
+### プッシュ通知①：端末を登録
 
 ```java
-// 【mBaaS：プッシュ通知②】デバイストークンの取得後に呼び出されるメソッド
-func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData){
-    // 端末情報を扱うNCMBInstallationのインスタンスを作成
-    let installation = NCMBInstallation.currentInstallation()
-    // デバイストークンの設定
-    installation.setDeviceTokenFromData(deviceToken)
-    // 端末情報をデータストアに登録
-    installation.saveInBackgroundWithBlock { (error: NSError!) -> Void in
-        if error != nil {
-            // 端末情報の登録に失敗した時の処理
-
-        }else{
-            // 端末情報の登録に成功した時の処理
-
+//**************** 【mBaaS/Push①: 端末を登録】***************
+//端末情報を扱うNCMBInstallationのインスタンスを作成する
+final NCMBInstallation installation = NCMBInstallation.getCurrentInstallation();
+//GCMからRegistrationIdを取得しinstallationに設定する
+installation.getRegistrationIdInBackground("PROJECT_NUMBER", new DoneCallback() {
+    @Override
+    public void done(NCMBException e) {
+        if (e == null) {
+            installation.saveInBackground(new DoneCallback() {
+                @Override
+                public void done(NCMBException e) {
+                    if(e == null){
+                        Log.d(TAG, "端末情報を保存成功しました。");
+                    }else if(NCMBException.DUPLICATE_VALUE.equals(e.getCode())){
+                        //保存失敗 : registrationID重複
+                        updateInstallation(installation);
+                    }else {
+                        Log.d(TAG, "端末情報を保存失敗しました。");
+                    }
+                }
+            });
+        } else {
         }
     }
-}
+});
 ```
 
 ---
 ## プッシュ通知の準備
-### プッシュ通知②：デバイストークンの取得後に呼び出されるメソッド
+### プッシュ通知①：端末を登録
 
-* それぞれ処理を追記します
+* 上記のコードにあるPROJECT_NUMBERの設定を行います。
 
-```java
-// 端末情報の登録に失敗した時の処理
-print("デバイストークン取得に失敗しました:\(error.code)")
-```
-
-```java
-// 端末情報の登録に成功した時の処理
-print("デバイストークン取得に成功しました")
-```
+.center[
+![プロジェクト番号設定](readme-image/projectnumber.png)
+]
 
 ---
 layout: true
@@ -880,123 +989,110 @@ class: center, middle, inverse
 ---
 layout: false
 ## プッシュ通知を送信：セグメント配信
-### プッシュ通知③：installationにユーザー情報を紐づける
+### プッシュ通知②：installationにユーザー情報を紐づける
 
-* `TopViewController.java`を開きます
+* `RegisterActivity.java`を開きます
 * 「【mBaaS：会員管理③】ユーザー情報更新」の更新成功時の処理内にセグメント配信のために必要なユーザー情報をinstallationに紐付けるための処理を実装します
 
-```java
-// 【mBaaS：プッシュ通知③】installationにユーザー情報を紐づける
-  /*****後でここに処理を記述します*****/
-// 画面を閉じる
-self.registerView.hidden = true
-// ニックネーム表示用ラベルの更新
-self.nicknameLabel.text = "\(self.appDelegate.current_user.objectForKey("nickname"))さん、こんにちは！"
-// 画面更新
-self.checkShop()
-```
-* 上記コメントや処理を一度削除します
 
 ```java
-// 【mBaaS：プッシュ通知③】installationにユーザー情報を紐づける
+//**************** 【mBaaS：プッシュ通知②】installationにユーザー情報を紐づける ***************
 
 ```
 
 ---
 ## プッシュ通知を送信：セグメント配信
-### プッシュ通知③：installationにユーザー情報を紐づける
+### プッシュ通知②：installationにユーザー情報を紐づける
 
 * 次のように追記します
 
 ```java
-// 【mBaaS：プッシュ通知③】installationにユーザー情報を紐づける
-// 使用中端末のinstallation取得
-let installation: NCMBInstallation? = NCMBInstallation.currentInstallation()
-// ユーザー情報を設定
-installation!.setObject(self.nickname.text, forKey: "nickname")
-installation!.setObject(self.GENDER_CONFIG[self.genderSegCon.selectedSegmentIndex], forKey: "gender")
-installation!.setObject(self.prefecture.text, forKey: "prefecture")
-installation!.setObject([] as Array<String>, forKey: "favorite")
-// installation情報の更新
-installation!.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
-    if error != nil {
-        // installation更新失敗時の処理
-
-    } else {
-        // installation更新成功時の処理
-
+//**************** 【mBaaS：プッシュ通知②】installationにユーザー情報を紐づける ***************
+NCMBInstallation currInstallation  = NCMBInstallation.getCurrentInstallation();
+currInstallation.put("prefecture", prefecture);
+currInstallation.put("gender", selectedGender);
+currInstallation.put("favorite", list);
+currInstallation.saveInBackground(new DoneCallback() {
+    @Override
+    public void done(NCMBException e) {
+        if (e != null) {
+            //更新失敗時の処理
+        } else {
+            //更新成功時の処理
+        }
     }
-})
+});
 ```
 
 ---
 ## プッシュ通知を送信：セグメント配信
-### プッシュ通知③：installationにユーザー情報を紐づける
+### プッシュ通知②：installationにユーザー情報を紐づける
 
 * それぞれ処理を追記します
 
 ```java
-// installation更新失敗時の処理
-print("installation更新(ユーザー登録)に失敗しました:\(error.code)")
+//更新失敗時の処理
+Log.d(TAG, "端末情報を保存失敗しました。");
 ```
 
 ```java
-// installation更新成功時の処理
-print("installation更新(ユーザー登録)に成功しました")
-// 画面を閉じる
-self.registerView.hidden = true
-// ニックネーム表示用ラベルの更新
-self.nicknameLabel.text = "\(self.appDelegate.current_user.objectForKey("nickname"))さん、こんにちは！"
-// 画面更新
-self.checkShop()
+//更新成功時の処理
+Log.d(TAG, "端末情報を保存成功しました。");
+Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+startActivityForResult(intent, REQUEST_RESULT );
+```
+
+---
+## プッシュ通知を送信：セグメント配信
+### プッシュ通知③：installationにユーザー情報を紐づける<br>[実装済み]
+
+* `FavoriteActivity.java`開きます
+* `doFavoriteSave()`を開きます
+* 同様に、お気に入り画面でお気に入り情報が更新されるたびに、installation情報を書き換えられます
+
+```java
+//**************** 【mBaaS：プッシュ通知④】installationにユーザー情報を紐づける***************
+//端末情報を保存する
+NCMBInstallation currInstallation = NCMBInstallation.getCurrentInstallation();
+currInstallation.put("favorite", list);
+currInstallation.saveInBackground(new DoneCallback() {
+    @Override
+    public void done(NCMBException e) {
+        if (e != null) {
+            //保存失敗
+            Log.d(TAG, "端末情報を保存失敗しました。");
+        } else {
+            //保存成功
+            Log.d(TAG, "端末情報を保存成功しました。");
+        }
+    }
+});
 ```
 
 ---
 ## プッシュ通知を送信：セグメント配信
 ### プッシュ通知④：installationにユーザー情報を紐づける<br>[実装済み]
 
-* `FavoriteViewController.java`開きます
-* 同様に、お気に入り画面でお気に入り情報が更新されるたびに、installation情報を書き換えられます
-
-```java
-// 【mBaaS：プッシュ通知④】installationにユーザー情報を紐づける
-let installation: NCMBInstallation? = NCMBInstallation.currentInstallation()
-if installation != nil {
-    // お気に入り情報を設定
-    installation!.setObject(self.appDelegate.favoriteObjectIdTemporaryArray, forKey: "favorite")
-    // installation情報の更新
-    installation!.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
-        if error != nil {
-            // installation更新失敗時の処理
-        } else {
-            // installation更新成功時の処理
-        }
-    })
-}
-```
-
----
-## プッシュ通知を送信：セグメント配信
-### プッシュ通知⑤：installationにユーザー情報を紐づける<br>[実装済み]
-
-* `ShopViewController.java`開きます
+* `ShopActivity.java`開きます
+* `doFavoriteRegister()`開きます
 * 同様に、Shop画面でもお気に入り情報が更新されるたびに、installation情報を書き換えるます
 
 ```java
-// 【mBaaS：プッシュ通知⑤】installationにユーザー情報を紐づける
-let installation: NCMBInstallation? = NCMBInstallation.currentInstallation()
-if installation != nil {
-    // お気に入り情報を設定
-    installation!.setObject(favoriteObjectIdArray, forKey: "favorite")
-    // installation情報の更新
-    installation!.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
-        if error != nil {
-            // installation更新失敗時の処理
+//****************【mBaaS：プッシュ通知⑤】installationにユーザー情報を紐づける***************
+NCMBInstallation currInstallation  = NCMBInstallation.getCurrentInstallation();
+currInstallation.put("favorite", list);
+currInstallation.saveInBackground(new DoneCallback() {
+    @Override
+    public void done(NCMBException e) {
+        if (e != null) {
+            //保存失敗した場合の処理
+            Log.d(TAG, "端末情報を保存失敗しました。");
         } else {
-            // installation更新成功時の処理
+            //保存成功した場合の処理
+            Log.d(TAG, "端末情報を保存成功しました。");
         }
-    })
-}
+    }
+});
 ```
 ---
 ## プッシュ通知を送信：セグメント配信
@@ -1014,11 +1110,10 @@ if installation != nil {
 ### 動作確認の準備
 
 * 実機でアプリをビルドします
-* プッシュ通知の許可をして、ログを確認します
+* アプリを起動します
 
 ```text
-端末側でプッシュ通知が許可されました
-デバイストークン取得に成功しました
+端末情報を保存成功しました。
 ```
 
 * デバイストークンの取得に成功したら、mBaaSダッシュボードで確認します
@@ -1180,28 +1275,23 @@ layout: false
 ## プッシュ通知を送信：リッチプッシュ
 ### プッシュ通知⑥：リッチプッシュ通知を表示させる処理
 
-* `AppDelegate.java`を開きます
-* `applications(_:didFinishLaunchingWithOptions)`メソッド内、`【プッシュ通知①】デバイストークンの取得`の下に処理を実装します
+* `MainActivity.java`を開きます
+* `onResume()`を開きます
+* 以下のコメントの直下にコードを追加します
 
 ```java
-if let remoteNotification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
-    // 【mBaaS：プッシュ通知⑥】リッチプッシュ通知を表示させる処理
-      /* ここに書きます */
-
-    // 【mBaaS：プッシュ通知⑧】アプリが起動されたときにプッシュ通知からデータを取得する
-
-}
+//**************** 【mBaaS：プッシュ通知⑥】リッチプッシュ通知を表示させる処理 ***************
 ```
-
----
-## プッシュ通知を送信：リッチプッシュ
-### プッシュ通知⑥：リッチプッシュ通知を表示させる処理
 
 * 次のように追記します
 
 ```java
-// 【mBaaS：プッシュ通知⑥】リッチプッシュ通知を表示させる処理
-NCMBPush.handleRichPush(remoteNotification as [NSObject : AnyObject])
+//**************** 【mBaaS：プッシュ通知⑥】リッチプッシュ通知を表示させる処理 ***************
+//リッチプッシュ通知の表示
+NCMBPush.richPushHandler(this, getIntent());
+
+//リッチプッシュを再表示させたくない場合はintentからURLを削除します
+getIntent().removeExtra("com.nifty.RichUrl");
 ```
 
 ---
@@ -1209,11 +1299,8 @@ NCMBPush.handleRichPush(remoteNotification as [NSObject : AnyObject])
 ### 動作確認(5)リッチプッシュ
 
 * 実機でアプリをビルドします
-* 起動し、下記ログを確認したらアプリを完全に閉じます
- ```text
- 端末側でプッシュ通知が許可されました
- デバイストークン取得に成功しました
- ```
+* 起動した後にアプリを完全に閉じます
+
 
 ---
 ## プッシュ通知を送信：リッチプッシュ
@@ -1264,57 +1351,74 @@ layout: false
 ## プッシュ通知を送信：ペイロード
 ### プッシュ通知⑦：アプリが起動中にプッシュ通知からデータを取得する
 
-* `AppDelegate.java`を開きます
-* `applications(_:didFinishLaunchingWithOptions)`メソッド外に次のメソッドを実装します
+* Androidの場合、受信する処理をカスタマイズするために、カスタムサービスを作成する必要があります
+* 今回、コード内にCustomGcmListenerServiceは作成済み
+  - 作成に関して、実装方法はこちらのドキュメントをご参考ください。
+  - [プッシュ通知でJSONデータを取得する](http://mb.cloud.nifty.com/doc/current/push/basic_usage_android.html#%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5%E9%80%9A%E7%9F%A5%E3%81%A7JSON%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B)
+
+---
+## プッシュ通知を送信：ペイロード
+### プッシュ通知⑦：アプリが起動中にプッシュ通知からデータを取得する
+
+* `CustomGcmListenerService.java`を開きます
+* `onMessageReceived()`メソッド外に次のメソッドを実装します
 
 ```java
-// 【mBaaS：プッシュ通知⑦】アプリが起動中にプッシュ通知からデータを取得する
-func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-    // プッシュ通知情報の取得
-    let deliveryTime = userInfo["deliveryTime"] as! String
-    let message = userInfo["message"] as! String
-    // 値を取得した後の処理
-    if !deliveryTime.isEmpty && !message.isEmpty  {
-        print("ペイロードを取得しました：deliveryTime[\(deliveryTime)],message[\(message)]")
-        // ローカルプッシュ配信
-        localNotificationDeliver(deliveryTime, message: message)
+//**************** 【mBaaS：プッシュ通知⑦】アプリが起動中にプッシュ通知からデータを取得する***************
+```
+
+---
+## プッシュ通知を送信：ペイロード
+### プッシュ通知⑦：アプリが起動中にプッシュ通知からデータを取得する
+
+以下のように追記します
+
+```java
+//**************** 【mBaaS：プッシュ通知⑦】アプリが起動中にプッシュ通知からデータを取得する***************
+//ペイロードデータの取得
+if (data.containsKey("com.nifty.Data")) {
+    try {
+        JSONObject json = new JSONObject(data.getString("com.nifty.Data"));
+
+        if (json.has("deliveryTime") && json.has("message")) {
+            Log.d(TAG,"ペイロードを取得しました！");
+            //ペイロード処理実装
+
+        }
+
+    } catch (JSONException e) {
+        //エラー処理
+    } catch (ParseException e) {
+        e.printStackTrace();
     }
 }
 ```
 
 ---
 ## プッシュ通知を送信：ペイロード
-### プッシュ通知⑧：アプリが起動されたときにプッシュ通知からデータを取得する
+### プッシュ通知⑦：アプリが起動中にプッシュ通知からデータを取得する
 
-* `AppDelegate.java`を開きます
-* `applications(_:didFinishLaunchingWithOptions)`メソッド内、`【mBaaS：プッシュ通知⑥】リッチプッシュ通知を表示させる処理`の下に処理を実装します
-
-```java
-// 【mBaaS：プッシュ通知⑧】アプリが起動されたときにプッシュ通知からデータを取得する
-// プッシュ通知情報の取得
-if let deliveryTime = remoteNotification.objectForKey("deliveryTime") as? String {
-    if let message = remoteNotification.objectForKey("message") as? String {
-        // ローカルプッシュ配信
-        localNotificationDeliver(deliveryTime, message: message)
-    }
-}
-```
-
----
-## プッシュ通知を送信：ペイロード
-### 参考：ローカルプッシュ[実装済み]
+* ペイロード処理実装します
+* 指定した時間でローカルプッシュ通知を表示させます。
 
 ```java
-// LocalNotification配信
-func localNotificationDeliver (deliveryTime: String, message: String) {
-    // 配信時間(String→NSDate)を設定
-    let formatter = NSDateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-    let deliveryTime = formatter.dateFromString(deliveryTime)
-    // ローカルプッシュを作成
-    LocalNotificationManager.scheduleLocalNotificationAtData(deliveryTime!, alertBody: message, userInfo: nil)
-}
+//ペイロード処理実装
+// 変換対象の日付文字列
+String dateStr = json.getString("deliveryTime");
+String message = json.getString("message");
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+// Date型変換
+Date formatDate = sdf.parse(dateStr);
+long triggerlMilli = formatDate.getTime();
+
+//Local notification trigger
+AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+notificationIntent.addCategory("android.intent.category.DEFAULT");
+notificationIntent.putExtra("message", message);
 ```
+
 
 ---
 ## プッシュ通知を送信：ペイロード
@@ -1323,9 +1427,8 @@ func localNotificationDeliver (deliveryTime: String, message: String) {
 * 実機でアプリをビルドします
 * 起動し、下記ログを確認します
 
-```
-端末側でプッシュ通知が許可されました
-デバイストークン取得に成功しました
+```text
+端末情報を保存成功しました。
 ```
 
 * そのままアプリを起動した状態にします
@@ -1338,7 +1441,7 @@ func localNotificationDeliver (deliveryTime: String, message: String) {
  * JSONデータに設定する時間は、今から__５分以上未来の時間__に変更してください
  * JSONデータに設定するメッセージは、自由に変更してください
  ```text
- {"deliveryTime":"2016-09-22 17:00:00", "message":"タイムセールスタート！"}
+ {"deliveryTime":"2016-09-29 17:00:00", "message":"タイムセールスタート！"}
  ```
  * 作成したらコピーをしておいてください
 
@@ -1362,7 +1465,7 @@ func localNotificationDeliver (deliveryTime: String, message: String) {
 * プッシュ通知を受信（サイレント）すると次のログが表示されます
 
 ```text
-ペイロードを取得しました：deliveryTime[2016-09-22 17:00:00],message[タイムセールスタート！]
+ペイロードを取得しました！
 ```
 
 * 指定時間にプッシュ通知が表示されることを確認してください
@@ -1389,9 +1492,9 @@ func localNotificationDeliver (deliveryTime: String, message: String) {
 * アプリを起動してもらう内容でプッシュ通知を作成します
  * メッセージ　例）`明日PM5時よりタイムセールを行います！`
 * JSON形式のデータを貼り付けます
- * JSONデータ作成　例）翌日のPM5時を設定
+ * JSONデータ作成　例）明日午後5時を設定
  ```text
- {"deliveryTime":"2016-09-22 17:00:00", "message":"タイムセールスタート！"}
+ {"deliveryTime":"2016-09-30 17:00:00", "message":"タイムセールスタート！"}
  ```
  * 時間は今から５分以上未来の時間に変更してください
 
@@ -1431,7 +1534,7 @@ layout: false
 * 開催中の[セミナー](https://ncmb.doorkeeper.jp/)のご案内
  * 随時新しいセミナーを実施していきますのでぜひチェックしてください！
 * ハンズオン内容が実装された完全版プロジェクト
- * __[javaAdvancePushApp【完成版】](https://github.com/natsumo/javaAdvancePushApp/archive/master.zip)__
-* コードは[GitHub](https://github.com/natsumo/javaAdvancePushApp)に公開しています
+ * __[AndroidAdvancePush【完成版】](https://github.com/ncmbadmin/AndroidAdvancePush/archive/master.zip)__
+* コードは[GitHub](https://github.com/ncmbadmin/AndroidAdvancePush)に公開しています
  * __master__：完成版
- * __seminar_version__：セミナー版
+ * __handson__：セミナー版
