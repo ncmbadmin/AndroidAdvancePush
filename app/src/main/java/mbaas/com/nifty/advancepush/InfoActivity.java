@@ -25,7 +25,7 @@ public class InfoActivity extends AppCompatActivity {
         setContentView(R.layout.info);
         _nickname = (TextView) findViewById(R.id.txtNickname_Info);
         _prefecture = (TextView) findViewById(R.id.txtPrefecture_Info);
-        _gender = (TextView) findViewById(R.id.txtPrefecture_Info);
+        _gender = (TextView) findViewById(R.id.txtGender_Info);
         _email = (TextView) findViewById(R.id.txtEmail_Info);
 
         // グローバル変数を扱うクラスを取得する
@@ -37,7 +37,6 @@ public class InfoActivity extends AppCompatActivity {
         _prefecture.setText(common.currentUser.getString("prefecture"));
         _gender.setText(common.currentUser.getString("gender"));
         _email.setText(common.currentUser.getMailAddress());
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.onHomeInfoFab);
         fab.setOnClickListener(new View.OnClickListener() {
