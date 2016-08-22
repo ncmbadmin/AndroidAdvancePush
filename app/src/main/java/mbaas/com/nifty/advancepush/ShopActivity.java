@@ -60,7 +60,7 @@ public class ShopActivity extends AppCompatActivity {
 
             _shop_name.setText(name);
 
-            //**************** 【mBaaS/File②: ショップ詳細画像を習得】***************
+            //**************** 【mBaaS/File②: ショップ詳細画像を取得】***************
             NCMBFile file = new NCMBFile(shop_image);
             file.fetchInBackground(new FetchFileCallback() {
                 @Override

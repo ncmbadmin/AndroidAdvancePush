@@ -22,7 +22,7 @@ public class CustomGcmListenerService extends NCMBGcmListenerService {
 
     @Override
     public void onMessageReceived(String from, Bundle data) {
-        //**************** 【mBaaS：プッシュ通知⑦】アプリが起動中にプッシュ通知からデータを取得する***************
+        //**************** 【mBaaS：プッシュ通知⑦】プッシュ通知からデータを取得する***************
         //ペイロードデータの取得
         if (data.containsKey("com.nifty.Data")) {
             try {
