@@ -26,8 +26,8 @@ layout: false
 
 .left-column[
   .center[
-  180分でアプリ完成させます
-  ![180分セミナー](readme-image/seminar/180分セミナー.png)
+  150分でアプリ完成させます
+  ![150分セミナー](readme-image/seminar/180分セミナー.png)
   ]
 ]
 .right-column[
@@ -139,7 +139,7 @@ obj.saveInBackground(new DoneCallback() {
 
 * 同期処理と非同期処理
  * 同期処理はその処理が完了するまで、次の処理が実行されません
- * 非同期処理はバックグラウンドで処理を実行し、次の処理を実行します. DoneCallback()にて処理後の実装を事前に指定できます
+ * 非同期処理はバックグラウンドで処理を実行し、次の処理を実行します DoneCallback()にて処理後の実装を事前に指定できます
 
 ---
 ## ハンズオンの概要
@@ -220,7 +220,7 @@ layout: false
 ### プロジェクトを準備
 
 * AndroidStudioでプロジェクトのビューを調整します。
-  - 左上のビューオプション項目にて[Android]として選択します。
+  - 左上のビューオプション項目で[Android]を選択します。
 
 .center[
 ![AndroidStudio 2](readme-image/android2.png)
@@ -232,7 +232,7 @@ layout: false
 ### プロジェクトを準備
 
 * AndroidStudioでプロジェクトのファイル構成を確認します。
-  - 以下のようにビュー、処理のファイルが入っていることをご確認ください。
+  - 以下のように処理のファイルが入っていることをご確認ください。
 
 .center[
 ![AndroidStudio 3](readme-image/android4.png)
@@ -306,7 +306,7 @@ layout: false
 ### 会員管理①：会員登録用メールを要求する[実装済み]
 
 * `SignupActivity.java`を開きます
-* doSignupByEmail()メソッドを開きます
+* `doSignupByEmail()`メソッドを開きます
 * 会員登録処理は以下のように実装されます
 
 ```java
@@ -366,7 +366,7 @@ new AlertDialog.Builder(SignupActivity.this)
 ### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
 
 * `LoginActivity.java`を開きます
-* doLogin()メソッドを開きます
+* `doLogin()`メソッドを開きます
 * ログイン処理は以下のように実装されます
 
 ```java
@@ -657,7 +657,7 @@ lv.setAdapter(new ShopListAdapter(this, results));
 - コメントの下にコードを追記していきます
 
 ```java
-////**************** 【mBaaS/File①: ショップ画像を習得】***************
+////**************** 【mBaaS/File①: ショップ画像を取得】***************
 
 
 ```
@@ -668,7 +668,7 @@ lv.setAdapter(new ShopListAdapter(this, results));
 
 
 ```java
-//**************** 【mBaaS/File①: ショップ画像を習得】***************
+//**************** 【mBaaS/File①: ショップ画像を取得】***************
 NCMBFile file = new NCMBFile(filename);
 file.fetchInBackground(new FetchFileCallback() {
     @Override
@@ -721,7 +721,7 @@ holder.img.setImageBitmap(bmp);
 
 ```java
 
-//**************** 【mBaaS/File②: ショップ詳細画像を習得】***************
+//**************** 【mBaaS/File②: ショップ詳細画像を取得】***************
 NCMBFile file = new NCMBFile(shop_image);
 file.fetchInBackground(new FetchFileCallback() {
     @Override
@@ -788,7 +788,7 @@ layout: false
 
 * お気に入り機能は好きなShopをお気に入りとして保存できる機能です
  * 「お気に入り」画面ではSwitchと「登録」ボタンで設定します
- * 「Shop」画面では右上のハートマークをタップすることでShop単位で設定できます(♥…ON,♡…OFF)
+ * 「Shop」画面では「お気に入りを登録する」をタップすることでShop単位で設定できます
 
 .center[
 ![favorite](readme-image/favorite.png)
@@ -913,7 +913,7 @@ layout: false
  * デバッグ用のAndroid実機 (4.0~)
  * GCMのプッシュ通知用APIキー
 * GCMのプッシュ通知用APIキーがまだの場合は下記をご参照ください
- * [【サンプル】アプリにプッシュ通知を組み込もう！](https://github.com/NIFTYCloud-mbaas/https://github.com/NIFTYCloud-mbaas/android_push_demo)
+ * [【サンプル】アプリにプッシュ通知を組み込もう！](https://github.com/NIFTYCloud-mbaas/android_push_demo#%E6%89%8B%E9%A0%86)
 
 ---
 ## プッシュ通知の準備
@@ -974,7 +974,7 @@ installation.getRegistrationIdInBackground("PROJECT_NUMBER", new DoneCallback() 
 ## プッシュ通知の準備
 ### プッシュ通知①：端末を登録
 
-* 上記のコードにあるPROJECT_NUMBERの設定を行います。
+* 前のスライドのコードにある`PROJECT_NUMBER`の設定を行います。
 
 .center[
 ![プロジェクト番号設定](readme-image/projectnumber.png)
@@ -992,7 +992,7 @@ layout: false
 ### プッシュ通知②：installationにユーザー情報を紐づける
 
 * `RegisterActivity.java`を開きます
-* 「【mBaaS：会員管理③】ユーザー情報更新」の更新成功時の処理内にセグメント配信のために必要なユーザー情報をinstallationに紐付けるための処理を実装します
+* 「【mBaaS/User③: ユーザー情報更新】」の更新成功時の処理内にセグメント配信のために必要なユーザー情報をinstallationに紐付けるための処理を実装します
 
 
 ```java
@@ -1048,7 +1048,7 @@ startActivityForResult(intent, REQUEST_RESULT );
 
 * `FavoriteActivity.java`開きます
 * `doFavoriteSave()`を開きます
-* 同様に、お気に入り画面でお気に入り情報が更新されるたびに、installation情報を書き換えられます
+* 同様に、お気に入り画面でお気に入り情報が更新されるたびに、installation情報が書き換えられます
 
 ```java
 //**************** 【mBaaS：プッシュ通知④】installationにユーザー情報を紐づける***************
@@ -1075,7 +1075,7 @@ currInstallation.saveInBackground(new DoneCallback() {
 
 * `ShopActivity.java`開きます
 * `doFavoriteRegister()`開きます
-* 同様に、Shop画面でもお気に入り情報が更新されるたびに、installation情報を書き換えるます
+* 同様に、Shop画面でもお気に入り情報が更新されるたびに、installation情報が書き換えられます
 
 ```java
 //****************【mBaaS：プッシュ通知⑤】installationにユーザー情報を紐づける***************
@@ -1299,7 +1299,7 @@ getIntent().removeExtra("com.nifty.RichUrl");
 ### 動作確認(5)リッチプッシュ
 
 * 実機でアプリをビルドします
-* 起動した後にアプリを完全に閉じます
+* 起動した後にホームに戻ります
 
 
 ---
@@ -1338,9 +1338,6 @@ layout: false
 ### ペイロードについて
 
 * プッシュ通知にはJSON形式で任意のデータを含めることができ、通知を受信した時に、そのデータを受け取って処理を行うことができる機能です
-* データ取得の条件
- * アプリの起動中にプッシュ通知を受信してデータを取得
- * プッシュ通知受信後、アプリを起動時にデータを取得
 * 今回は、配信時間とメッセージのデータを設定し、時限式でローカルプッシュを表示させる内容を実装します
  * プッシュ通知に設定するJSON形式のデータの例
  ```text
@@ -1358,18 +1355,18 @@ layout: false
 
 ---
 ## プッシュ通知を送信：ペイロード
-### プッシュ通知⑦：アプリが起動中にプッシュ通知からデータを取得する
+### プッシュ通知⑦：アプリがプッシュ通知からデータを取得する
 
 * `CustomGcmListenerService.java`を開きます
 * `onMessageReceived()`メソッド外に次のメソッドを実装します
 
 ```java
-//**************** 【mBaaS：プッシュ通知⑦】アプリが起動中にプッシュ通知からデータを取得する***************
+//**************** 【mBaaS：プッシュ通知⑦】アプリがプッシュ通知からデータを取得する***************
 ```
 
 ---
 ## プッシュ通知を送信：ペイロード
-### プッシュ通知⑦：アプリが起動中にプッシュ通知からデータを取得する
+### プッシュ通知⑦：アプリがプッシュ通知からデータを取得する
 
 以下のように追記します
 
@@ -1396,7 +1393,7 @@ if (data.containsKey("com.nifty.Data")) {
 
 ---
 ## プッシュ通知を送信：ペイロード
-### プッシュ通知⑦：アプリが起動中にプッシュ通知からデータを取得する
+### プッシュ通知⑦：アプリがプッシュ通知からデータを取得する
 
 * ペイロード処理実装します
 * 指定した時間でローカルプッシュ通知を表示させます。
@@ -1417,6 +1414,9 @@ AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVIC
 Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
 notificationIntent.addCategory("android.intent.category.DEFAULT");
 notificationIntent.putExtra("message", message);
+
+PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerlMilli , broadcast);
 ```
 
 
@@ -1477,7 +1477,7 @@ notificationIntent.putExtra("message", message);
 ## プッシュ通知を送信：ペイロード
 ### 動作確認(6)ペイロード（非起動時）
 
-* アプリを完全に閉じます
+* アプリを閉じます
 * 再びプッシュ通知を作成します
 
 .center[
