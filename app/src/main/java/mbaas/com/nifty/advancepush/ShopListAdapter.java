@@ -78,7 +78,7 @@ public class ShopListAdapter extends BaseAdapter{
         holder.tv.setText(tmpObj.getString("name"));
         String filename = tmpObj.getString("icon_image");
 
-        //**************** 【mBaaS/File①: ショップ画像を習得】***************
+        //**************** 【mBaaS/File①: ショップ画像を取得】***************
 
 
         rowView.setOnClickListener(new OnClickListener() {
