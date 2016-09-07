@@ -318,7 +318,7 @@ NCMBUser.requestAuthenticationMailInBackground(email, new DoneCallback() {
          if (e != null) {
              // 会員登録用メールの要求失敗時の処理
          } else {
-             // 会員登録用メールの要求失敗時の処理
+             // 会員登録用メールの要求成功時の処理
          }
      }
  });
@@ -340,7 +340,7 @@ new AlertDialog.Builder(SignupActivity.this)
 ```
 
 ```java
-// 会員登録用メールの要求失敗時の処理
+// 会員登録用メールの要求成功時の処理
 new AlertDialog.Builder(SignupActivity.this)
         .setTitle("Notification from Nifty")
         .setMessage("メール送信完了しました! メールをご確認ください。")
@@ -911,16 +911,17 @@ layout: false
 
 * 以下の用意が必要です
  * デバッグ用のAndroid実機 (4.0~)
- * GCMのプッシュ通知用APIキー
-* GCMのプッシュ通知用APIキーがまだの場合は下記をご参照ください
+ * FCMのプッシュ通知用APIキー
+* FCMのプッシュ通知用APIキーがまだの場合は下記をご参照ください
  * [【サンプル】アプリにプッシュ通知を組み込もう！](https://github.com/NIFTYCloud-mbaas/android_push_demo#%E6%89%8B%E9%A0%86)
+*  FCMはGCM(Google Cloud Messaging)の新バージョンです。既にGCMにてプロジェクトの作成・GCMの有効化設定を終えている場合は、継続してご利用いただくことが可能です。
 
 ---
 ## プッシュ通知の準備
 ### mBaaSの設定
 
 * プッシュ通知の許可を行います
-* GCMのプッシュ通知用APIキーを設定します
+* FCM/GCMのプッシュ通知用APIキーを設定します
 
 .center[
 ![mBaaSプッシュ通知設定](readme-image/mBaaSプッシュ通知設定.png)
@@ -946,8 +947,8 @@ layout: false
 //**************** 【mBaaS/Push①: 端末を登録】***************
 //端末情報を扱うNCMBInstallationのインスタンスを作成する
 final NCMBInstallation installation = NCMBInstallation.getCurrentInstallation();
-//GCMからRegistrationIdを取得しinstallationに設定する
-installation.getRegistrationIdInBackground("PROJECT_NUMBER", new DoneCallback() {
+//FCMからRegistrationIdを取得しinstallationに設定する
+installation.getRegistrationIdInBackground("SENDER_ID", new DoneCallback() {
     @Override
     public void done(NCMBException e) {
         if (e == null) {
@@ -974,7 +975,7 @@ installation.getRegistrationIdInBackground("PROJECT_NUMBER", new DoneCallback() 
 ## プッシュ通知の準備
 ### プッシュ通知①：端末を登録
 
-* 前のスライドのコードにある`PROJECT_NUMBER`の設定を行います。
+* 前のスライドのコードにある`SENDER_ID`の設定を行います。
 
 .center[
 ![プロジェクト番号設定](readme-image/projectnumber.png)
@@ -1450,7 +1451,7 @@ alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerlMilli , broadcast);
 ### 動作確認(6)ペイロード（アプリ起動時）
 
 * プッシュ通知を作成します
- * メッセージを入力が無い場合、サイレントプッシュとして送られます
+ * タイトル、メッセージを入力が無い場合、サイレントプッシュとして送られます
  * 「JSON」に作成したJSONデータを貼り付けます
 
 .center[
