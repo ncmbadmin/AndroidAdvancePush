@@ -3,17 +3,15 @@ package mbaas.com.nifty.advancepush;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.nifty.cloud.mb.core.DoneCallback;
-import com.nifty.cloud.mb.core.NCMBException;
-import com.nifty.cloud.mb.core.NCMBUser;
+import com.nifcloud.mbaas.core.DoneCallback;
+import com.nifcloud.mbaas.core.NCMBException;
+import com.nifcloud.mbaas.core.NCMBUser;
 
 
 public class SignupActivity extends AppCompatActivity {
@@ -68,14 +66,14 @@ public class SignupActivity extends AppCompatActivity {
                 if (e != null) {
                     // 会員登録用メールの要求失敗時の処理
                     new AlertDialog.Builder(SignupActivity.this)
-                            .setTitle("Notification from Nifty")
+                            .setTitle("Notification from mBaas")
                             .setMessage("Send failed! Error:" + e.getMessage())
                             .setPositiveButton("OK", null)
                             .show();
                 } else {
                     // 会員登録用メールの要求失敗時の処理
                     new AlertDialog.Builder(SignupActivity.this)
-                            .setTitle("Notification from Nifty")
+                            .setTitle("Notification from mBaas")
                             .setMessage("メール送信完了しました! メールをご確認ください。")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
