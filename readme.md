@@ -13,7 +13,7 @@ class: center, middle, inverse
 layout: false
 ## 事前準備
 ニフティクラウドmobile backendのアカウント登録がお済みでない方は、<br>
-[ホームページ](http://mb.cloud.nifty.com/about.htm)右上にある「無料登録」ボタンをクリックして、<br>
+[ホームページ](http://mbaas.nifcloud.com/about.htm)右上にある「無料登録」ボタンをクリックして、<br>
 アカウント登録を実施してください
 
 ![mBaaS検索](readme-image/mBaaS検索.png)
@@ -88,7 +88,7 @@ layout: false
 
 * SDKのインストールが必要です
  * 今回は実装済み
- * 参考：[クイックスタート](http://mb.cloud.nifty.com/doc/current/introduction/quickstart_android.html)
+ * 参考：[クイックスタート](http://mbaas.nifcloud.com/doc/current/introduction/quickstart_android.html)
 * SDKの初期化処理が必要です
  * 後で処理を実装します
 
@@ -250,7 +250,7 @@ layout: false
 ## ハンズオンの準備
 ### mBaaSの準備
 
-* [mBaaS](http://mb.cloud.nifty.com)にログインしてアプリを作成します
+* [mBaaS](http://mbaas.nifcloud.com)にログインしてアプリを作成します
 
 ![mBaaSアプリ作成](readme-image/mBaaSアプリ作成.png)
 
@@ -333,7 +333,7 @@ NCMBUser.requestAuthenticationMailInBackground(email, new DoneCallback() {
 ```java
 // 会員登録用メールの要求失敗時の処理
 new AlertDialog.Builder(SignupActivity.this)
-        .setTitle("Notification from Nifty")
+        .setTitle("Notification from Nifcloud")
         .setMessage("Send failed! Error:" + e.getMessage())
         .setPositiveButton("OK", null)
         .show();
@@ -342,7 +342,7 @@ new AlertDialog.Builder(SignupActivity.this)
 ```java
 // 会員登録用メールの要求成功時の処理
 new AlertDialog.Builder(SignupActivity.this)
-        .setTitle("Notification from Nifty")
+        .setTitle("Notification from Nifcloud")
         .setMessage("メール送信完了しました! メールをご確認ください。")
         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -395,7 +395,7 @@ NCMBUser.loginWithMailAddressInBackground(email, password, new LoginCallback() {
 ```java
 //ログインに失敗した場合の処理
 new AlertDialog.Builder(LoginActivity.this)
-        .setTitle("Notification from Nifty")
+        .setTitle("Notification from Nifcloud")
         .setMessage("Login failed! Error:" + e.getMessage())
         .setPositiveButton("OK", null)
         .show();
@@ -411,7 +411,7 @@ new AlertDialog.Builder(LoginActivity.this)
 //ログインに成功した場合の処理
 common.currentUser = NCMBUser.getCurrentUser();
 AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
-        .setTitle("Notification from Nifty")
+        .setTitle("Notification from Nifcloud")
         .setMessage("ログイン成功")
         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -440,7 +440,7 @@ AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
 * 会員登録画面でメールアドレスを入力し「登録メールを送信」をタップします
  * メッセージを確認してください
  * エラーが発生したらここを見てください。
- [エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+ [エラーコード一覧](http://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
 
 ---
 ## 会員管理機能の作成
@@ -473,7 +473,7 @@ AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
 ![動作確認①会員登録完了](readme-image/動作確認①会員登録完了.png)
 ]
 .footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+[エラーコード一覧](http://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
 ]
 
 ---
@@ -537,7 +537,7 @@ common.currentUser.saveInBackground(new DoneCallback() {
 ```java
 // 更新失敗時の処理
 new AlertDialog.Builder(RegisterActivity.this)
-        .setTitle("Notification from Nifty")
+        .setTitle("Notification from Nifcloud")
         .setMessage("Save failed! Error:" + e.getMessage())
         .setPositiveButton("OK", null)
         .show();
@@ -546,7 +546,7 @@ new AlertDialog.Builder(RegisterActivity.this)
 ```java
 // 更新成功時の処理
 new AlertDialog.Builder(RegisterActivity.this)
-       .setTitle("Notification from Nifty")
+       .setTitle("Notification from Nifcloud")
        .setMessage("保存成功しました! 入力ありがとうございます")
        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
            public void onClick(DialogInterface dialog, int which) {
@@ -755,7 +755,7 @@ file.fetchInBackground(new FetchFileCallback() {
 ![動作確認②ユーザー情報追加](readme-image/動作確認②ユーザー情報追加.png)
 ]
 .footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+[エラーコード一覧](http://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
 ]
 
 ---
@@ -772,7 +772,7 @@ file.fetchInBackground(new FetchFileCallback() {
 ![動作確認②](readme-image/動作確認②.png)
 ]
 .footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+[エラーコード一覧](http://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
 ]
 
 ---
@@ -821,7 +821,7 @@ common.currentUser.saveInBackground(new DoneCallback() {
         } else {
             //保存成功時の処理
             new AlertDialog.Builder(FavoriteActivity.this)
-                    .setTitle("Notification from Nifty")
+                    .setTitle("Notification from Nifcloud")
                     .setMessage("お気に入り保存成功しました!")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -885,7 +885,7 @@ common.currentUser.saveInBackground(new DoneCallback() {
 ]
 
 .footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+[エラーコード一覧](http://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
 ]
 
 ---
@@ -1124,7 +1124,7 @@ currInstallation.saveInBackground(new DoneCallback() {
 ]
 
 .footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+[エラーコード一覧](http://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
 ]
 
 ---
@@ -1139,7 +1139,7 @@ currInstallation.saveInBackground(new DoneCallback() {
 ![動作確認④installation追加](readme-image/動作確認④installation追加.png)
 ]
 .footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+[エラーコード一覧](http://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
 ]
 
 ---
@@ -1292,7 +1292,7 @@ layout: false
 NCMBPush.richPushHandler(this, getIntent());
 
 //リッチプッシュを再表示させたくない場合はintentからURLを削除します
-getIntent().removeExtra("com.nifty.RichUrl");
+getIntent().removeExtra("com.nifcloud.mbaas.RichUrl");
 ```
 
 ---
@@ -1352,7 +1352,7 @@ layout: false
 * Androidの場合、受信する処理をカスタマイズするために、カスタムサービスを作成する必要があります
 * 今回、コード内にCustomGcmListenerServiceは作成済み
   - 作成に関して、実装方法はこちらのドキュメントをご参考ください。
-  - [プッシュ通知でJSONデータを取得する](http://mb.cloud.nifty.com/doc/current/push/basic_usage_android.html#%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5%E9%80%9A%E7%9F%A5%E3%81%A7JSON%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B)
+  - [プッシュ通知でJSONデータを取得する](http://mbaas.nifcloud.com/doc/current/push/basic_usage_android.html#%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5%E9%80%9A%E7%9F%A5%E3%81%A7JSON%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B)
 
 ---
 ## プッシュ通知を送信：ペイロード
@@ -1374,9 +1374,9 @@ layout: false
 ```java
 //**************** 【mBaaS：プッシュ通知⑦】アプリが起動中にプッシュ通知からデータを取得する***************
 //ペイロードデータの取得
-if (data.containsKey("com.nifty.Data")) {
+if (data.containsKey("com.nifcloud.mbaas.Data")) {
     try {
-        JSONObject json = new JSONObject(data.getString("com.nifty.Data"));
+        JSONObject json = new JSONObject(data.getString("com.nifcloud.mbaas.Data"));
 
         if (json.has("deliveryTime") && json.has("message")) {
             Log.d(TAG,"ペイロードを取得しました！");
@@ -1472,7 +1472,7 @@ alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerlMilli , broadcast);
 * 指定時間にプッシュ通知が表示されることを確認してください
 
 .footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+[エラーコード一覧](http://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
 ]
 ---
 ## プッシュ通知を送信：ペイロード
