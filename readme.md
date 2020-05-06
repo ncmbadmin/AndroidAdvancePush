@@ -2,7 +2,7 @@ name: inverse
 layout: true
 class: center, middle, inverse
 ---
-# <span style="font-size: 30%">【Android編】ニフティクラウドmobile backend レベルアップセミナー</span><br>__クーポン配信アプリ<br>を作ろう！__</span>
+# <span style="font-size: 30%">【Android編】ニフクラ mobile backend レベルアップセミナー</span><br>__クーポン配信アプリ<br>を作ろう！__</span>
 
 @ncmbadmin
 
@@ -12,7 +12,7 @@ class: center, middle, inverse
 ---
 layout: false
 ## 事前準備
-ニフティクラウドmobile backendのアカウント登録がお済みでない方は、<br>
+ニフクラ mobile backendのアカウント登録がお済みでない方は、<br>
 [ホームページ](http://mbaas.nifcloud.com/about.htm)右上にある「無料登録」ボタンをクリックして、<br>
 アカウント登録を実施してください
 
