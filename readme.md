@@ -1,40 +1,81 @@
-# <span style="font-size: 30%">【Android編】ニフクラ mobile backend レベルアップセミナー</span><br>__クーポン配信アプリ<br>を作ろう！__</span>
-
-20200506 更新
-
+name: inverse
+layout: true
+class: center, middle, inverse
 ---
+# <span style="font-size: 30%">【Android編】ニフクラmobile backend レベルアップセミナー</span><br>__クーポン配信アプリ<br>を作ろう！__</span>
+
+@ncmbadmin
+
+.footnote[
+20160817作成
+]
+---
+layout: false
 ## 事前準備
-ニフクラ mobile backendのアカウント登録がお済みでない方は、<br>
-[ホームページ](http://mbaas.nifcloud.com/about.htm)右上にある「無料登録」ボタンをクリックして、<br>
+ニフクラmobile backendのアカウント登録がお済みでない方は、<br>
+[ホームページ](https://mbaas.nifcloud.com/about.htm)右上にある「無料登録」ボタンをクリックして、<br>
 アカウント登録を実施してください
 
 ![mBaaS検索](readme-image/mBaaS検索.png)
 
 ![mBaaS無料登録](readme-image/mBaaS無料登録.png)
 
+## 動作環境
+* Xcode ver.11.3.1
+* iPhone 7 OS ver 13.3
+* Android Sutdio ver3.6.1
+* Android OS ver.9
+
 ---
 ## 今回のハンズオンセミナーについて
 ### セミナーの形式
 
-150分でアプリ完成させます
+.left-column[
+  .center[
+  150分でアプリ完成させます
+  ![150分セミナー](readme-image/seminar/180分セミナー.png)
+  ]
+]
+.right-column[
+  .center[
+  講義形式で説明と演習を繰り返して<br>アプリを作成します<br><br>
+  ![講義形式セミナー2](readme-image/seminar/講義形式セミナー2.png)
+  ]
+]
 
-![150分セミナー](readme-image/seminar/180分セミナー.png)
-
-講義形式で説明と演習を繰り返して<br>アプリを作成します<br><br>
-
-![講義形式セミナー2](readme-image/seminar/講義形式セミナー2.png)
 
 ---
+## 今回のハンズオンセミナーについて
 ### 学ぶ内容
 
 「mBaaS Shop List」アプリの作成を通して、アクティブユーザー率を上げる<br>
 効率的なプッシュ通知の組み込み方を学びます
 
+.center[
 ![セグメント配信](readme-image/seminar/セグメント配信.png)
+]
 
+---
+## 今回のハンズオンセミナーについて
+### 学ぶ内容
+
+「mBaaS Shop List」アプリの作成を通して、アクティブユーザー率を上げる<br>
+効率的なプッシュ通知の組み込み方を学びます<br>
+
+.center[
 ![リッチプッシュ](readme-image/seminar/リッチプッシュ.png)
+]
 
+---
+## 今回のハンズオンセミナーについて
+### 学ぶ内容
+
+「mBaaS Shop List」アプリの作成を通して、アクティブユーザー率を上げる<br>
+効率的なプッシュ通知の組み込み方を学びます<br><br>
+
+.center[
 ![ペイロード](readme-image/seminar/ペイロード.png)
+]
 
 ---
 ## ニフクラ mobile backendとは
@@ -43,7 +84,9 @@
 * スマホアプリで汎用的に実装される機能を、クラウドサービスとして提供しているサービスです
  * 通称「mBaaS」と呼びます
 
+.center[
 ![mBaaS紹介](readme-image/mBaaS紹介.png)
+]
 
 ---
 ## ニフクラ mobile backendとは
@@ -51,7 +94,7 @@
 
 * SDKのインストールが必要です
  * 今回は実装済み
- * 参考：[クイックスタート](http://mbaas.nifcloud.com/doc/current/introduction/quickstart_android.html)
+ * 参考：[クイックスタート](https://mbaas.nifcloud.com/doc/current/introduction/quickstart_android.html)
 * SDKの初期化処理が必要です
  * 後で処理を実装します
 
@@ -59,7 +102,11 @@
 NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
 ```
 
-* サーバへリクエスト処理には、__同期処理__と__非同期処理__があります
+---
+## ニフクラ mobile backendとは
+### Android SDKの特徴
+
+* サーバへリクエスト処理には、__同期処理__ と __非同期処理__ があります
 
 ```java
 
@@ -72,7 +119,11 @@ obj.save();
 
 ```
 
-* サーバへリクエスト処理には、__同期処理__と__非同期処理__があります
+---
+## ニフクラ mobile backendとは
+### Android SDKの特徴
+
+* サーバへリクエスト処理には、__同期処理__ と __非同期処理__ があります
 
 ```java
 /* 非同期処理 */
@@ -102,73 +153,115 @@ obj.saveInBackground(new DoneCallback() {
 
 * クーポン配信アプリをイメージした「mBaaS Shop List」アプリの作成を通して、mBaaSの機能を理解していきます
 * mBaaSの連携部分をコーディングし、アプリを完成させ、次の内容を実現していきます
-    * 会員登録をするとお店情報を見ることができます
-    * お店のお気に入り登録ができ、お気に入り登録をしたお店からプッシュ通知で届きます
-    * 性別や都道府県限定のプッシュ通知ができます
-    * お店からのプッシュ通知でクーポンを直接配信することができます
-    * 決まった時間に通知を出すようにプッシュ通知を仕掛けることができます
+ * 会員登録をするとお店情報を見ることができます
+ * お店のお気に入り登録ができ、お気に入り登録をしたお店からプッシュ通知で届きます
+ * 性別や都道府県限定のプッシュ通知ができます
+ * お店からのプッシュ通知でクーポンを直接配信することができます
+ * 決まった時間に通知を出すようにプッシュ通知を仕掛けることができます
 
+---
+## ハンズオンの概要
+### 作成するアプリについて
+
+.center[
 ![mBaaS_shop_List](readme-image/mBaaS_shop_List.png)
+]
 
 ---
 ## ハンズオンの流れ
 
 __<font color="#49a7e5" size="5">前半&nbsp;</font><font size="6">「mBaaS Shop List」アプリを作ろう！</font>__
 
+.size_large[
 1. ハンズオンの準備
 1. 会員管理機能の作成
 1. Shop情報の設定
 1. お気に入り機能の作成
+]
 
 __<font color="#49a7e5" size="5">後半&nbsp;</font><font size="6">プッシュ通知を送ろう！</font>__
+.size_large[
 1. プッシュ通知の準備
 1. プッシュ通知を送信：セグメント配信
 1. プッシュ通知を送信：リッチプッシュ
 1. プッシュ通知を送信：ペイロード
+]
 
 ---
-# 「mBaaS Shop List」アプリを作ろう！
+layout: true
+class: center, middle, inverse_sub
+---
+#「mBaaS Shop List」<br>アプリを作ろう！
+
+.size_large[
 ＜前半＞
+]
+
+---
+layout: true
+class: center, middle, inverse
 ---
 # 1.ハンズオンの準備
+
+---
+layout: false
 ## ハンズオンの準備
 ### プロジェクトをダウンロード
 
 下記リンクをクリックして、ZIPファイルでダウンロードしてください▼<br>
-__[AndroidAdvancePush](https://github.com/ncmbadmin/AndroidAdvancePush/archive/handson.zip)__
+.size_large[
+　　　 __[AndroidAdvancePush](https://github.com/ncmbadmin/AndroidAdvancePush/archive/handson.zip)__
+]
+
 * zipファイルを展開します。
 * AndroidStudioで先ほどダウンロードしたプロジェクトを開いてください。
 
+.center[
 ![AndroidStudio 1](readme-image/android1.png)
+]
 
 ---
+layout: false
+## ハンズオンの準備
 ### プロジェクトを準備
+
 * AndroidStudioでプロジェクトのビューを調整します。
   - 左上のビューオプション項目で[Android]を選択します。
 
+.center[
 ![AndroidStudio 2](readme-image/android2.png)
+]
+
+---
+layout: false
+## ハンズオンの準備
+### プロジェクトを準備
 
 * AndroidStudioでプロジェクトのファイル構成を確認します。
   - 以下のように処理のファイルが入っていることをご確認ください。
 
+.center[
 ![AndroidStudio 3](readme-image/android4.png)
+]
 
 ---
-
+## ハンズオンの準備
 ### プロジェクトにあらかじめ実施していること
 
 * mBaaS Android SDK v.2.2.3のインストール, build.graddleの設定, AndroidManifestの設定は実装済み
 * mBaaSとの連携以外の処理のコーディング
-    * アプリのデザインを`layoutフォルダー内ファイル`で作成し、処理は画面ごと`Activityのファイル`にコーディングしています
+ * アプリのデザインを`layoutフォルダー内ファイル`で作成し、処理は画面ごと`Activityのファイル`にコーディングしています
 
 ---
+## ハンズオンの準備
 ### mBaaSの準備
 
-* [mBaaS](http://mbaas.nifcloud.com)にログインしてアプリを作成します
+* [mBaaS](https://mbaas.nifcloud.com)にログインしてアプリを作成します
 
 ![mBaaSアプリ作成](readme-image/mBaaSアプリ作成.png)
 
 ---
+## ハンズオンの準備
 ### APIキーの設定とSDKの初期化
 
 * `MainActivity.java`を開きます
@@ -179,15 +272,25 @@ __[AndroidAdvancePush](https://github.com/ncmbadmin/AndroidAdvancePush/archive/h
 NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
 ```
 
+---
+## ハンズオンの準備
+### APIキーの設定とSDKの初期化
+
 * 初期化処理の「`APP_KEY`」，「`CLIENT_KEY`」の部分をアプリ作成時に発行されたAPIキーに書き換えてください
  * APIキーは、mBaaSのダッシュボードから「アプリ設定」→「基本」にあります
 
+.center[
 ![mBaaSアプリキー設定](readme-image/apikey.png)
+]
 
+---
+layout: true
+class: center, middle, inverse
 ---
 # 2.会員管理機能の作成
 
 ---
+layout: false
 ## 会員管理機能の作成
 ### mBaaSの設定
 
@@ -196,9 +299,17 @@ NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
 ![mBaaS会員設定](readme-image/mBaaS会員設定.png)
 
 ---
+## 会員管理機能の作成
+
 ### 会員管理①：会員登録用メールを要求する[実装済み]
 
+.center[
 ![SignUpViewController](readme-image/SignUpViewController.png)
+]
+
+---
+## 会員管理機能の作成
+### 会員管理①：会員登録用メールを要求する[実装済み]
 
 * `SignupActivity.java`を開きます
 * `doSignupByEmail()`メソッドを開きます
@@ -218,6 +329,10 @@ NCMBUser.requestAuthenticationMailInBackground(email, new DoneCallback() {
      }
  });
 ```
+
+---
+## 会員管理機能の作成
+### 会員管理①：会員登録用メールを要求する[実装済み]
 
 * それぞれ処理を追記しています
 
@@ -245,9 +360,16 @@ new AlertDialog.Builder(SignupActivity.this)
         .show();
 ```
 ---
+## 会員管理機能の作成
 ### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
 
+.center[
 ![LoginViewController](readme-image/LoginViewController.png)
+]
+
+---
+## 会員管理機能の作成
+### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
 
 * `LoginActivity.java`を開きます
 * `doLogin()`メソッドを開きます
@@ -269,6 +391,11 @@ NCMBUser.loginWithMailAddressInBackground(email, password, new LoginCallback() {
     }
 });
 ```
+
+---
+## 会員管理機能の作成
+### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
+
 * それぞれ処理を追記しています
 
 ```java
@@ -279,6 +406,10 @@ new AlertDialog.Builder(LoginActivity.this)
         .setPositiveButton("OK", null)
         .show();
 ```
+
+---
+## 会員管理機能の作成
+### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
 
 * それぞれ処理を追記しています（続き）
 
@@ -307,6 +438,7 @@ AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
 ```
 
 ---
+## 会員管理機能の作成
 ### 動作確認(1)ログインをしてみましょう
 
 * ここではシュミレーターでビルドし、動作確認を行います
@@ -316,25 +448,52 @@ AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
  * エラーが発生したらここを見てください。
  [エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 
+---
+## 会員管理機能の作成
+### 動作確認(1)ログインをしてみましょう
+
+.center[
 ![動作確認①ログイン](readme-image/動作確認①ログイン.png)
+]
+
+---
+## 会員管理機能の作成
+### 動作確認(1)ログインをしてみましょう
 
 * 会員登録メールが届くので、パスワード設定します
 
+.center[
 ![動作確認①パスワード登録](readme-image/動作確認①パスワード登録.png)
+]
+
+---
+## 会員管理機能の作成
+### 動作確認(1)ログインをしてみましょう
 
 * 再びログイン画面に戻り「メールアドレス」と「パスワード」でログインします
-    * ログを確認してください
+ * ログを確認してください
 * mBaaSのダッシュボードを確認してください
-    * 会員管理にユーザーが登録されました
+ * 会員管理にユーザーが登録されました
 
+.center[
 ![動作確認①会員登録完了](readme-image/動作確認①会員登録完了.png)
+]
+.footnote[
 [エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
 
 ---
+## 会員管理機能の作成
 ### 会員管理③：ユーザー情報更新
 
+.center[
 ![UserInfoRegistration](readme-image/UserInfoRegistration.png)
+]
+
+---
+## 会員管理機能の作成
+### 会員管理③：ユーザー情報更新
+
 
 * `RegisterActivity.java`を開きます
 * `doRegister()`を開きます
@@ -344,8 +503,14 @@ AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
 ```java
 //**************** 【mBaaS/User③: ユーザー情報更新】***************
 
+
 ```
+
 * かなり下の方にあります
+
+---
+## 会員管理機能の作成
+### 会員管理③：ユーザー情報更新
 
 ```java
 //**************** 【mBaaS/User③: ユーザー情報更新】***************
@@ -368,6 +533,10 @@ common.currentUser.saveInBackground(new DoneCallback() {
 });
 
 ```
+
+---
+## 会員管理機能の作成
+### 会員管理③：ユーザー情報更新
 
 * それぞれ処理を追記します
 
@@ -395,9 +564,13 @@ new AlertDialog.Builder(RegisterActivity.this)
 ```
 
 ---
+layout: true
+class: center, middle, inverse
+---
 # 3.Shop情報の設定
 
 ---
+layout: false
 ## Shop情報の設定
 ### mBaaSにShop情報を用意する（データストア）
 
@@ -405,24 +578,43 @@ new AlertDialog.Builder(RegisterActivity.this)
 * クラス名に「__Shop__」と入力します
 * ダウンロードしたサンプルプロジェクトにあるSettingフォルダ内の「__Shop.json__」を選択してアップロードします
 
+.center[
 ![ShopClass](readme-image/ShopClass.png)
-こんな感じでインポートされます
-
-![mBaaS_ShopData](readme-image/mBaaS_ShopData.PNG)
+]
 
 ---
+## Shop情報の設定
+### mBaaSにShop情報を用意する（データストア）
+
+こんな感じでインポートされます
+
+.center[
+![mBaaS_ShopData](readme-image/mBaaS_ShopData.PNG)
+]
+
+---
+## Shop情報の設定
 ### mBaaSにShop情報を用意する（ファイルストア）
 
 * ニフクラ mobile backendのダッシュボードから「ファイルストア」を開き、「↑アップロード」ボタンをクリックします
 * ダウンロードしたサンプルプロジェクトにあるSettingフォルダ内の「icon」「Shop」「Sale」内にあるファイルをすべてをアップロードします
 
+.center[
 ![imageUpload](readme-image/imageUpload.png)
+]
+
+---
+## Shop情報の設定
+### mBaaSにShop情報を用意する（ファイルストア）
 
 * こんな感じでアップロードされます
 
+.center[
 ![UploadImage](readme-image/UploadImage.png)
+]
 
 ---
+## Shop情報の設定
 ### データストア：「Shop」クラスのデータを取得
 
 * `MainActivity.java`を開きます
@@ -436,6 +628,10 @@ new AlertDialog.Builder(RegisterActivity.this)
 
 ```
 
+---
+## Shop情報の設定
+### データストア：「Shop」クラスのデータを取得
+
 ```java
 //**************** 【mBaaS/Shop①: 「Shop」クラスのデータを取得】***************
 // 「Shop」クラスのクエリを作成
@@ -448,13 +644,21 @@ ListView lv = (ListView) findViewById(R.id.lstShop);
 lv.setAdapter(new ShopListAdapter(this, results));
 ```
 
+
 ---
+## Shop情報の設定
 ### ファイルストア①：icon画像の取得
 
+.center[
 ![icon](readme-image/icon.png)
+]
+
+---
+## Shop情報の設定
+### ファイルストア①：icon画像の取得
 
 * `ShopListAdapter.java`を開きます
-    * `ShopListAdapter.java`はリストの項目を作成するファイルです
+ * `ShopListAdapter.java`はリストの項目を作成するファイルです
 * トップ画面に各ショップのアイコンをmBaaSから取得して表示する処理を実装します
 - コメントの下にコードを追記していきます
 
@@ -463,6 +667,11 @@ lv.setAdapter(new ShopListAdapter(this, results));
 
 
 ```
+
+---
+## Shop情報の設定
+### ファイルストア①：icon画像の取得
+
 
 ```java
 //**************** 【mBaaS/File①: ショップ画像を取得】***************
@@ -478,6 +687,10 @@ file.fetchInBackground(new FetchFileCallback() {
     }
 });
 ```
+
+---
+## Shop情報の設定
+### ファイルストア①：icon画像の取得
 
 * それぞれ処理を追記します
 
@@ -496,9 +709,16 @@ holder.img.setImageBitmap(bmp);
 ```
 
 ---
+## Shop情報の設定
 ### ファイルストア②：Shop画像の取得
 
+.center[
 ![Shop](readme-image/Shop.png)
+]
+
+---
+## Shop情報の設定
+### ファイルストア②：Shop画像の取得[実装済み]
 
 * `ShopActivity.java`を開きます
 * `onCreate()`を開きます
@@ -534,13 +754,19 @@ file.fetchInBackground(new FetchFileCallback() {
 * 再びシュミレーターでビルドし、動作確認を行います
 * ログイン後初回のみ、ユーザー情報登録画面が表示されます
 * 入力し「登録」をタップします
-    * このとき、会員情報が更新されますので、mBaaSのダッシュボードを確認してみましょう
-    * ログを確認してください
+ * このとき、会員情報が更新されますので、mBaaSのダッシュボードを確認してみましょう
+ * ログを確認してください
 
+.center[
 ![動作確認②ユーザー情報追加](readme-image/動作確認②ユーザー情報追加.png)
-
+]
+.footnote[
 [エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
+
+---
+## Shop情報の設定
+### 動作確認(2)会員情報登録とShop情報表示
 
 * トップ画面に「icon画像」「Shop名」「カテゴリ」が表示されます
 * Shopを１つ選んでタップします
@@ -548,30 +774,44 @@ file.fetchInBackground(new FetchFileCallback() {
 * 会員ページをタップします
  * ユーザー情報が表示されます
 
+.center[
 ![動作確認②](readme-image/動作確認②.png)
-
-
+]
+.footnote[
 [エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
+]
 
+---
+layout: true
+class: center, middle, inverse
 ---
 # 4.お気に入り機能の作成
 
 ---
+layout: false
 ## お気に入り機能の作成
 ### お気に入り機能について
 
 * お気に入り機能は好きなShopをお気に入りとして保存できる機能です
-    * 「お気に入り」画面ではSwitchと「登録」ボタンで設定します
-    * 「Shop」画面では「お気に入りを登録する」をタップすることでShop単位で設定できます
+ * 「お気に入り」画面ではSwitchと「登録」ボタンで設定します
+ * 「Shop」画面では「お気に入りを登録する」をタップすることでShop単位で設定できます
 
+.center[
 ![favorite](readme-image/favorite.png)
+]
 
 ---
+## お気に入り機能の作成
 ### 会員管理④：ユーザー情報の更新[実装済み]
 
 * `FavoriteActivity.java`を開きます
 * `doFavoriteSave()`を開きます
 * お気に入り画面からfavoriteデータの更新処理はユーザー情報の登録と同様にして実装できます
+
+---
+## お気に入り機能の作成
+### 会員管理④：ユーザー情報の更新[実装済み]
+
 
 ```java
 //**************** 【mBaaS/User ④: 会員情報更新】***************
@@ -602,11 +842,19 @@ common.currentUser.saveInBackground(new DoneCallback() {
 ```
 
 ---
+## お気に入り機能の作成
+
 ### 会員管理⑤：ユーザー情報の更新[実装済み]
 
 * `ShopActivity.java`を開きます
 * `doFavoriteRegister()`を開きます
 * Shop画面からもfavoriteデータの更新処理はユーザー情報の登録と同様にして実装できます
+
+---
+## お気に入り機能の作成
+
+### 会員管理⑤：ユーザー情報の更新[実装済み]
+
 
 ```java
 //**************** 【mBaaS/User⑤: 会員情報更新】***************
@@ -629,6 +877,7 @@ common.currentUser.saveInBackground(new DoneCallback() {
 ```
 
 ---
+## お気に入り機能の作成
 ### 動作確認(3)お気に入り情報登録・更新
 
 * 再びシュミレーターでビルドし、動作確認を行います
@@ -637,41 +886,68 @@ common.currentUser.saveInBackground(new DoneCallback() {
 * 各Shop画面からも同様に登録してみましょう
  * ログを確認してください
 
+.center[
 ![動作確認③](readme-image/動作確認③.png)
+]
 
+.footnote[
 [エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
 
 ---
+layout: true
+class: center, middle, inverse_sub
+---
 # プッシュ通知を送ろう！
+
+.size_large[
 ＜後半＞
+]
+
+---
+layout: true
+class: center, middle, inverse
 ---
 # 1.プッシュ通知の準備
 
 ---
+layout: false
 ## プッシュ通知の準備
 ### このあとのデバッグについて
 
 * 以下の用意が必要です
-    * デバッグ用のAndroid実機 (4.0~)
-    * FCMのプッシュ通知用APIキー
+ * デバッグ用のAndroid実機 (4.0~)
+ * FCMのプッシュ通知用APIキー
 * FCMのプッシュ通知用APIキーがまだの場合は下記をご参照ください
-    * [【サンプル】アプリにプッシュ通知を組み込もう！](https://github.com/NIFCLOUD-mbaas/android_push_demo#手順))
+ * [【サンプル】アプリにプッシュ通知を組み込もう！](https://github.com/NIFCLOUD-mbaas/android_push_demo#手順)
 *  FCMはGCM(Google Cloud Messaging)の新バージョンです。既にGCMにてプロジェクトの作成・GCMの有効化設定を終えている場合は、継続してご利用いただくことが可能です。
 
 ---
+## プッシュ通知の準備
 ### mBaaSの設定
 
 * プッシュ通知の許可を行います
 * FCM/GCMのプッシュ通知用APIキーを設定します
 
+.center[
 ![mBaaSプッシュ通知設定](readme-image/mBaaSプッシュ通知設定.png)
+]
 
 ---
+## プッシュ通知の準備
 ### プッシュ通知①：端末を登録
 
 * `MainActivity.java`を開きます
 * `onCreate()`メソッド内のSDKの初期化を実装した部分の直ぐ下に処理を実装します
+
+```java
+//**************** 【mBaaS/Push①: 端末を登録】***************
+
+```
+
+---
+## プッシュ通知の準備
+### プッシュ通知①：端末を登録
 
 ```java
 //**************** 【mBaaS/Push①: 端末を登録】***************
@@ -701,14 +977,24 @@ installation.getRegistrationIdInBackground("SENDER_ID", new DoneCallback() {
 });
 ```
 
+---
+## プッシュ通知の準備
+### プッシュ通知①：端末を登録
+
 * 前のスライドのコードにある`SENDER_ID`の設定を行います。
 
+.center[
 ![プロジェクト番号設定](readme-image/projectnumber.png)
+]
 
+---
+layout: true
+class: center, middle, inverse
 ---
 # 2.プッシュ通知を送信<br>セグメント配信
 
 ---
+layout: false
 ## プッシュ通知を送信：セグメント配信
 ### プッシュ通知②：installationにユーザー情報を紐づける
 
@@ -720,6 +1006,10 @@ installation.getRegistrationIdInBackground("SENDER_ID", new DoneCallback() {
 //**************** 【mBaaS：プッシュ通知②】installationにユーザー情報を紐づける ***************
 
 ```
+
+---
+## プッシュ通知を送信：セグメント配信
+### プッシュ通知②：installationにユーザー情報を紐づける
 
 * 次のように追記します
 
@@ -741,6 +1031,10 @@ currInstallation.saveInBackground(new DoneCallback() {
 });
 ```
 
+---
+## プッシュ通知を送信：セグメント配信
+### プッシュ通知②：installationにユーザー情報を紐づける
+
 * それぞれ処理を追記します
 
 ```java
@@ -756,6 +1050,7 @@ startActivityForResult(intent, REQUEST_RESULT );
 ```
 
 ---
+## プッシュ通知を送信：セグメント配信
 ### プッシュ通知③：installationにユーザー情報を紐づける<br>[実装済み]
 
 * `FavoriteActivity.java`開きます
@@ -782,6 +1077,7 @@ currInstallation.saveInBackground(new DoneCallback() {
 ```
 
 ---
+## プッシュ通知を送信：セグメント配信
 ### プッシュ通知④：installationにユーザー情報を紐づける<br>[実装済み]
 
 * `ShopActivity.java`開きます
@@ -812,7 +1108,13 @@ currInstallation.saveInBackground(new DoneCallback() {
 * もう一度会員情報登録画面を表示するため、mBaaSの会員管理画面で「クラスの編集」をクリックします
 * 「nickname」にチェックを入れて上の「削除」ボタンで削除します
 
+.center[
 ![動作確認④セグメント0](readme-image/動作確認④セグメント0.png)
+]
+
+---
+## プッシュ通知を送信：セグメント配信
+### 動作確認の準備
 
 * 実機でアプリをビルドします
 * アプリを起動します
@@ -827,28 +1129,41 @@ currInstallation.saveInBackground(new DoneCallback() {
 ![動作確認④デバイストークン](readme-image/動作確認④デバイストークン.png)
 ]
 
+.footnote[
 [エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
 
+---
+## プッシュ通知を送信：セグメント配信
+### 動作確認の準備
 
 * ログインをし、再びユーザー登録をします
  * このとき、installationが更新されますのでダッシュボードを確認します
  * ログを確認してください
 
+.center[
 ![動作確認④installation追加](readme-image/動作確認④installation追加.png)
-
+]
+.footnote[
 [エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
-
+]
 
 ---
+## プッシュ通知を送信：セグメント配信
 ### 動作確認(4)セグメント配信
 
-__shopB__をお気に入り登録しているユーザーに絞り込んでプッシュ通知を配信してみましょう！
+__shopB__ をお気に入り登録しているユーザーに絞り込んでプッシュ通知を配信してみましょう！
 
 * あらかじめshopBをお気に入りに設定しておきます(アプリ側)
 * mBaaSのダッシュボードからShopクラスのデータを開き、shopBの「objectId」をコピーします
 
+.center[
 ![動作確認④セグメント2](readme-image/動作確認④セグメント2.png)
+]
+
+---
+## プッシュ通知を送信：セグメント配信
+### 動作確認(4)セグメント配信
 
 * プッシュ通知を作成します
 * メッセージを入力します
@@ -856,34 +1171,56 @@ __shopB__をお気に入り登録しているユーザーに絞り込んでプ�
 * 「Android端末に配信する」にチェックを入れます
 * 「配信端末」を設定します
 
+.center[
 ![動作確認④セグメント1](readme-image/動作確認④セグメント1.png)
+]
+
+---
+## プッシュ通知を送信：セグメント配信
+### 動作確認(4)セグメント配信
 
 * 「installationクラスからの絞込み」を選択します
 * 絞り込み設定をします
  * ここでコピーしたShopBのobjectIdを貼り付けます
 
+.center[
 ![動作確認④セグメント3](readme-image/動作確認④セグメント3.png)
+]
+
+---
+## プッシュ通知を送信：セグメント配信
+### 動作確認(4)セグメント配信
 
 * 「１端末に向けて送信されます」と表示されればOKです
 * 「プッシュ通知を作成する」をクリックします
 * 少し待つと配信されます→端末を確認！
 
+.center[
 ![動作確認④セグメント4](readme-image/動作確認④セグメント4.png)
+]
 
 ---
+## プッシュ通知を送信：セグメント配信
 ### 動作確認(4)セグメント配信[おまけ]
 
+.size_large[
 いろいろなパターンで送ってみましょう！
 * 別のショップを絞り込み
 * 性別で絞込み
 * ShopAをお気に入り登録かつ女性で絞込み
 * ShopDをお気に入り登録かつ東京都で絞込み
 * and more...
+]
 
+---
+layout: true
+class: center, middle, inverse
 ---
 # 2.プッシュ通知を送信<br>リッチプッシュ
 
 ---
+layout: false
+
 ## プッシュ通知を送信：リッチプッシュ
 ### リッチプッシュについて
 
@@ -891,34 +1228,58 @@ __shopB__をお気に入り登録しているユーザーに絞り込んでプ�
 * プッシュ通知開封でアプリが起動するときに表示されます
  * アプリ起動中には表示されませんので動作確認にはアプリを閉じておく必要があります（仕様）
 
+---
+## プッシュ通知を送信：リッチプッシュ
+### リッチプッシュについて
+
 * 今回はShopのセール画像を「公開ファイル」機能を利用して配信します
 
+.center[
 ![sale_image](readme-image/sale_image.png)
+]
+
 
 ---
+## プッシュ通知を送信：リッチプッシュ
 ### 公開ファイルとは
 
 * 「公開ファイル」機能とは、ファイルストアに保存した画像をリンクでアクセスできるようにする機能です
 * ファイルストアに登録した画像を「公開ファイル」として公開することが可能です
 
+---
+## プッシュ通知を送信：リッチプッシュ
+### 公開ファイル設定
+
 * mBaaSのダッシュボードで、公開ファイル設定「HTTPでの取得」を有効にします
 
+.center[
 ![mBaaS公開ファイル設定](readme-image/mBaaS公開ファイル設定.png)
+]
 
 ---
+## プッシュ通知を送信：リッチプッシュ
 ### 公開ファイルURL確認方法
 
 * ファイルストアで確認できます
 * 今回は「ShopD_sale.png」の公開ファイルURLを使用してみます
-    * URLをコピーします
+ * URLをコピーします
 
+.center[
 ![公開ファイルURL](readme-image/公開ファイルURL.png)
+]
+
+---
+## プッシュ通知を送信：リッチプッシュ
+### 公開ファイルURL確認方法
 
 * ブラウザでリンクをたたいて表示されることを確認してください
 
+.center[
 ![公開ファイル確認](readme-image/公開ファイル確認.png)
+]
 
 ---
+## プッシュ通知を送信：リッチプッシュ
 ### プッシュ通知⑥：リッチプッシュ通知を表示させる処理
 
 * `MainActivity.java`を開きます
@@ -937,47 +1298,71 @@ __shopB__をお気に入り登録しているユーザーに絞り込んでプ�
 NCMBPush.richPushHandler(this, getIntent());
 
 //リッチプッシュを再表示させたくない場合はintentからURLを削除します
-getIntent().removeExtra("com.nifcloud.mbaas.RichUrl");
+getIntent().removeExtra("com.nifcloud.RichUrl");
 ```
 
 ---
+## プッシュ通知を送信：リッチプッシュ
 ### 動作確認(5)リッチプッシュ
 
 * 実機でアプリをビルドします
 * 起動した後にホームに戻ります
+
+
+---
+## プッシュ通知を送信：リッチプッシュ
+### 動作確認(5)リッチプッシュ
+
 * プッシュ通知を作成します
 * メッセージを入力します
 * URL欄にコピーした公開ファイルURLを貼り付けます
 * そのまま送信してみましょう
 
+.center[
 ![動作確認⑤リッチプッシュ](readme-image/動作確認⑤リッチプッシュ.png)
+]
+
+---
+## プッシュ通知を送信：リッチプッシュ
+### 動作確認(5)リッチプッシュ
 
 * しばらくするとプッシュ通知が届きます
 * プッシュ通知を開くとWebView画面が現れ、公開ファイルが表示されます
 
+.center[
 ![動作確認⑤リッチプッシュ2](readme-image/動作確認⑤リッチプッシュ2.png)
+]
 
+---
+layout: true
+class: center, middle, inverse
 ---
 # 2.プッシュ通知を送信<br>ペイロード
 
 ---
+layout: false
 ## プッシュ通知を送信：ペイロード
 ### ペイロードについて
 
 * プッシュ通知にはJSON形式で任意のデータを含めることができ、通知を受信した時に、そのデータを受け取って処理を行うことができる機能です
 * 今回は、配信時間とメッセージのデータを設定し、時限式でローカルプッシュを表示させる内容を実装します
-    * プッシュ通知に設定するJSON形式のデータの例
+ * プッシュ通知に設定するJSON形式のデータの例
  ```text
  {"deliveryTime":"2016-09-22 17:00:00", "message":"タイムセールスタート！"}
  ```
 
 ---
+## プッシュ通知を送信：ペイロード
 ### プッシュ通知⑦：アプリが起動中にプッシュ通知からデータを取得する
 
 * Androidの場合、受信する処理をカスタマイズするために、カスタムサービスを作成する必要があります
 * 今回、コード内にCustomGcmListenerServiceは作成済み
   - 作成に関して、実装方法はこちらのドキュメントをご参考ください。
-  - [プッシュ通知でJSONデータを取得する](http://mbaas.nifcloud.com/doc/current/push/basic_usage_android.html#%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5%E9%80%9A%E7%9F%A5%E3%81%A7JSON%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B)
+  - [プッシュ通知でJSONデータを取得する](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
+
+---
+## プッシュ通知を送信：ペイロード
+### プッシュ通知⑦：アプリがプッシュ通知からデータを取得する
 
 * `CustomGcmListenerService.java`を開きます
 * `onMessageReceived()`メソッド外に次のメソッドを実装します
@@ -986,14 +1371,18 @@ getIntent().removeExtra("com.nifcloud.mbaas.RichUrl");
 //**************** 【mBaaS：プッシュ通知⑦】アプリがプッシュ通知からデータを取得する***************
 ```
 
+---
+## プッシュ通知を送信：ペイロード
+### プッシュ通知⑦：アプリがプッシュ通知からデータを取得する
+
 以下のように追記します
 
 ```java
 //**************** 【mBaaS：プッシュ通知⑦】アプリが起動中にプッシュ通知からデータを取得する***************
 //ペイロードデータの取得
-if (data.containsKey("com.nifcloud.mbaas.Data")) {
+if (data.containsKey("com.nifcloud.Data")) {
     try {
-        JSONObject json = new JSONObject(data.getString("com.nifcloud.mbaas.Data"));
+        JSONObject json = new JSONObject(data.getString("com.nifcloud.Data"));
 
         if (json.has("deliveryTime") && json.has("message")) {
             Log.d(TAG,"ペイロードを取得しました！");
@@ -1008,6 +1397,10 @@ if (data.containsKey("com.nifcloud.mbaas.Data")) {
     }
 }
 ```
+
+---
+## プッシュ通知を送信：ペイロード
+### プッシュ通知⑦：アプリがプッシュ通知からデータを取得する
 
 * ペイロード処理実装します
 * 指定した時間でローカルプッシュ通知を表示させます。
@@ -1035,6 +1428,7 @@ alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerlMilli , broadcast);
 
 
 ---
+## プッシュ通知を送信：ペイロード
 ### 動作確認(6)ペイロード（アプリ起動時）
 
 * 実機でアプリをビルドします
@@ -1046,19 +1440,33 @@ alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerlMilli , broadcast);
 
 * そのままアプリを起動した状態にします
 
+---
+## プッシュ通知を送信：ペイロード
+### 動作確認(6)ペイロード（アプリ起動時）
+
 * プッシュ通知に設定するJSON形式のデータを作成します
-    * JSONデータに設定する時間は、今から__５分以上未来の時間__に変更してください
-    * JSONデータに設定するメッセージは、自由に変更してください
+ * JSONデータに設定する時間は、今から __５分以上未来の時間__ に変更してください
+ * JSONデータに設定するメッセージは、自由に変更してください
  ```text
  {"deliveryTime":"2016-09-29 17:00:00", "message":"タイムセールスタート！"}
  ```
-    
-* 作成したらコピーをしておいてください
-* プッシュ通知を作成します
-    * タイトル、メッセージを入力が無い場合、サイレントプッシュとして送られます
-    * 「JSON」に作成したJSONデータを貼り付けます
+ * 作成したらコピーをしておいてください
 
+---
+## プッシュ通知を送信：ペイロード
+### 動作確認(6)ペイロード（アプリ起動時）
+
+* プッシュ通知を作成します
+ * タイトル、メッセージを入力が無い場合、サイレントプッシュとして送られます
+ * 「JSON」に作成したJSONデータを貼り付けます
+
+.center[
 ![動作確認⑥ペイロード1](readme-image/動作確認⑥ペイロード1.png)
+]
+
+---
+## プッシュ通知を送信：ペイロード
+### 動作確認(6)ペイロード（アプリ起動時）
 
 * プッシュ通知を送信します
 * プッシュ通知を受信（サイレント）すると次のログが表示されます
@@ -1069,55 +1477,71 @@ alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerlMilli , broadcast);
 
 * 指定時間にプッシュ通知が表示されることを確認してください
 
+.footnote[
 [エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
-
+]
 ---
+## プッシュ通知を送信：ペイロード
 ### 動作確認(6)ペイロード（非起動時）
 
 * アプリを閉じます
 * 再びプッシュ通知を作成します
 
+.center[
 ![動作確認⑥ペイロード2](readme-image/動作確認⑥ペイロード2.png)
+]
+
+---
+## プッシュ通知を送信：ペイロード
+### 動作確認(6)ペイロード（非起動時）
 
 * アプリが起動していないので、サイレントプッシュでは気付いてもらえません
 * アプリを起動してもらう内容でプッシュ通知を作成します
-    * メッセージ　例）`明日PM5時よりタイムセールを行います！`
+ * メッセージ　例）`明日PM5時よりタイムセールを行います！`
 * JSON形式のデータを貼り付けます
-    * JSONデータ作成　例）明日午後5時を設定
+ * JSONデータ作成　例）明日午後5時を設定
  ```text
  {"deliveryTime":"2016-09-30 17:00:00", "message":"タイムセールスタート！"}
  ```
-    
-* 時間は今から５分以上未来の時間に変更してください
+ * 時間は今から５分以上未来の時間に変更してください
+
+---
+## プッシュ通知を送信：ペイロード
+### 動作確認(6)ペイロード（非起動時）
+
 * プッシュ通知を受信したら、プッシュ通知からアプリを起動します
 * 起動時にデータを取得します
-    * １度起動してあればアプリは閉じてもOKです
+ * １度起動してあればアプリは閉じてもOKです
 * 指定時間にプッシュ通知が表示されることを確認してください
 
+---
+layout: true
+class: center, middle, inverse_sub
 ---
 # まとめ
 
 ---
+layout: false
 ## まとめ
 ### 学んだこと
 
 * mBaaSの各機能を使用してアプリ作成方法を学んだ！
-    * 会員管理機能
-    * データストア
-    * ファイルストア
-    * プッシュ通知
+ * 会員管理機能
+ * データストア
+ * ファイルストア
+ * プッシュ通知
 * プッシュ通知の活用方法がわかった！
-    * セグメント配信
-    * リッチプッシュ
-    * ペイロード
+ * セグメント配信
+ * リッチプッシュ
+ * ペイロード
 
 ---
 ## 参考
 
 * 開催中の[セミナー](https://ncmb.doorkeeper.jp/)のご案内
-    * 随時新しいセミナーを実施していきますのでぜひチェックしてください！
+ * 随時新しいセミナーを実施していきますのでぜひチェックしてください！
 * ハンズオン内容が実装された完全版プロジェクト
-    * __[AndroidAdvancePush【完成版】](https://github.com/ncmbadmin/AndroidAdvancePush/archive/master.zip)__
-* コードは[GitHub](https://github.com/ncmbadmin/AndroidAdvancePush)に公開しています
-    * __master__：完成版
-    * __handson__：セミナー版
+ * __[AndroidAdvancePush【完成版】](https://github.com/nifcloud-mbaas/AndroidAdvancePush/archive/master.zip)__
+* コードは[GitHub](https://github.com/nifcloud-mbaas/AndroidAdvancePush)に公開しています
+ * __master__：完成版
+ * __handson__：セミナー版
