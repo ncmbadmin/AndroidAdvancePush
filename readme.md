@@ -20,10 +20,11 @@ layout: false
 
 ![mBaaS無料登録](readme-image/mBaaS無料登録.png)
 
+---
 ## 動作環境
 * Xcode ver.11.3.1
 * iPhone 7 OS ver 13.3
-* Android Sutdio ver3.6.1
+* Android Studio ver3.6.1
 * Android OS ver.9
 
 ---
