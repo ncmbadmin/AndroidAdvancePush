@@ -38,7 +38,6 @@ public class InfoActivity extends AppCompatActivity {
         _gender.setText(common.currentUser.getString("gender"));
         _email.setText(common.currentUser.getMailAddress());
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.onHomeInfoFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

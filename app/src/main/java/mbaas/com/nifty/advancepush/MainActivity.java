@@ -7,22 +7,19 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.nifty.cloud.mb.core.DoneCallback;
-import com.nifty.cloud.mb.core.FindCallback;
-import com.nifty.cloud.mb.core.NCMB;
-import com.nifty.cloud.mb.core.NCMBException;
-import com.nifty.cloud.mb.core.NCMBInstallation;
-import com.nifty.cloud.mb.core.NCMBObject;
-import com.nifty.cloud.mb.core.NCMBPush;
-import com.nifty.cloud.mb.core.NCMBQuery;
-import com.nifty.cloud.mb.core.NCMBUser;
+import com.nifcloud.mbaas.core.DoneCallback;
+import com.nifcloud.mbaas.core.NCMB;
+import com.nifcloud.mbaas.core.NCMBException;
+import com.nifcloud.mbaas.core.NCMBObject;
+import com.nifcloud.mbaas.core.NCMBPush;
+import com.nifcloud.mbaas.core.NCMBQuery;
+import com.nifcloud.mbaas.core.NCMBUser;
 
 import java.util.List;
 
@@ -43,9 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         //**************** 【mBaaS/Initialization: APIキーを指定する】***************
         NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
-
-        //**************** 【mBaaS/Push①: 端末を登録】***************
-
 
         // グローバル変数を扱うクラスを取得する
         common = (Common) getApplication();
@@ -78,28 +72,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivityForResult(intent, REQUEST_RESULT );
         }
-    }
-
-    public static void updateInstallation(final NCMBInstallation installation) {
-
-        //installationクラスを検索するクエリの作成
-        NCMBQuery<NCMBInstallation> query = NCMBInstallation.getQuery();
-
-        //同じRegistration IDをdeviceTokenフィールドに持つ端末情報を検索する
-        query.whereEqualTo("deviceToken", installation.getDeviceToken());
-
-        //データストアの検索を実行
-        query.findInBackground(new FindCallback<NCMBInstallation>() {
-            @Override
-            public void done(List<NCMBInstallation> results, NCMBException e) {
-
-                //検索された端末情報のobjectIdを設定
-                installation.setObjectId(results.get(0).getObjectId());
-
-                //端末情報を更新する
-                installation.saveInBackground();
-            }
-        });
     }
 
     @Override
@@ -139,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 if (e != null) {
                     //ログインに失敗した場合の処理
                     new AlertDialog.Builder(MainActivity.this)
-                            .setTitle("Notification from Nifty")
+                            .setTitle("Notification from mBaas")
                             .setMessage("ログアウト失敗しました。発生したエラーはこちら：" + e.getMessage())
                             .setPositiveButton("OK", null)
                             .show();
@@ -157,7 +129,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void doLoadShop() throws NCMBException {
         //**************** 【mBaaS/Shop①: 「Shop」クラスのデータを取得】***************
-
+        // 「Shop」クラスのクエリを作成
+        NCMBQuery<NCMBObject> query = new NCMBQuery<>("Shop");
+        //データストアからデータを検索
+        List<NCMBObject> results = query.find();
+        //グローバル変数を更新する
+        common.shops = results;
+        ListView lv = (ListView) findViewById(R.id.lstShop);
+        lv.setAdapter(new ShopListAdapter(this, results));
     }
 
 
@@ -166,7 +145,11 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         //**************** 【mBaaS：プッシュ通知⑥】リッチプッシュ通知を表示させる処理 ***************
+        //リッチプッシュ通知の表示
+        NCMBPush.richPushHandler(this, getIntent());
 
+        //リッチプッシュを再表示させたくない場合はintentからURLを削除します
+        getIntent().removeExtra("com.nifcloud.mbaas.RichUrl");
     }
 
 

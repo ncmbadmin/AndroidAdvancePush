@@ -2,8 +2,8 @@ package mbaas.com.nifty.advancepush;
 
 import android.app.Application;
 
-import com.nifty.cloud.mb.core.NCMBObject;
-import com.nifty.cloud.mb.core.NCMBUser;
+import com.nifcloud.mbaas.core.NCMBObject;
+import com.nifcloud.mbaas.core.NCMBUser;
 
 import java.util.List;
 
