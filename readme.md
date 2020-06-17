@@ -100,7 +100,7 @@ layout: false
  * 後で処理を実装します
 
 ```java
-NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
+NCMB.initialize(this.getApplicationContext(),"YOUR_APPLICATION_KEY","YOUR_YOUR_CLIENT_KEY");
 ```
 
 ---
@@ -249,7 +249,7 @@ layout: false
 ## ハンズオンの準備
 ### プロジェクトにあらかじめ実施していること
 
-* mBaaS Android SDK v.2.2.3のインストール, build.graddleの設定, AndroidManifestの設定は実装済み
+* mBaaS Android SDK v.3.0.4のインストール, build.graddleの設定, AndroidManifestの設定は実装済み
 * mBaaSとの連携以外の処理のコーディング
  * アプリのデザインを`layoutフォルダー内ファイル`で作成し、処理は画面ごと`Activityのファイル`にコーディングしています
 
@@ -270,14 +270,14 @@ layout: false
 
 ```java
 //**************** 【mBaaS/Initialization: APIキーを指定する】***************
-NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
+NCMB.initialize(this.getApplicationContext(),"YOUR_APPLICATION_KEY","YOUR_CLIENT_KEY");
 ```
 
 ---
 ## ハンズオンの準備
 ### APIキーの設定とSDKの初期化
 
-* 初期化処理の「`APP_KEY`」，「`CLIENT_KEY`」の部分をアプリ作成時に発行されたAPIキーに書き換えてください
+* 初期化処理の「`YOUR_APPLICATION_KEY`」，「`YOUR_CLIENT_KEY`」の部分をアプリ作成時に発行されたAPIキーに書き換えてください
  * APIキーは、mBaaSのダッシュボードから「アプリ設定」→「基本」にあります
 
 .center[
@@ -1539,10 +1539,10 @@ layout: false
 ---
 ## 参考
 
-* 開催中の[セミナー](https://ncmb.doorkeeper.jp/)のご案内
+* 開催中の[セミナー](https://ncmb.connpass.com/)のご案内
  * 随時新しいセミナーを実施していきますのでぜひチェックしてください！
 * ハンズオン内容が実装された完全版プロジェクト
- * __[AndroidAdvancePush【完成版】](https://github.com/nifcloud-mbaas/AndroidAdvancePush/archive/master.zip)__
-* コードは[GitHub](https://github.com/nifcloud-mbaas/AndroidAdvancePush)に公開しています
+ * __[AndroidAdvancePush【完成版】](https://github.com/NIFCLOUD-mbaas/AndroidAdvancePush/archive/master.zip)__
+* コードは[GitHub](https://github.com/NIFCLOUD-mbaas/AndroidAdvancePush)に公開しています
  * __master__：完成版
  * __handson__：セミナー版
