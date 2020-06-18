@@ -211,7 +211,7 @@ layout: false
 
 下記リンクをクリックして、ZIPファイルでダウンロードしてください▼<br>
 .size_large[
-　　　 __[AndroidAdvancePush](https://github.com/ncmbadmin/AndroidAdvancePush/archive/handson.zip)__
+　　　 __[AndroidAdvancePush](https://github.com/NIFCLOUD-mbaas/AndroidAdvancePush/archive/handson.zip)__
 ]
 
 * zipファイルを展開します。
@@ -553,7 +553,7 @@ new AlertDialog.Builder(RegisterActivity.this)
 ```java
 // 更新成功時の処理
 new AlertDialog.Builder(RegisterActivity.this)
-       .setTitle("Notification from Nifcloud")
+       .setTitle("Notification from NIFCLOUD")
        .setMessage("保存成功しました! 入力ありがとうございます")
        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
            public void onClick(DialogInterface dialog, int which) {
