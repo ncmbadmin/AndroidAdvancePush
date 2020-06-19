@@ -7,7 +7,7 @@ class: center, middle, inverse
 @ncmbadmin
 
 .footnote[
-20160817作成
+20160817作成(202006 更新)
 ]
 ---
 layout: false
@@ -19,11 +19,19 @@ layout: false
 ![mBaaS検索](readme-image/mBaaS検索.png)
 
 ![mBaaS無料登録](readme-image/mBaaS無料登録.png)
+---
+## 事前準備
+### google.service.json作成
+
+1. "Firebase":https://console.firebase.google.com/u/0/にログインして、新規プロジェクトを作成します。
+2. 「プロジェクトの概要」の右側にある![設定アイコン](readme-image/settingIcon.png)をクリックして、「プロジェクトを設定」を選択します。
+3. 「全般」タブで下のマイアプリで「Android」プラットフォームを選択します。
+
+![mBaaS無料登録](readme-image/Firebasesetting.png)(width:500px)
+
 
 ---
 ## 動作環境
-* Xcode ver.11.3.1
-* iPhone 7 OS ver 13.3
 * Android Studio ver3.6.1
 * Android OS ver.9
 
@@ -918,10 +926,9 @@ layout: false
 
 * 以下の用意が必要です
  * デバッグ用のAndroid実機 (4.0~)
- * FCMのプッシュ通知用APIキー
+ * プッシュ通知設定ファイル(json)
 * FCMのプッシュ通知用APIキーがまだの場合は下記をご参照ください
  * [【サンプル】アプリにプッシュ通知を組み込もう！](https://github.com/NIFCLOUD-mbaas/android_push_demo#手順)
-*  FCMはGCM(Google Cloud Messaging)の新バージョンです。既にGCMにてプロジェクトの作成・GCMの有効化設定を終えている場合は、継続してご利用いただくことが可能です。
 
 ---
 ## プッシュ通知の準備
@@ -940,11 +947,6 @@ layout: false
 
 * `MainActivity.java`を開きます
 * `onCreate()`メソッド内のSDKの初期化を実装した部分の直ぐ下に処理を実装します
-
-```java
-//**************** 【mBaaS/Push①: 端末を登録】***************
-
-```
 
 ---
 ## プッシュ通知の準備
