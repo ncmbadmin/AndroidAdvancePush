@@ -1,4 +1,4 @@
-package mbaas.com.nifty.advancepush;
+package mbaas.com.nifcloud.advancepush;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,12 +16,7 @@ import android.widget.ListView;
 import com.nifcloud.mbaas.core.DoneCallback;
 import com.nifcloud.mbaas.core.NCMB;
 import com.nifcloud.mbaas.core.NCMBException;
-import com.nifcloud.mbaas.core.NCMBObject;
-import com.nifcloud.mbaas.core.NCMBPush;
-import com.nifcloud.mbaas.core.NCMBQuery;
 import com.nifcloud.mbaas.core.NCMBUser;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //**************** 【mBaaS/Initialization: APIキーを指定する】***************
-        NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
+        NCMB.initialize(this.getApplicationContext(),"YOUR_APPLICATION_KEY","YOUR_CLIENT_KEY");
 
         // グローバル変数を扱うクラスを取得する
         common = (Common) getApplication();
@@ -129,14 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void doLoadShop() throws NCMBException {
         //**************** 【mBaaS/Shop①: 「Shop」クラスのデータを取得】***************
-        // 「Shop」クラスのクエリを作成
-        NCMBQuery<NCMBObject> query = new NCMBQuery<>("Shop");
-        //データストアからデータを検索
-        List<NCMBObject> results = query.find();
-        //グローバル変数を更新する
-        common.shops = results;
-        ListView lv = (ListView) findViewById(R.id.lstShop);
-        lv.setAdapter(new ShopListAdapter(this, results));
+
     }
 
 
@@ -145,11 +133,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         //**************** 【mBaaS：プッシュ通知⑥】リッチプッシュ通知を表示させる処理 ***************
-        //リッチプッシュ通知の表示
-        NCMBPush.richPushHandler(this, getIntent());
 
-        //リッチプッシュを再表示させたくない場合はintentからURLを削除します
-        getIntent().removeExtra("com.nifcloud.mbaas.RichUrl");
     }
 
 

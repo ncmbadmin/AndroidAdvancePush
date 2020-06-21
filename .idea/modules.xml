@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidAdvancePush.iml" filepath="$PROJECT_DIR$/AndroidAdvancePush.iml" group="AndroidAdvancePush" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="AndroidAdvancePush/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/projects-AndroidAdvancePush.iml" filepath="$PROJECT_DIR$/.idea/modules/projects-AndroidAdvancePush.iml" group="AndroidAdvancePush" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sampleapp-AndroidAdvancePush.iml" filepath="$PROJECT_DIR$/.idea/modules/sampleapp-AndroidAdvancePush.iml" group="AndroidAdvancePush" />
     </modules>
   </component>
 </project>
