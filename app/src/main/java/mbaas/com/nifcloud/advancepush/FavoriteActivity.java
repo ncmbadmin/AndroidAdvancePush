@@ -1,4 +1,4 @@
-package mbaas.com.nifty.advancepush;
+package mbaas.com.nifcloud.advancepush;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

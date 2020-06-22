@@ -1,4 +1,4 @@
-package mbaas.com.nifty.advancepush;
+package mbaas.com.nifcloud.advancepush;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -14,10 +14,10 @@ import com.nifcloud.mbaas.core.NCMBNotificationUtils;
 public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent notificationIntent = new Intent(context, MainActivity.class);
+        Intent notificationIntent = new Intent(context, mbaas.com.nifcloud.advancepush.MainActivity.class);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addParentStack(mbaas.com.nifcloud.advancepush.MainActivity.class);
         stackBuilder.addNextIntent(notificationIntent);
 
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);

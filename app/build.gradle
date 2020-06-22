@@ -6,7 +6,7 @@ android {
     buildToolsVersion "28.0.3"
 
     defaultConfig {
-        applicationId "mbaas.com.nifty.advancepush"
+        applicationId "mbaas.com.nifcloud.advancepush"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1

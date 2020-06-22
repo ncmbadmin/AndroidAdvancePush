@@ -1,4 +1,4 @@
-package mbaas.com.nifty.advancepush;
+package mbaas.com.nifcloud.advancepush;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         NCMB.initialize(this.getApplicationContext(),"YOUR_APPLICATION_KEY","YOUR_CLIENT_KEY");
 
         // グローバル変数を扱うクラスを取得する
-        common = (Common) getApplication();
+        common = (mbaas.com.nifcloud.advancepush.Common) getApplication();
         if (common.currentUser != null) {
 
             lstShop = (ListView) findViewById(R.id.lstShop);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     // お気に入り画面遷移する
-                    Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), mbaas.com.nifcloud.advancepush.FavoriteActivity.class);
                     startActivityForResult(intent, REQUEST_RESULT );
                 }
             });
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else {
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            Intent intent = new Intent(getApplicationContext(), mbaas.com.nifcloud.advancepush.LoginActivity.class);
             startActivityForResult(intent, REQUEST_RESULT );
         }
     }
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_info) {
             // Start the Info activity
-            Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
+            Intent intent = new Intent(getApplicationContext(), mbaas.com.nifcloud.advancepush.InfoActivity.class);
             startActivityForResult(intent, REQUEST_RESULT );
             return true;
         } else if (id == R.id.action_logout) {
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     //グローバル変数を初期化する
                     common.init();
                     //ログイン画面遷移する
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), mbaas.com.nifcloud.advancepush.LoginActivity.class);
                     startActivityForResult(intent, REQUEST_RESULT );
                 }
             }
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         //グローバル変数を更新する
         common.shops = results;
         ListView lv = (ListView) findViewById(R.id.lstShop);
-        lv.setAdapter(new ShopListAdapter(this, results));
+        lv.setAdapter(new mbaas.com.nifcloud.advancepush.ShopListAdapter(this, results));
     }
 
 

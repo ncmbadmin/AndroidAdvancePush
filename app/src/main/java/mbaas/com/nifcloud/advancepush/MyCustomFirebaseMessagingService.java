@@ -1,4 +1,4 @@
-package mbaas.com.nifty.advancepush;
+package mbaas.com.nifcloud.advancepush;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -70,7 +70,7 @@ public class MyCustomFirebaseMessagingService extends NCMBFirebaseMessagingServi
         }
 
         //デフォルトの通知
-//        super.onMessageReceived(remoteMessage);
+        super.onMessageReceived(remoteMessage);
     }
 
 

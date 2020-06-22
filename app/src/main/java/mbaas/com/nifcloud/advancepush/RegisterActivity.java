@@ -1,4 +1,4 @@
-package mbaas.com.nifty.advancepush;
+package mbaas.com.nifcloud.advancepush;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -90,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 .setMessage("保存成功しました! 入力ありがとうございます")
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        Intent intent = new Intent(getApplicationContext(), mbaas.com.nifcloud.advancepush.MainActivity.class);
                                         startActivityForResult(intent, REQUEST_RESULT );
                                     }
                                 })
@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                     } else {
                         //更新成功時の処理
                         Log.d(TAG, "端末情報を保存成功しました。");
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), mbaas.com.nifcloud.advancepush.MainActivity.class);
                         startActivityForResult(intent, REQUEST_RESULT );
                     }
                 }
