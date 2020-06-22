@@ -26,25 +26,57 @@ layout: false
 
 1. [Firebase](https://console.firebase.google.com/u/0/) にログインして、新規プロジェクトを作成します。
 2. 「プロジェクトの概要」の右側にある![設定アイコン](readme-image/settingIcon.png)をクリックして、「プロジェクトを設定」を選択します。
-3. 「全般」タブで下のマイアプリで「Android」プラットフォームを選択します。
+3. 「全般」タブで下のマイアプリで「Android」プラットフォームのアイコンを選択します。
 
 <center><img src="readme-image/Firebasesetting.png" alt="FirebaseSetting" width="700px"></center>
 
 ---
 ## 事前準備
-### google.service.jsonファイルの作成
-
-.left-column[
-4.アプリの登録を行います
+### google.service.jsonファイルの設定
+4.google-services.jsonを発行してアプリに登録
+* アプリケーション ID を [Android パッケージ名] フィールドに入力します。</br>
+例) com.nifcloud.AndroidAdvancePushApp
 
 <img src="readme-image/アプリ登録.png" alt="アプリ登録" width="250px">
-]
+---
+## 事前準備
+### google.service.jsonファイルの設定
 
-.right-column[
-5.設定ファイルをダウンロードします
+5.google-services.jsonを追加する</br>
+* [Download google-services.json] をクリックして、Firebase Android 構成ファイル（google-services.json）を取得します。
 
-<img src="readme-image/設定ファイルダウンロード.png" alt="設定ファイルダウンロード" width="300px">
-]
+<center><img src="readme-image/設定ファイルダウンロード.png" alt="設定ファイルダウンロード" width="200px"></center>
+
+* 構成ファイルをアプリのモジュール（アプリレベル）ディレクトリに移動します。
+
+---
+## 事前準備
+### google.service.jsonファイルの設定
+
+6.アプリで Firebase プロダクトを有効にするには、Gradle ファイルに google-services プラグインを追加します。
+
+* ルートレベル（プロジェクト レベル）の Gradle ファイル（build.gradle）に、Google サービス プラグインを含めるためのルールを追加します。
+
+```
+classpath 'com.google.gms:google-services:4.3.3'
+```
+
+* モジュール（アプリレベル）の Gradle ファイル（通常は app/build.gradle）で、ファイルの末尾に以下の行を追加します。
+
+```
+apply plugin: 'com.google.gms.google-services'
+```
+
+---
+## 事前準備
+### Firebaseの秘密鍵をmobile backendに設定
+
+* Firebaseのダッシュボードの左上付近の「Project OverView」という文章があります。その横に歯車ボタンがあり、そこにカーソルを合わせると文章が出てきます。その中の「プロジェクトの設定」をクリックします。(①)
+* クリックするとFirebaseのプロジェクトの設定画面が出てきます。その設定画面の上のメニューの中から「サービスアカウント」をクリックします。(②)
+* クリックすると以下のような画面が出てきます。この画面の中の「新しい秘密鍵の生成」をクリックして、出てくるモーダルの中の「キーを生成」をクリックします。(③)
+* そうするとFirebaseの秘密鍵がダウンロードできます。
+
+<center><img src="/readme-image/projectnumber.png" alt="projectnumber" width="700px"></center>
 
 ---
 ## 動作環境
@@ -699,17 +731,27 @@ lv.setAdapter(new ShopListAdapter(this, results));
 
 ```java
 //**************** 【mBaaS/File①: ショップ画像を取得】***************
-NCMBFile file = new NCMBFile(filename);
-file.fetchInBackground(new FetchFileCallback() {
-    @Override
-    public void done(byte[] data, NCMBException e) {
-        if (e != null) {
-            // 取得失敗時の処理
-        } else {
-            // 取得成功時の処理
+        try {
+            NCMBFile file = new NCMBFile(filename);
+            file.fetchInBackground(new FetchFileCallback() {
+                @Override
+                public void done(byte[] data, NCMBException e) {
+                    if (e != null) {
+                        // 取得失敗時の処理
+                        Log.d(TAG, e.getMessage());
+                    } else {
+                        // 取得成功時の処理
+                        Bitmap bmp = null;
+                        if (data != null) {
+                            bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        }
+                        holder.img.setImageBitmap(bmp);
+                    }
+                }
+            });
+        } catch (NCMBException e) {
+            e.printStackTrace();
         }
-    }
-});
 ```
 
 ---
@@ -752,23 +794,27 @@ holder.img.setImageBitmap(bmp);
 ```java
 
 //**************** 【mBaaS/File②: ショップ詳細画像を取得】***************
-NCMBFile file = new NCMBFile(shop_image);
-file.fetchInBackground(new FetchFileCallback() {
-    @Override
-    public void done(byte[] data, NCMBException e) {
-        if (e != null) {
-            //取得失敗時の処理
-            Log.d(TAG, e.getMessage());
-        } else {
-            //取得成功時の処理
-            Bitmap bmp = null;
-            if (data != null) {
-                bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+try {
+    NCMBFile file = new NCMBFile(shop_image);
+    file.fetchInBackground(new FetchFileCallback() {
+        @Override
+        public void done(byte[] data, NCMBException e) {
+            if (e != null) {
+                //取得失敗時の処理
+                Log.d(TAG, e.getMessage());
+            } else {
+                //取得成功時の処理
+                Bitmap bmp = null;
+                if (data != null) {
+                    bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                }
+                _shop_image.setImageBitmap(bmp);
             }
-            _shop_image.setImageBitmap(bmp);
         }
-    }
-});
+    });
+} catch (NCMBException e) {
+    e.printStackTrace();
+}
 ```
 
 ---
