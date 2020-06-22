@@ -1301,7 +1301,7 @@ layout: false
 NCMBPush.richPushHandler(this, getIntent());
 
 //リッチプッシュを再表示させたくない場合はintentからURLを削除します
-getIntent().removeExtra("com.nifcloud.RichUrl");
+getIntent().removeExtra("com.nifcloud.mbaas.RichUrl");
 ```
 
 ---
@@ -1359,7 +1359,7 @@ layout: false
 ### プッシュ通知⑦：アプリが起動中にプッシュ通知からデータを取得する
 
 * Androidの場合、受信する処理をカスタマイズするために、カスタムサービスを作成する必要があります
-* 今回、コード内にCustomGcmListenerServiceは作成済み
+* 今回、コード内にMyCustomFirebaseMessagingServiceは作成済み
   - 作成に関して、実装方法はこちらのドキュメントをご参考ください。
   - [プッシュ通知でJSONデータを取得する](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 
@@ -1367,7 +1367,7 @@ layout: false
 ## プッシュ通知を送信：ペイロード
 ### プッシュ通知⑦：アプリがプッシュ通知からデータを取得する
 
-* `CustomGcmListenerService.java`を開きます
+* `MyCustomFirebaseMessagingService.java`を開きます
 * `onMessageReceived()`メソッド外に次のメソッドを実装します
 
 ```java
@@ -1383,20 +1383,28 @@ layout: false
 ```java
 //**************** 【mBaaS：プッシュ通知⑦】アプリが起動中にプッシュ通知からデータを取得する***************
 //ペイロードデータの取得
-if (data.containsKey("com.nifcloud.Data")) {
-    try {
-        JSONObject json = new JSONObject(data.getString("com.nifcloud.Data"));
+if (remoteMessage != null && remoteMessage.getData() != null) {
+    //ペイロードデータの取得
+    Bundle data = new Bundle();
+    Map<String, String> d = remoteMessage.getData();
+    for (String key : d.keySet()) {
+        data.putString(key, d.get(key));
+    }
 
-        if (json.has("deliveryTime") && json.has("message")) {
-            Log.d(TAG,"ペイロードを取得しました！");
-            //ペイロード処理実装
+    if (data.containsKey("com.nifcloud.mbaas.Data")) {
+        try {
+            JSONObject json = new JSONObject(data.getString("com.nifcloud.mbaas.Data"));
 
+            if (json.has("deliveryTime") && json.has("message")) {
+                Log.d(TAG, "ペイロードを取得しました！");
+                //ペイロード処理実装
+
+            }
+        } catch (JSONException e) {
+            //エラー処理
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-
-    } catch (JSONException e) {
-        //エラー処理
-    } catch (ParseException e) {
-        e.printStackTrace();
     }
 }
 ```
