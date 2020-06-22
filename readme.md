@@ -18,17 +18,33 @@ layout: false
 
 ![mBaaS検索](readme-image/mBaaS検索.png)
 
-![mBaaS無料登録](readme-image/mBaaS無料登録.png)
+<img src="readme-image/mBaaS無料登録.png" alt="FirebaseSetting" width="600px">
+
 ---
 ## 事前準備
-### google.service.json作成
+### google.service.jsonファイルの作成
 
-1. "Firebase":https://console.firebase.google.com/u/0/にログインして、新規プロジェクトを作成します。
+1. [Firebase](https://console.firebase.google.com/u/0/) にログインして、新規プロジェクトを作成します。
 2. 「プロジェクトの概要」の右側にある![設定アイコン](readme-image/settingIcon.png)をクリックして、「プロジェクトを設定」を選択します。
 3. 「全般」タブで下のマイアプリで「Android」プラットフォームを選択します。
 
-![mBaaS無料登録](readme-image/Firebasesetting.png)(width:500px)
+<center><img src="readme-image/Firebasesetting.png" alt="FirebaseSetting" width="700px"></center>
 
+---
+## 事前準備
+### google.service.jsonファイルの作成
+
+.left-column[
+4.アプリの登録を行います
+
+<img src="readme-image/アプリ登録.png" alt="アプリ登録" width="250px">
+]
+
+.right-column[
+5.設定ファイルをダウンロードします
+
+<img src="readme-image/設定ファイルダウンロード.png" alt="設定ファイルダウンロード" width="300px">
+]
 
 ---
 ## 動作環境
@@ -224,9 +240,8 @@ layout: false
 
 * zipファイルを展開します。
 * AndroidStudioで先ほどダウンロードしたプロジェクトを開いてください。
-
 .center[
-![AndroidStudio 1](readme-image/android1.png)
+<center><img src="readme-image/android1.png" alt="Android1" width="500px"></center>
 ]
 
 ---
@@ -249,9 +264,7 @@ layout: false
 * AndroidStudioでプロジェクトのファイル構成を確認します。
   - 以下のように処理のファイルが入っていることをご確認ください。
 
-.center[
-![AndroidStudio 3](readme-image/android4.png)
-]
+<center><img src="readme-image/android4.png" alt="AndroidStudio 4" width="250px"></center>
 
 ---
 ## ハンズオンの準備
@@ -289,7 +302,7 @@ NCMB.initialize(this.getApplicationContext(),"YOUR_APPLICATION_KEY","YOUR_CLIENT
  * APIキーは、mBaaSのダッシュボードから「アプリ設定」→「基本」にあります
 
 .center[
-![mBaaSアプリキー設定](readme-image/apikey.png)
+    <img src="/readme-image/apikey.png" alt="mBaaSアプリキー設定" width="800px">
 ]
 
 ---
@@ -305,7 +318,9 @@ layout: false
 
 * 会員管理設定の「メールアドレス/パスワード認証」を許可します
 
-![mBaaS会員設定](readme-image/mBaaS会員設定.png)
+.center[
+    <img src="/readme-image/mBaaS会員設定.png" alt="mBaaS会員設定" width="800px">
+]
 
 ---
 ## 会員管理機能の作成
@@ -938,7 +953,7 @@ layout: false
 * FCM/GCMのプッシュ通知用APIキーを設定します
 
 .center[
-![mBaaSプッシュ通知設定](readme-image/mBaaSプッシュ通知設定.png)
+<img src="/readme-image/mBaaSプッシュ通知設定.png" alt="mBaaSプッシュ通知設定" width="780px">
 ]
 
 ---
@@ -984,10 +999,10 @@ installation.getRegistrationIdInBackground("SENDER_ID", new DoneCallback() {
 ## プッシュ通知の準備
 ### プッシュ通知①：端末を登録
 
-* 前のスライドのコードにある`SENDER_ID`の設定を行います。
+* Android端末へプッシュ通知を行うには、プッシュ通知設定ファイルを設定する必要があります。
 
 .center[
-![プロジェクト番号設定](readme-image/projectnumber.png)
+<img src="/readme-image/projectnumber.png" alt="プロジェクト番号設定" width="800px" height="300px">   
 ]
 
 ---
