@@ -18,65 +18,8 @@ layout: false
 
 ![mBaaS検索](readme-image/mBaaS検索.png)
 
-<img src="readme-image/mBaaS無料登録.png" alt="FirebaseSetting" width="600px">
+![mBaaS検索](readme-image/mBaaS無料登録.png)
 
----
-## 事前準備
-### google.service.jsonファイルの作成
-
-1. [Firebase](https://console.firebase.google.com/u/0/) にログインして、新規プロジェクトを作成します。
-2. 「プロジェクトの概要」の右側にある![設定アイコン](readme-image/settingIcon.png)をクリックして、「プロジェクトを設定」を選択します。
-3. 「全般」タブで下のマイアプリで「Android」プラットフォームのアイコンを選択します。
-
-<center><img src="readme-image/Firebasesetting.png" alt="FirebaseSetting" width="700px"></center>
-
----
-## 事前準備
-### google.service.jsonファイルの設定
-4.google-services.jsonを発行してアプリに登録
-* アプリケーション ID を [Android パッケージ名] フィールドに入力します。</br>
-例) com.nifcloud.AndroidAdvancePushApp
-
-<img src="readme-image/アプリ登録.png" alt="アプリ登録" width="250px">
----
-## 事前準備
-### google.service.jsonファイルの設定
-
-5.google-services.jsonを追加する</br>
-* [Download google-services.json] をクリックして、Firebase Android 構成ファイル（google-services.json）を取得します。
-
-<center><img src="readme-image/設定ファイルダウンロード.png" alt="設定ファイルダウンロード" width="200px"></center>
-
-* 構成ファイルをアプリのモジュール（アプリレベル）ディレクトリに移動します。
-
----
-## 事前準備
-### google.service.jsonファイルの設定
-
-6.アプリで Firebase プロダクトを有効にするには、Gradle ファイルに google-services プラグインを追加します。
-
-* ルートレベル（プロジェクト レベル）の Gradle ファイル（build.gradle）に、Google サービス プラグインを含めるためのルールを追加します。
-
-```
-classpath 'com.google.gms:google-services:4.3.3'
-```
-
-* モジュール（アプリレベル）の Gradle ファイル（通常は app/build.gradle）で、ファイルの末尾に以下の行を追加します。
-
-```
-apply plugin: 'com.google.gms.google-services'
-```
-
----
-## 事前準備
-### Firebaseの秘密鍵をmobile backendに設定
-
-* Firebaseのダッシュボードの左上付近の「Project OverView」という文章があります。その横に歯車ボタンがあり、そこにカーソルを合わせると文章が出てきます。その中の「プロジェクトの設定」をクリックします。(①)
-* クリックするとFirebaseのプロジェクトの設定画面が出てきます。その設定画面の上のメニューの中から「サービスアカウント」をクリックします。(②)
-* クリックすると以下のような画面が出てきます。この画面の中の「新しい秘密鍵の生成」をクリックして、出てくるモーダルの中の「キーを生成」をクリックします。(③)
-* そうするとFirebaseの秘密鍵がダウンロードできます。
-
-<center><img src="/readme-image/projectnumber.png" alt="projectnumber" width="700px"></center>
 
 ---
 ## 動作環境
@@ -266,14 +209,15 @@ layout: false
 ### プロジェクトをダウンロード
 
 下記リンクをクリックして、ZIPファイルでダウンロードしてください▼<br>
-.size_large[
+.size_medium[
 　　　 __[AndroidAdvancePush](https://github.com/NIFCLOUD-mbaas/AndroidAdvancePush/archive/handson.zip)__
 ]
 
 * zipファイルを展開します。
 * AndroidStudioで先ほどダウンロードしたプロジェクトを開いてください。
+
 .center[
-<center><img src="readme-image/android1.png" alt="Android1" width="500px"></center>
+![mBaaS検索](readme-image/android1.png)
 ]
 
 ---
@@ -296,7 +240,9 @@ layout: false
 * AndroidStudioでプロジェクトのファイル構成を確認します。
   - 以下のように処理のファイルが入っていることをご確認ください。
 
-<center><img src="readme-image/android4.png" alt="AndroidStudio 4" width="250px"></center>
+.center[
+![AndroidStudio 4](readme-image/android4.png)
+]
 
 ---
 ## ハンズオンの準備
@@ -334,7 +280,7 @@ NCMB.initialize(this.getApplicationContext(),"YOUR_APPLICATION_KEY","YOUR_CLIENT
  * APIキーは、mBaaSのダッシュボードから「アプリ設定」→「基本」にあります
 
 .center[
-    <img src="/readme-image/apikey.png" alt="mBaaSアプリキー設定" width="800px">
+![mBaaSアプリキー設定](readme-image/apikey.png)
 ]
 
 ---
@@ -351,8 +297,9 @@ layout: false
 * 会員管理設定の「メールアドレス/パスワード認証」を許可します
 
 .center[
-    <img src="/readme-image/mBaaS会員設定.png" alt="mBaaS会員設定" width="800px">
+![mBaaS会員設定](readme-image/mBaaS会員設定.png)
 ]
+
 
 ---
 ## 会員管理機能の作成
@@ -395,7 +342,7 @@ NCMBUser.requestAuthenticationMailInBackground(email, new DoneCallback() {
 ```java
 // 会員登録用メールの要求失敗時の処理
 new AlertDialog.Builder(SignupActivity.this)
-        .setTitle("Notification from Nifcloud")
+        .setTitle("Notification from NIFCLOUD")
         .setMessage("Send failed! Error:" + e.getMessage())
         .setPositiveButton("OK", null)
         .show();
@@ -404,7 +351,7 @@ new AlertDialog.Builder(SignupActivity.this)
 ```java
 // 会員登録用メールの要求成功時の処理
 new AlertDialog.Builder(SignupActivity.this)
-        .setTitle("Notification from Nifcloud")
+        .setTitle("Notification from NIFCLOUD")
         .setMessage("メール送信完了しました! メールをご確認ください。")
         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -457,7 +404,7 @@ NCMBUser.loginWithMailAddressInBackground(email, password, new LoginCallback() {
 ```java
 //ログインに失敗した場合の処理
 new AlertDialog.Builder(LoginActivity.this)
-        .setTitle("Notification from Nifcloud")
+        .setTitle("Notification from NIFCLOUD")
         .setMessage("Login failed! Error:" + e.getMessage())
         .setPositiveButton("OK", null)
         .show();
@@ -473,7 +420,7 @@ new AlertDialog.Builder(LoginActivity.this)
 //ログインに成功した場合の処理
 common.currentUser = NCMBUser.getCurrentUser();
 AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
-        .setTitle("Notification from Nifcloud")
+        .setTitle("Notification from NIFCLOUD")
         .setMessage("ログイン成功")
         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -599,7 +546,7 @@ common.currentUser.saveInBackground(new DoneCallback() {
 ```java
 // 更新失敗時の処理
 new AlertDialog.Builder(RegisterActivity.this)
-        .setTitle("Notification from Nifcloud")
+        .setTitle("Notification from NIFCLOUD")
         .setMessage("Save failed! Error:" + e.getMessage())
         .setPositiveButton("OK", null)
         .show();
@@ -897,7 +844,7 @@ common.currentUser.saveInBackground(new DoneCallback() {
         } else {
             //保存成功時の処理
             new AlertDialog.Builder(FavoriteActivity.this)
-                    .setTitle("Notification from Nifcloud")
+                    .setTitle("Notification from NIFCLOUD")
                     .setMessage("お気に入り保存成功しました!")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -988,69 +935,97 @@ layout: false
 * 以下の用意が必要です
  * デバッグ用のAndroid実機 (4.0~)
  * プッシュ通知設定ファイル(json)
-* FCMのプッシュ通知用APIキーがまだの場合は下記をご参照ください
+* プッシュ通知設定ファイル(json)がまだの場合は下記をご参照ください
  * [【サンプル】アプリにプッシュ通知を組み込もう！](https://github.com/NIFCLOUD-mbaas/android_push_demo#手順)
+
 
 ---
 ## プッシュ通知の準備
 ### mBaaSの設定
 
 * プッシュ通知の許可を行います
-* FCM/GCMのプッシュ通知用APIキーを設定します
+* プッシュ通知設定ファイル(json)を設定します
 
 .center[
-<img src="/readme-image/mBaaSプッシュ通知設定.png" alt="mBaaSプッシュ通知設定" width="780px">
+![mBaaSプッシュ通知設定](readme-image/mBaaSプッシュ通知設定.png)
 ]
 
 ---
 ## プッシュ通知の準備
-### プッシュ通知①：端末を登録
+### google.service.jsonファイルの作成
+1. [Firebase](https://console.firebase.google.com/u/0/) にログインして、新規プロジェクトを作成します。
+2. 「プロジェクトの概要」の右側にある![設定アイコン](readme-image/settingIcon.png)をクリックして、「プロジェクトを設定」を選択します。
+3. 「全般」タブで下のマイアプリで「Android」プラットフォームのアイコンを選択します。
 
-* `MainActivity.java`を開きます
-* `onCreate()`メソッド内のSDKの初期化を実装した部分の直ぐ下に処理を実装します
+.center[
+![FirebaseSetting](readme-image/Firebasesetting.png)
+]
+
+---
+
+## プッシュ通知の準備
+### google.service.jsonファイルの設定
+4.google-services.jsonを発行してアプリに登録
+* アプリケーション ID を [Android パッケージ名] フィールドに入力します。</br>
+例) com.nifcloud.AndroidAdvancePushApp
+
+.center[
+![アプリ登録](readme-image/RegisterApp.png)
+]
 
 ---
 ## プッシュ通知の準備
-### プッシュ通知①：端末を登録
+### google.service.jsonファイルの設定
 
-```java
-//**************** 【mBaaS/Push①: 端末を登録】***************
-//端末情報を扱うNCMBInstallationのインスタンスを作成する
-final NCMBInstallation installation = NCMBInstallation.getCurrentInstallation();
-//FCMからRegistrationIdを取得しinstallationに設定する
-installation.getRegistrationIdInBackground("SENDER_ID", new DoneCallback() {
-    @Override
-    public void done(NCMBException e) {
-        if (e == null) {
-            installation.saveInBackground(new DoneCallback() {
-                @Override
-                public void done(NCMBException e) {
-                    if(e == null){
-                        Log.d(TAG, "端末情報を保存成功しました。");
-                    }else if(NCMBException.DUPLICATE_VALUE.equals(e.getCode())){
-                        //保存失敗 : registrationID重複
-                        updateInstallation(installation);
-                    }else {
-                        Log.d(TAG, "端末情報を保存失敗しました。");
-                    }
-                }
-            });
-        } else {
-        }
-    }
-});
+5.google-services.jsonを追加する</br>
+* 「Download google-services.json」 をクリックして、Firebase Android 構成ファイル（google-services.json）を取得します。
+* 構成ファイルをアプリのモジュール（アプリレベル）ディレクトリに移動します。
+
+.center[
+![設定ファイルダウンロード](readme-image/DownloadFile.png)
+]
+
+---
+## プッシュ通知の準備
+### google.service.jsonファイルの設定
+
+6.アプリで Firebase プロダクトを有効にするには、Gradle ファイルに google-services プラグインを追加します。
+
+* ルートレベル（プロジェクト レベル）の Gradle ファイル（build.gradle）に、Google サービス プラグインを含めるためのルールを追加します。
+
+```
+classpath 'com.google.gms:google-services:4.3.3'
+```
+
+* モジュール（アプリレベル）の Gradle ファイル（通常は app/build.gradle）で、ファイルの末尾に以下の行を追加します。
+
+```
+apply plugin: 'com.google.gms.google-services'
 ```
 
 ---
 ## プッシュ通知の準備
-### プッシュ通知①：端末を登録
+### Firebaseの秘密鍵をmobile backendに設定
 
-* Android端末へプッシュ通知を行うには、プッシュ通知設定ファイルを設定する必要があります。
+* Firebaseのダッシュボードの左上付近の「Project OverView」という文章があります。その横に歯車ボタンがあり、そこにカーソルを合わせると文章が出てきます。その中の「プロジェクトの設定」をクリックします。
+
+* クリックするとFirebaseのプロジェクトの設定画面が出てきます。その設定画面の上のメニューの中から「サービスアカウント」をクリックします。
+---
+## プッシュ通知の準備
+### Firebaseの秘密鍵をmobile backendに設定
+
+* クリックすると以下のような画面が出てきます。この画面の中の「新しい秘密鍵の生成」をクリックして、出てくるモーダルの中の「キーを生成」をクリックします。
+* そうするとFirebaseの秘密鍵がダウンロードできます。
 
 .center[
-<img src="/readme-image/projectnumber.png" alt="プロジェクト番号設定" width="800px" height="300px">   
+![projectnumber](readme-image/projectnumber.png)
 ]
 
+---
+## プッシュ通知の準備
+### プッシュ通知①：端末を登録
+
+* 端末を登録処理はSDK初期化時に行われますので、追加実装不要
 ---
 layout: true
 class: center, middle, inverse
