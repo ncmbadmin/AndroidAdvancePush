@@ -1465,7 +1465,7 @@ long triggerlMilli = formatDate.getTime();
 //Local notification trigger
 AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+Intent notificationIntent = new Intent(this, AlarmReceiver.class);
 notificationIntent.addCategory("android.intent.category.DEFAULT");
 notificationIntent.putExtra("message", message);
 
