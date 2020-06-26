@@ -2,23 +2,29 @@ name: inverse
 layout: true
 class: center, middle, inverse
 ---
-# <span style="font-size: 30%">【Android編】ニフティクラウドmobile backend レベルアップセミナー</span><br>__クーポン配信アプリ<br>を作ろう！__</span>
+# <span style="font-size: 30%">【Android編】ニフクラmobile backend レベルアップセミナー</span><br>__クーポン配信アプリ<br>を作ろう！__</span>
 
 @ncmbadmin
 
 .footnote[
-20160817作成
+20160817作成(202006 更新)
 ]
 ---
 layout: false
 ## 事前準備
-ニフティクラウドmobile backendのアカウント登録がお済みでない方は、<br>
-[ホームページ](http://mb.cloud.nifty.com/about.htm)右上にある「無料登録」ボタンをクリックして、<br>
+ニフクラmobile backendのアカウント登録がお済みでない方は、<br>
+[ホームページ](https://mbaas.nifcloud.com/about.htm)右上にある「無料登録」ボタンをクリックして、<br>
 アカウント登録を実施してください
 
 ![mBaaS検索](readme-image/mBaaS検索.png)
 
-![mBaaS無料登録](readme-image/mBaaS無料登録.png)
+![mBaaS検索](readme-image/mBaaS無料登録.png)
+
+
+---
+## 動作環境
+* Android Studio ver3.6.1
+* Android OS ver.9
 
 ---
 ## 今回のハンズオンセミナーについて
@@ -72,7 +78,7 @@ layout: false
 ]
 
 ---
-## ニフティクラウド mobile backendとは
+## ニフクラ mobile backendとは
 ### サービス紹介
 
 * スマホアプリで汎用的に実装される機能を、クラウドサービスとして提供しているサービスです
@@ -83,24 +89,24 @@ layout: false
 ]
 
 ---
-## ニフティクラウド mobile backendとは
+## ニフクラ mobile backendとは
 ### Android SDKの特徴
 
 * SDKのインストールが必要です
  * 今回は実装済み
- * 参考：[クイックスタート](http://mb.cloud.nifty.com/doc/current/introduction/quickstart_android.html)
+ * 参考：[クイックスタート](https://mbaas.nifcloud.com/doc/current/introduction/quickstart_android.html)
 * SDKの初期化処理が必要です
  * 後で処理を実装します
 
 ```java
-NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
+NCMB.initialize(this.getApplicationContext(),"YOUR_APPLICATION_KEY","YOUR_YOUR_CLIENT_KEY");
 ```
 
 ---
-## ニフティクラウド mobile backendとは
+## ニフクラ mobile backendとは
 ### Android SDKの特徴
 
-* サーバへリクエスト処理には、__同期処理__と__非同期処理__があります
+* サーバへリクエスト処理には、__同期処理__ と __非同期処理__ があります
 
 ```java
 
@@ -114,10 +120,10 @@ obj.save();
 ```
 
 ---
-## ニフティクラウド mobile backendとは
+## ニフクラ mobile backendとは
 ### Android SDKの特徴
 
-* サーバへリクエスト処理には、__同期処理__と__非同期処理__があります
+* サーバへリクエスト処理には、__同期処理__ と __非同期処理__ があります
 
 ```java
 /* 非同期処理 */
@@ -203,15 +209,15 @@ layout: false
 ### プロジェクトをダウンロード
 
 下記リンクをクリックして、ZIPファイルでダウンロードしてください▼<br>
-.size_large[
-　　　 __[AndroidAdvancePush](https://github.com/ncmbadmin/AndroidAdvancePush/archive/handson.zip)__
+.size_medium[
+　　　 __[AndroidAdvancePush](https://github.com/NIFCLOUD-mbaas/AndroidAdvancePush/archive/handson.zip)__
 ]
 
 * zipファイルを展開します。
 * AndroidStudioで先ほどダウンロードしたプロジェクトを開いてください。
 
 .center[
-![AndroidStudio 1](readme-image/android1.png)
+![mBaaS検索](readme-image/android1.png)
 ]
 
 ---
@@ -235,14 +241,14 @@ layout: false
   - 以下のように処理のファイルが入っていることをご確認ください。
 
 .center[
-![AndroidStudio 3](readme-image/android4.png)
+![AndroidStudio 4](readme-image/android4.png)
 ]
 
 ---
 ## ハンズオンの準備
 ### プロジェクトにあらかじめ実施していること
 
-* mBaaS Android SDK v.2.2.3のインストール, build.graddleの設定, AndroidManifestの設定は実装済み
+* mBaaS Android SDK v.3.0.4のインストール, build.graddleの設定, AndroidManifestの設定は実装済み
 * mBaaSとの連携以外の処理のコーディング
  * アプリのデザインを`layoutフォルダー内ファイル`で作成し、処理は画面ごと`Activityのファイル`にコーディングしています
 
@@ -250,7 +256,7 @@ layout: false
 ## ハンズオンの準備
 ### mBaaSの準備
 
-* [mBaaS](http://mb.cloud.nifty.com)にログインしてアプリを作成します
+* [mBaaS](https://mbaas.nifcloud.com)にログインしてアプリを作成します
 
 ![mBaaSアプリ作成](readme-image/mBaaSアプリ作成.png)
 
@@ -263,14 +269,14 @@ layout: false
 
 ```java
 //**************** 【mBaaS/Initialization: APIキーを指定する】***************
-NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
+NCMB.initialize(this.getApplicationContext(),"YOUR_APPLICATION_KEY","YOUR_CLIENT_KEY");
 ```
 
 ---
 ## ハンズオンの準備
 ### APIキーの設定とSDKの初期化
 
-* 初期化処理の「`APP_KEY`」，「`CLIENT_KEY`」の部分をアプリ作成時に発行されたAPIキーに書き換えてください
+* 初期化処理の「`YOUR_APPLICATION_KEY`」，「`YOUR_CLIENT_KEY`」の部分をアプリ作成時に発行されたAPIキーに書き換えてください
  * APIキーは、mBaaSのダッシュボードから「アプリ設定」→「基本」にあります
 
 .center[
@@ -290,7 +296,10 @@ layout: false
 
 * 会員管理設定の「メールアドレス/パスワード認証」を許可します
 
+.center[
 ![mBaaS会員設定](readme-image/mBaaS会員設定.png)
+]
+
 
 ---
 ## 会員管理機能の作成
@@ -333,7 +342,7 @@ NCMBUser.requestAuthenticationMailInBackground(email, new DoneCallback() {
 ```java
 // 会員登録用メールの要求失敗時の処理
 new AlertDialog.Builder(SignupActivity.this)
-        .setTitle("Notification from Nifty")
+        .setTitle("Notification from NIFCLOUD")
         .setMessage("Send failed! Error:" + e.getMessage())
         .setPositiveButton("OK", null)
         .show();
@@ -342,7 +351,7 @@ new AlertDialog.Builder(SignupActivity.this)
 ```java
 // 会員登録用メールの要求成功時の処理
 new AlertDialog.Builder(SignupActivity.this)
-        .setTitle("Notification from Nifty")
+        .setTitle("Notification from NIFCLOUD")
         .setMessage("メール送信完了しました! メールをご確認ください。")
         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -395,7 +404,7 @@ NCMBUser.loginWithMailAddressInBackground(email, password, new LoginCallback() {
 ```java
 //ログインに失敗した場合の処理
 new AlertDialog.Builder(LoginActivity.this)
-        .setTitle("Notification from Nifty")
+        .setTitle("Notification from NIFCLOUD")
         .setMessage("Login failed! Error:" + e.getMessage())
         .setPositiveButton("OK", null)
         .show();
@@ -411,7 +420,7 @@ new AlertDialog.Builder(LoginActivity.this)
 //ログインに成功した場合の処理
 common.currentUser = NCMBUser.getCurrentUser();
 AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
-        .setTitle("Notification from Nifty")
+        .setTitle("Notification from NIFCLOUD")
         .setMessage("ログイン成功")
         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -440,7 +449,7 @@ AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
 * 会員登録画面でメールアドレスを入力し「登録メールを送信」をタップします
  * メッセージを確認してください
  * エラーが発生したらここを見てください。
- [エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+ [エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 
 ---
 ## 会員管理機能の作成
@@ -473,7 +482,7 @@ AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
 ![動作確認①会員登録完了](readme-image/動作確認①会員登録完了.png)
 ]
 .footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+[エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
 
 ---
@@ -537,7 +546,7 @@ common.currentUser.saveInBackground(new DoneCallback() {
 ```java
 // 更新失敗時の処理
 new AlertDialog.Builder(RegisterActivity.this)
-        .setTitle("Notification from Nifty")
+        .setTitle("Notification from NIFCLOUD")
         .setMessage("Save failed! Error:" + e.getMessage())
         .setPositiveButton("OK", null)
         .show();
@@ -546,7 +555,7 @@ new AlertDialog.Builder(RegisterActivity.this)
 ```java
 // 更新成功時の処理
 new AlertDialog.Builder(RegisterActivity.this)
-       .setTitle("Notification from Nifty")
+       .setTitle("Notification from NIFCLOUD")
        .setMessage("保存成功しました! 入力ありがとうございます")
        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
            public void onClick(DialogInterface dialog, int which) {
@@ -568,7 +577,7 @@ layout: false
 ## Shop情報の設定
 ### mBaaSにShop情報を用意する（データストア）
 
-* ニフティクラウド mobile backendのダッシュボードから「データストア」を開き、「＋作成▼」ボタンをクリックし、「インポート」をクリックします
+* ニフクラ mobile backendのダッシュボードから「データストア」を開き、「＋作成▼」ボタンをクリックし、「インポート」をクリックします
 * クラス名に「__Shop__」と入力します
 * ダウンロードしたサンプルプロジェクトにあるSettingフォルダ内の「__Shop.json__」を選択してアップロードします
 
@@ -590,7 +599,7 @@ layout: false
 ## Shop情報の設定
 ### mBaaSにShop情報を用意する（ファイルストア）
 
-* ニフティクラウド mobile backendのダッシュボードから「ファイルストア」を開き、「↑アップロード」ボタンをクリックします
+* ニフクラ mobile backendのダッシュボードから「ファイルストア」を開き、「↑アップロード」ボタンをクリックします
 * ダウンロードしたサンプルプロジェクトにあるSettingフォルダ内の「icon」「Shop」「Sale」内にあるファイルをすべてをアップロードします
 
 .center[
@@ -669,17 +678,27 @@ lv.setAdapter(new ShopListAdapter(this, results));
 
 ```java
 //**************** 【mBaaS/File①: ショップ画像を取得】***************
-NCMBFile file = new NCMBFile(filename);
-file.fetchInBackground(new FetchFileCallback() {
-    @Override
-    public void done(byte[] data, NCMBException e) {
-        if (e != null) {
-            // 取得失敗時の処理
-        } else {
-            // 取得成功時の処理
+        try {
+            NCMBFile file = new NCMBFile(filename);
+            file.fetchInBackground(new FetchFileCallback() {
+                @Override
+                public void done(byte[] data, NCMBException e) {
+                    if (e != null) {
+                        // 取得失敗時の処理
+                        Log.d(TAG, e.getMessage());
+                    } else {
+                        // 取得成功時の処理
+                        Bitmap bmp = null;
+                        if (data != null) {
+                            bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        }
+                        holder.img.setImageBitmap(bmp);
+                    }
+                }
+            });
+        } catch (NCMBException e) {
+            e.printStackTrace();
         }
-    }
-});
 ```
 
 ---
@@ -722,23 +741,27 @@ holder.img.setImageBitmap(bmp);
 ```java
 
 //**************** 【mBaaS/File②: ショップ詳細画像を取得】***************
-NCMBFile file = new NCMBFile(shop_image);
-file.fetchInBackground(new FetchFileCallback() {
-    @Override
-    public void done(byte[] data, NCMBException e) {
-        if (e != null) {
-            //取得失敗時の処理
-            Log.d(TAG, e.getMessage());
-        } else {
-            //取得成功時の処理
-            Bitmap bmp = null;
-            if (data != null) {
-                bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+try {
+    NCMBFile file = new NCMBFile(shop_image);
+    file.fetchInBackground(new FetchFileCallback() {
+        @Override
+        public void done(byte[] data, NCMBException e) {
+            if (e != null) {
+                //取得失敗時の処理
+                Log.d(TAG, e.getMessage());
+            } else {
+                //取得成功時の処理
+                Bitmap bmp = null;
+                if (data != null) {
+                    bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                }
+                _shop_image.setImageBitmap(bmp);
             }
-            _shop_image.setImageBitmap(bmp);
         }
-    }
-});
+    });
+} catch (NCMBException e) {
+    e.printStackTrace();
+}
 ```
 
 ---
@@ -755,7 +778,7 @@ file.fetchInBackground(new FetchFileCallback() {
 ![動作確認②ユーザー情報追加](readme-image/動作確認②ユーザー情報追加.png)
 ]
 .footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+[エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
 
 ---
@@ -772,7 +795,7 @@ file.fetchInBackground(new FetchFileCallback() {
 ![動作確認②](readme-image/動作確認②.png)
 ]
 .footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+[エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
 
 ---
@@ -821,7 +844,7 @@ common.currentUser.saveInBackground(new DoneCallback() {
         } else {
             //保存成功時の処理
             new AlertDialog.Builder(FavoriteActivity.this)
-                    .setTitle("Notification from Nifty")
+                    .setTitle("Notification from NIFCLOUD")
                     .setMessage("お気に入り保存成功しました!")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -885,7 +908,7 @@ common.currentUser.saveInBackground(new DoneCallback() {
 ]
 
 .footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+[エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
 
 ---
@@ -911,17 +934,17 @@ layout: false
 
 * 以下の用意が必要です
  * デバッグ用のAndroid実機 (4.0~)
- * FCMのプッシュ通知用APIキー
-* FCMのプッシュ通知用APIキーがまだの場合は下記をご参照ください
- * [【サンプル】アプリにプッシュ通知を組み込もう！](https://github.com/NIFTYCloud-mbaas/android_push_demo#%E6%89%8B%E9%A0%86)
-*  FCMはGCM(Google Cloud Messaging)の新バージョンです。既にGCMにてプロジェクトの作成・GCMの有効化設定を終えている場合は、継続してご利用いただくことが可能です。
+ * プッシュ通知設定ファイル(json)
+* プッシュ通知設定ファイル(json)がまだの場合は下記をご参照ください
+ * [【サンプル】アプリにプッシュ通知を組み込もう！](https://github.com/NIFCLOUD-mbaas/android_push_demo#手順)
+
 
 ---
 ## プッシュ通知の準備
 ### mBaaSの設定
 
 * プッシュ通知の許可を行います
-* FCM/GCMのプッシュ通知用APIキーを設定します
+* プッシュ通知設定ファイル(json)を設定します
 
 .center[
 ![mBaaSプッシュ通知設定](readme-image/mBaaSプッシュ通知設定.png)
@@ -929,58 +952,80 @@ layout: false
 
 ---
 ## プッシュ通知の準備
-### プッシュ通知①：端末を登録
-
-* `MainActivity.java`を開きます
-* `onCreate()`メソッド内のSDKの初期化を実装した部分の直ぐ下に処理を実装します
-
-```java
-//**************** 【mBaaS/Push①: 端末を登録】***************
-
-```
-
----
-## プッシュ通知の準備
-### プッシュ通知①：端末を登録
-
-```java
-//**************** 【mBaaS/Push①: 端末を登録】***************
-//端末情報を扱うNCMBInstallationのインスタンスを作成する
-final NCMBInstallation installation = NCMBInstallation.getCurrentInstallation();
-//FCMからRegistrationIdを取得しinstallationに設定する
-installation.getRegistrationIdInBackground("SENDER_ID", new DoneCallback() {
-    @Override
-    public void done(NCMBException e) {
-        if (e == null) {
-            installation.saveInBackground(new DoneCallback() {
-                @Override
-                public void done(NCMBException e) {
-                    if(e == null){
-                        Log.d(TAG, "端末情報を保存成功しました。");
-                    }else if(NCMBException.DUPLICATE_VALUE.equals(e.getCode())){
-                        //保存失敗 : registrationID重複
-                        updateInstallation(installation);
-                    }else {
-                        Log.d(TAG, "端末情報を保存失敗しました。");
-                    }
-                }
-            });
-        } else {
-        }
-    }
-});
-```
-
----
-## プッシュ通知の準備
-### プッシュ通知①：端末を登録
-
-* 前のスライドのコードにある`SENDER_ID`の設定を行います。
+### google.service.jsonファイルの作成
+1. [Firebase](https://console.firebase.google.com/u/0/) にログインして、新規プロジェクトを作成します。
+2. 「プロジェクトの概要」の右側にある![設定アイコン](readme-image/settingIcon.png)をクリックして、「プロジェクトを設定」を選択します。
+3. 「全般」タブで下のマイアプリで「Android」プラットフォームのアイコンを選択します。
 
 .center[
-![プロジェクト番号設定](readme-image/projectnumber.png)
+![FirebaseSetting](readme-image/Firebasesetting.png)
 ]
 
+---
+
+## プッシュ通知の準備
+### google.service.jsonファイルの設定
+4.google-services.jsonを発行してアプリに登録
+* アプリケーション ID を [Android パッケージ名] フィールドに入力します。</br>
+例) com.nifcloud.AndroidAdvancePushApp
+
+.center[
+![アプリ登録](readme-image/RegisterApp.png)
+]
+
+---
+## プッシュ通知の準備
+### google.service.jsonファイルの設定
+
+5.google-services.jsonを追加する</br>
+* 「Download google-services.json」 をクリックして、Firebase Android 構成ファイル（google-services.json）を取得します。
+* 構成ファイルをアプリのモジュール（アプリレベル）ディレクトリに移動します。
+
+.center[
+![設定ファイルダウンロード](readme-image/DownloadFile.png)
+]
+
+---
+## プッシュ通知の準備
+### google.service.jsonファイルの設定
+
+6.アプリで Firebase プロダクトを有効にするには、Gradle ファイルに google-services プラグインを追加します。
+
+* ルートレベル（プロジェクト レベル）の Gradle ファイル（build.gradle）に、Google サービス プラグインを含めるためのルールを追加します。
+
+```
+classpath 'com.google.gms:google-services:4.3.3'
+```
+
+* モジュール（アプリレベル）の Gradle ファイル（通常は app/build.gradle）で、ファイルの末尾に以下の行を追加します。
+
+```
+apply plugin: 'com.google.gms.google-services'
+```
+
+---
+## プッシュ通知の準備
+### Firebaseの秘密鍵をmobile backendに設定
+
+* Firebaseのダッシュボードの左上付近の「Project OverView」という文章があります。その横に歯車ボタンがあり、そこにカーソルを合わせると文章が出てきます。その中の「プロジェクトの設定」をクリックします。
+
+* クリックするとFirebaseのプロジェクトの設定画面が出てきます。その設定画面の上のメニューの中から「サービスアカウント」をクリックします。
+---
+## プッシュ通知の準備
+### Firebaseの秘密鍵をmobile backendに設定
+
+* クリックすると以下のような画面が出てきます。この画面の中の「新しい秘密鍵の生成」をクリックして、出てくるモーダルの中の「キーを生成」をクリックします。
+* そうするとFirebaseの秘密鍵がダウンロードできます。
+
+.center[
+![projectnumber](readme-image/projectnumber.png)
+]
+
+---
+## プッシュ通知の準備
+### プッシュ通知①：端末を登録
+
+* 端末を登録処理はSDK初期化時に行われますので、追加実装不要
 ---
 layout: true
 class: center, middle, inverse
@@ -1124,7 +1169,7 @@ currInstallation.saveInBackground(new DoneCallback() {
 ]
 
 .footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+[エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
 
 ---
@@ -1139,14 +1184,14 @@ currInstallation.saveInBackground(new DoneCallback() {
 ![動作確認④installation追加](readme-image/動作確認④installation追加.png)
 ]
 .footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+[エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
 
 ---
 ## プッシュ通知を送信：セグメント配信
 ### 動作確認(4)セグメント配信
 
-__shopB__をお気に入り登録しているユーザーに絞り込んでプッシュ通知を配信してみましょう！
+__shopB__ をお気に入り登録しているユーザーに絞り込んでプッシュ通知を配信してみましょう！
 
 * あらかじめshopBをお気に入りに設定しておきます(アプリ側)
 * mBaaSのダッシュボードからShopクラスのデータを開き、shopBの「objectId」をコピーします
@@ -1292,7 +1337,7 @@ layout: false
 NCMBPush.richPushHandler(this, getIntent());
 
 //リッチプッシュを再表示させたくない場合はintentからURLを削除します
-getIntent().removeExtra("com.nifty.RichUrl");
+getIntent().removeExtra("com.nifcloud.mbaas.RichUrl");
 ```
 
 ---
@@ -1350,15 +1395,15 @@ layout: false
 ### プッシュ通知⑦：アプリが起動中にプッシュ通知からデータを取得する
 
 * Androidの場合、受信する処理をカスタマイズするために、カスタムサービスを作成する必要があります
-* 今回、コード内にCustomGcmListenerServiceは作成済み
+* 今回、コード内にMyCustomFirebaseMessagingServiceは作成済み
   - 作成に関して、実装方法はこちらのドキュメントをご参考ください。
-  - [プッシュ通知でJSONデータを取得する](http://mb.cloud.nifty.com/doc/current/push/basic_usage_android.html#%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5%E9%80%9A%E7%9F%A5%E3%81%A7JSON%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B)
+  - [プッシュ通知でJSONデータを取得する](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 
 ---
 ## プッシュ通知を送信：ペイロード
 ### プッシュ通知⑦：アプリがプッシュ通知からデータを取得する
 
-* `CustomGcmListenerService.java`を開きます
+* `MyCustomFirebaseMessagingService.java`を開きます
 * `onMessageReceived()`メソッド外に次のメソッドを実装します
 
 ```java
@@ -1374,20 +1419,28 @@ layout: false
 ```java
 //**************** 【mBaaS：プッシュ通知⑦】アプリが起動中にプッシュ通知からデータを取得する***************
 //ペイロードデータの取得
-if (data.containsKey("com.nifty.Data")) {
-    try {
-        JSONObject json = new JSONObject(data.getString("com.nifty.Data"));
+if (remoteMessage != null && remoteMessage.getData() != null) {
+    //ペイロードデータの取得
+    Bundle data = new Bundle();
+    Map<String, String> d = remoteMessage.getData();
+    for (String key : d.keySet()) {
+        data.putString(key, d.get(key));
+    }
 
-        if (json.has("deliveryTime") && json.has("message")) {
-            Log.d(TAG,"ペイロードを取得しました！");
-            //ペイロード処理実装
+    if (data.containsKey("com.nifcloud.mbaas.Data")) {
+        try {
+            JSONObject json = new JSONObject(data.getString("com.nifcloud.mbaas.Data"));
 
+            if (json.has("deliveryTime") && json.has("message")) {
+                Log.d(TAG, "ペイロードを取得しました！");
+                //ペイロード処理実装
+
+            }
+        } catch (JSONException e) {
+            //エラー処理
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-
-    } catch (JSONException e) {
-        //エラー処理
-    } catch (ParseException e) {
-        e.printStackTrace();
     }
 }
 ```
@@ -1439,7 +1492,7 @@ alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerlMilli , broadcast);
 ### 動作確認(6)ペイロード（アプリ起動時）
 
 * プッシュ通知に設定するJSON形式のデータを作成します
- * JSONデータに設定する時間は、今から__５分以上未来の時間__に変更してください
+ * JSONデータに設定する時間は、今から __５分以上未来の時間__ に変更してください
  * JSONデータに設定するメッセージは、自由に変更してください
  ```text
  {"deliveryTime":"2016-09-29 17:00:00", "message":"タイムセールスタート！"}
@@ -1472,7 +1525,7 @@ alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerlMilli , broadcast);
 * 指定時間にプッシュ通知が表示されることを確認してください
 
 .footnote[
-[エラーコード一覧](http://mb.cloud.nifty.com/doc/current/rest/common/error.html#REST%20API%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
+[エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
 ---
 ## プッシュ通知を送信：ペイロード
@@ -1532,10 +1585,10 @@ layout: false
 ---
 ## 参考
 
-* 開催中の[セミナー](https://ncmb.doorkeeper.jp/)のご案内
+* 開催中の[セミナー](https://ncmb.connpass.com/)のご案内
  * 随時新しいセミナーを実施していきますのでぜひチェックしてください！
 * ハンズオン内容が実装された完全版プロジェクト
- * __[AndroidAdvancePush【完成版】](https://github.com/ncmbadmin/AndroidAdvancePush/archive/master.zip)__
-* コードは[GitHub](https://github.com/ncmbadmin/AndroidAdvancePush)に公開しています
+ * __[AndroidAdvancePush【完成版】](https://github.com/NIFCLOUD-mbaas/AndroidAdvancePush/archive/master.zip)__
+* コードは[GitHub](https://github.com/NIFCLOUD-mbaas/AndroidAdvancePush)に公開しています
  * __master__：完成版
  * __handson__：セミナー版
