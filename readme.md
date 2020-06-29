@@ -302,8 +302,89 @@ layout: false
 ### プロジェクトにあらかじめ実施していること
 
 * mBaaS Android SDK v.3.0.4のインストール, build.graddleの設定, AndroidManifestの設定は実装済み
+* build.gradle
+```
+buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath 'com.google.gms:google-services:4.3.3'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
+    }
+}
+```
+
+---
+## ハンズオンの準備
+### プロジェクトにあらかじめ実施していること
+
+
+* app/build.gradle
+```
+repositories {
+    maven {
+        url 'https://maven.google.com'
+    }
+}
+```
+
+```
+dependencies {
+    implementation 'com.google.code.gson:gson:2.3.1'
+    <<省略>>
+    api files('libs/NCMB.jar')
+}
+```
+
+---
+## ハンズオンの準備
+### プロジェクトにあらかじめ実施していること
+
+* AndroidManifest.xml
+
+```
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+<<省略>>
+
+<activity
+    android:name=".MainActivity"
+    android:label="@string/app_name"
+    android:theme="@style/AppTheme.NoActionBar" >
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+</activity>
+<activity android:name=".LoginActivity" />
+<activity android:name=".SignupActivity" />
+<activity android:name=".RegisterActivity" />
+<activity android:name=".ShopActivity" />
+<activity android:name=".FavoriteActivity" />
+<activity android:name=".InfoActivity" />
+
+```
+
+---
+## ハンズオンの準備
+### プロジェクトにあらかじめ実施していること
+
 * mBaaSとの連携以外の処理のコーディング
  * アプリのデザインを`layoutフォルダー内ファイル`で作成し、処理は画面ごと`Activityのファイル`にコーディングしています
+
+.center[
+![AndroidStudio 4](readme-image/android4.png)
+]
 
 ---
 ## ハンズオンの準備
