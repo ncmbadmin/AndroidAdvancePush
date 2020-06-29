@@ -56,6 +56,8 @@ https://mbaas.nifcloud.com/en/
 - 講義形式で説明と演習を繰り返してアプリを作成します
 - 途中で動作確認タイムと休憩タイムで全体進捗を確認します
 - 質疑応答は随時行います
+- 事前にお詫びですが、資料などなるべく翻訳を行っていますが、アプリ画面や管理画面や機能は日本語のままになっているところがあります。
+随時その場で翻訳を対応します、よろしくお願いします。
 
 ---
 ## ハンズオンの概要
@@ -391,6 +393,9 @@ dependencies {
 ### mBaaSの準備
 
 * [mBaaS](https://mbaas.nifcloud.com)にログインしてアプリを作成します
+* アプリの作成画面ではアプリ名を入力し、「新規作成」とクリックします
+* アプリが正常に作成されましたら、新アプリの「アプリケーションキー」と「クライアントキー」（APIキー）を表示されます。
+後ほど使いますので、コピーペーストでメモを取ってください。
 
 ![mBaaSアプリ作成](readme-image/mBaaSアプリ作成.png)
 
@@ -399,7 +404,7 @@ dependencies {
 ### APIキーの設定とSDKの初期化
 
 * `MainActivity.java`を開きます
-* `onCreate()`メソッド内に処理を実装します[一部実装済み]
+* `onCreate()`メソッド内に以下の処理をコメントの下に追記します[ライブラリインポート処理は実装済み]
 
 ```java
 //**************** 【mBaaS/Initialization: APIキーを指定する】***************
@@ -410,8 +415,8 @@ NCMB.initialize(this.getApplicationContext(),"YOUR_APPLICATION_KEY","YOUR_CLIENT
 ## ハンズオンの準備
 ### APIキーの設定とSDKの初期化
 
-* 初期化処理の「`YOUR_APPLICATION_KEY`」，「`YOUR_CLIENT_KEY`」の部分をアプリ作成時に発行されたAPIキーに書き換えてください
- * APIキーは、mBaaSのダッシュボードから「アプリ設定」→「基本」にあります
+* 初期化処理の「`YOUR_APPLICATION_KEY`」，「`YOUR_CLIENT_KEY`」の部分をアプリ作成時に発行されたAPIキーに書き換えてください。
+ * 先ほどメモされていない方は、APIキーを再度確認するには、mBaaSのダッシュボードから「アプリ設定」→「基本」にありますので、そちらで確認することが可能です。
 
 .center[
 ![mBaaSアプリキー設定](readme-image/apikey.png)
@@ -428,7 +433,9 @@ layout: false
 ## 会員管理機能の作成
 ### mBaaSの設定
 
-* 会員管理設定の「メールアドレス/パスワード認証」を許可します
+* mBaaSでは、「ユーザ名/パスワード認証」、「メールアドレス/パスワード認証」など会員管理機能として、利用可能ですが、
+今回のハンズオンでは「メールアドレス/パスワード認証」機能を利用します。
+* 会員管理設定の「メールアドレス/パスワード認証」を許可します。
 
 .center[
 ![mBaaS会員設定](readme-image/mBaaS会員設定.png)
@@ -438,7 +445,7 @@ layout: false
 ---
 ## 会員管理機能の作成
 
-### 会員管理①：会員登録用メールを要求する[実装済み]
+### 会員管理①：会員登録用メールを要求する
 
 .center[
 ![SignUpViewController](readme-image/SignUpViewController.png)
@@ -446,11 +453,11 @@ layout: false
 
 ---
 ## 会員管理機能の作成
-### 会員管理①：会員登録用メールを要求する[実装済み]
+### 会員管理①：会員登録用メールを要求する
 
 * `SignupActivity.java`を開きます
 * `doSignupByEmail()`メソッドを開きます
-* 会員登録処理は以下のように実装されます
+* 会員登録処理は以下のように実装コードを追記してください
 
 ```java
 //**************** 【mBaaS/User①】: 会員登録用メールを要求する】***************
@@ -471,7 +478,7 @@ NCMBUser.requestAuthenticationMailInBackground(email, new DoneCallback() {
 ## 会員管理機能の作成
 ### 会員管理①：会員登録用メールを要求する[実装済み]
 
-* それぞれ処理を追記しています
+* それぞれ処理を追記してください
 
 ```java
 // 会員登録用メールの要求失敗時の処理
@@ -498,7 +505,7 @@ new AlertDialog.Builder(SignupActivity.this)
 ```
 ---
 ## 会員管理機能の作成
-### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
+### 会員管理②：メールアドレスとパスワードでログイン
 
 .center[
 ![LoginViewController](readme-image/LoginViewController.png)
@@ -506,11 +513,11 @@ new AlertDialog.Builder(SignupActivity.this)
 
 ---
 ## 会員管理機能の作成
-### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
+### 会員管理②：メールアドレスとパスワードでログイン
 
 * `LoginActivity.java`を開きます
 * `doLogin()`メソッドを開きます
-* ログイン処理は以下のように実装されます
+* ログイン処理は以下のように追記してください
 
 ```java
 //**************** 【mBaaS/User②】: メールアドレスとパスワードでログイン】***************
@@ -533,7 +540,7 @@ NCMBUser.loginWithMailAddressInBackground(email, password, new LoginCallback() {
 ## 会員管理機能の作成
 ### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
 
-* それぞれ処理を追記しています
+* それぞれ処理を追記してください
 
 ```java
 //ログインに失敗した場合の処理
@@ -548,7 +555,7 @@ new AlertDialog.Builder(LoginActivity.this)
 ## 会員管理機能の作成
 ### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
 
-* それぞれ処理を追記しています（続き）
+* それぞれ処理を追記してください（続き）
 
 ```java
 //ログインに成功した場合の処理
@@ -578,7 +585,7 @@ AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
 ## 会員管理機能の作成
 ### 動作確認(1)ログインをしてみましょう
 
-* ここではシュミレーターでビルドし、動作確認を行います
+* ここではシュミレーター・実機にビルドし、動作確認を行います
 * ログイン画面で「会員登録」をタップします
 * 会員登録画面でメールアドレスを入力し「登録メールを送信」をタップします
  * メッセージを確認してください
@@ -618,6 +625,18 @@ AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
 .footnote[
 [エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
+
+---
+## 会員管理機能の作成
+### 動作確認(1)ログインをしてみましょう
+
+* ここでコードを簡単に解説します
+* 会員登録用メールを要求する為に、Android SDKが提供している「」メソッドを利用して、APIリクエストを実施しました。
+```java
+NCMBUser.requestAuthenticationMailInBackground(email, DoneCallback());
+```
+* emailで渡されたメールアドレスにデフォルト会員登録メールフォーマットが送られます（今回日本語のままになってしまいますが、メールフォーマット、ドメインはカスタマイズ可能）
+
 
 ---
 ## 会員管理機能の作成
