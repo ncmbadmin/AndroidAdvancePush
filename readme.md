@@ -411,11 +411,9 @@ new AlertDialog.Builder(LoginActivity.this)
 ```
 
 ---
-### 会員管理機能の作成
 ### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
 
 * それぞれ処理を追記しています（続き）
-
 
 ```java
 //ログインに成功した場合の処理
@@ -432,8 +430,10 @@ AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
                     startActivityForResult(intent, REQUEST_RESULT);
                 } else {
                     //初期ログイン会員登録画面遷移します
-                    Toast.makeText(LoginActivity.this, "Register user information for the first time!", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                    Toast.makeText(LoginActivity.this, "Register user information 
+                    for the first time!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), 
+                    RegisterActivity.class);
                     startActivityForResult(intent, REQUEST_RESULT);
                 }
             }
@@ -826,7 +826,7 @@ layout: false
 * お気に入り画面からfavoriteデータの更新処理はユーザー情報の登録と同様にして実装できます
 
 ---
-## お気に入り機能の作成
+### お気に入り機能の作成
 ### 会員管理④：ユーザー情報の更新[実装済み]
 
 
@@ -848,7 +848,8 @@ common.currentUser.saveInBackground(new DoneCallback() {
                     .setMessage("お気に入り保存成功しました!")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), 
+                            FavoriteActivity.class);
                             startActivityForResult(intent, REQUEST_RESULT);
                         }
                     })
