@@ -22,31 +22,98 @@ layout: false
 
 
 ---
+## 事前準備
+登録について以下のどちらかのアカウントで登録を行ってください
+- SNS ID（クレジットカード払い）の登録　※無料から利用可能
+  - お持ちのSNSアカウントログインで、登録することができます。対応するSNSアカウントはFacebook、Twitter、Googleです。
+  - 登録は[こちら](https://console.mbaas.nifcloud.com/signup)
+  - ※海外からの利用はこちらの登録方法をオススメいたします。（次のページで説明）
+- ニフクラID（請求書払い）として登録　※Expertプラン以上
+  - 先にニフクラIDを取得することが必要です。
+  - 登録は[こちら](https://sso.nifcloud.com/auth/realms/nifcloud/protocol/openid-connect/registrations?client_id=user-registration&response_type=code&redirect_uri=%2Fcomp-registration.html&entry_code=N00000470100)
+
+---
+## 事前準備（海外からの利用案内）
+
+- サービスの英語サイトはこちらとなっています
+https://mbaas.nifcloud.com/en/
+- 管理画面は「日本語・英語・中文」の言語を対応しております。
+- 言語を表示する際、以下のように行ってください。
+![mBaaS言語選択1](readme-image/language1.png)
+![mBaaS言語選択2](readme-image/language2.png)
+
+
+---
 ## 動作環境
 * Android Studio ver3.6.1
-* Android OS ver.9
+* Android OS ver.9 (実機)
 
 ---
 ## 今回のハンズオンセミナーについて
 ### セミナーの形式
 
-.left-column[
-  .center[
-  150分でアプリ完成させます
-  ![150分セミナー](readme-image/seminar/180分セミナー.png)
-  ]
-]
-.right-column[
-  .center[
-  講義形式で説明と演習を繰り返して<br>アプリを作成します<br><br>
-  ![講義形式セミナー2](readme-image/seminar/講義形式セミナー2.png)
-  ]
+- ３回分けて機能を実施していきます。
+- 講義形式で説明と演習を繰り返してアプリを作成します
+- 途中で動作確認タイムと休憩タイムで全体進捗を確認します
+- 質疑応答は随時行います
+
+---
+## ハンズオンの概要
+### 作成するアプリについて
+
+* クーポン配信アプリをイメージした「mBaaS Shop List」アプリの作成を通して、mBaaSの機能を理解していきます
+* mBaaSの連携部分をコーディングし、アプリを完成させ、次の内容を実現していきます
+ * 会員登録をするとお店情報を見ることができます
+ * お店のお気に入り登録ができ、お気に入り登録をしたお店からプッシュ通知で届きます
+ * 性別や都道府県限定のプッシュ通知ができます
+ * お店からのプッシュ通知でクーポンを直接配信することができます
+ * 決まった時間に通知を出すようにプッシュ通知を仕掛けることができます
+
+---
+## ハンズオンの概要
+### 作成するアプリについて
+
+.center[
+![mBaaS_shop_List](readme-image/mBaaS_shop_List.png)
 ]
 
+---
+## ニフクラ mobile backendとは
+### サービス紹介
+
+* スマホアプリで汎用的に実装される機能を、クラウドサービスとして提供しているサービスです
+ * 通称「mBaaS」と呼びます
+* 対応機能一覧はこちらです。
+
+.center[
+![mBaaS紹介](readme-image/mBaaS紹介.png)
+]
 
 ---
 ## 今回のハンズオンセミナーについて
-### 学ぶ内容
+### 学ぶ内容：データストア機能活用
+
+「mBaaS Shop List」アプリの作成を通して、お店の情報、お気に入り情報を
+データストア機能を利用して、データ登録、表示、管理を行います。
+これらの機能は会員機能を用いて実装を行います。
+
+---
+## 今回のハンズオンセミナーについて
+### 学ぶ内容：会員管理機能活用
+
+「mBaaS Shop List」アプリの作成を通して、ユーザログイン、ログアウトの実装、
+ユーザと紐づいて、お気に入り登録、表示、管理を行います。これらの機能は会員機能を用いて
+実装を行います。
+
+## 今回のハンズオンセミナーについて
+### 学ぶ内容：ファイルストア機能活用
+
+「mBaaS Shop List」アプリの作成を通して、お店の表示する画像、セール情報のPR画像の管理は
+ファイルストアで行います。
+
+---
+## 今回のハンズオンセミナーについて
+### 学ぶ内容：プッシュ通知応用①
 
 「mBaaS Shop List」アプリの作成を通して、アクティブユーザー率を上げる<br>
 効率的なプッシュ通知の組み込み方を学びます
@@ -57,7 +124,7 @@ layout: false
 
 ---
 ## 今回のハンズオンセミナーについて
-### 学ぶ内容
+### 学ぶ内容：プッシュ通知応用②
 
 「mBaaS Shop List」アプリの作成を通して、アクティブユーザー率を上げる<br>
 効率的なプッシュ通知の組み込み方を学びます<br>
@@ -68,7 +135,7 @@ layout: false
 
 ---
 ## 今回のハンズオンセミナーについて
-### 学ぶ内容
+### 学ぶ内容：プッシュ通知応用③
 
 「mBaaS Shop List」アプリの作成を通して、アクティブユーザー率を上げる<br>
 効率的なプッシュ通知の組み込み方を学びます<br><br>
@@ -77,16 +144,7 @@ layout: false
 ![ペイロード](readme-image/seminar/ペイロード.png)
 ]
 
----
-## ニフクラ mobile backendとは
-### サービス紹介
 
-* スマホアプリで汎用的に実装される機能を、クラウドサービスとして提供しているサービスです
- * 通称「mBaaS」と呼びます
-
-.center[
-![mBaaS紹介](readme-image/mBaaS紹介.png)
-]
 
 ---
 ## ニフクラ mobile backendとは
@@ -96,7 +154,13 @@ layout: false
  * 今回は実装済み
  * 参考：[クイックスタート](https://mbaas.nifcloud.com/doc/current/introduction/quickstart_android.html)
 * SDKの初期化処理が必要です
- * 後で処理を実装します
+ * MainActivity.javaの冒頭に次のコードを追記して、インストールしたSDKを読み込みます
+
+ ```java
+import com.nifcloud.mbaas.core.NCMB;
+```
+
+ * アプリの初期化はこちらになります。
 
 ```java
 NCMB.initialize(this.getApplicationContext(),"YOUR_APPLICATION_KEY","YOUR_YOUR_CLIENT_KEY");
@@ -147,25 +211,6 @@ obj.saveInBackground(new DoneCallback() {
  * 同期処理はその処理が完了するまで、次の処理が実行されません
  * 非同期処理はバックグラウンドで処理を実行し、次の処理を実行します DoneCallback()にて処理後の実装を事前に指定できます
 
----
-## ハンズオンの概要
-### 作成するアプリについて
-
-* クーポン配信アプリをイメージした「mBaaS Shop List」アプリの作成を通して、mBaaSの機能を理解していきます
-* mBaaSの連携部分をコーディングし、アプリを完成させ、次の内容を実現していきます
- * 会員登録をするとお店情報を見ることができます
- * お店のお気に入り登録ができ、お気に入り登録をしたお店からプッシュ通知で届きます
- * 性別や都道府県限定のプッシュ通知ができます
- * お店からのプッシュ通知でクーポンを直接配信することができます
- * 決まった時間に通知を出すようにプッシュ通知を仕掛けることができます
-
----
-## ハンズオンの概要
-### 作成するアプリについて
-
-.center[
-![mBaaS_shop_List](readme-image/mBaaS_shop_List.png)
-]
 
 ---
 ## ハンズオンの流れ
@@ -176,12 +221,17 @@ __<font color="#49a7e5" size="5">前半&nbsp;</font><font size="6">「mBaaS Shop
 1. ハンズオンの準備
 1. 会員管理機能の作成
 1. Shop情報の設定
+]
+
+__<font color="#49a7e5" size="5">前半&nbsp;</font><font size="6">「mBaaS Shop List」アプリ、お気に入りとプッシュ通知準備！</font>__
+
+.size_large[
 1. お気に入り機能の作成
+1. プッシュ通知の準備
 ]
 
 __<font color="#49a7e5" size="5">後半&nbsp;</font><font size="6">プッシュ通知を送ろう！</font>__
 .size_large[
-1. プッシュ通知の準備
 1. プッシュ通知を送信：セグメント配信
 1. プッシュ通知を送信：リッチプッシュ
 1. プッシュ通知を送信：ペイロード
@@ -194,7 +244,7 @@ class: center, middle, inverse_sub
 #「mBaaS Shop List」<br>アプリを作ろう！
 
 .size_large[
-＜前半＞
+＜第1回＞
 ]
 
 ---
