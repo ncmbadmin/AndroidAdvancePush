@@ -105,6 +105,7 @@ https://mbaas.nifcloud.com/en/
 ユーザと紐づいて、お気に入り登録、表示、管理を行います。これらの機能は会員機能を用いて
 実装を行います。
 
+---
 ## 今回のハンズオンセミナーについて
 ### 学ぶ内容：ファイルストア機能活用
 
@@ -144,8 +145,6 @@ https://mbaas.nifcloud.com/en/
 ![ペイロード](readme-image/seminar/ペイロード.png)
 ]
 
-
-
 ---
 ## ニフクラ mobile backendとは
 ### Android SDKの特徴
@@ -156,7 +155,7 @@ https://mbaas.nifcloud.com/en/
 * SDKの初期化処理が必要です
  * MainActivity.javaの冒頭に次のコードを追記して、インストールしたSDKを読み込みます
 
- ```java
+```java
 import com.nifcloud.mbaas.core.NCMB;
 ```
 
@@ -207,6 +206,10 @@ obj.saveInBackground(new DoneCallback() {
 
 ```
 
+---
+## ニフクラ mobile backendとは
+### Android SDKの特徴
+
 * 同期処理と非同期処理
  * 同期処理はその処理が完了するまで、次の処理が実行されません
  * 非同期処理はバックグラウンドで処理を実行し、次の処理を実行します DoneCallback()にて処理後の実装を事前に指定できます
@@ -215,7 +218,7 @@ obj.saveInBackground(new DoneCallback() {
 ---
 ## ハンズオンの流れ
 
-__<font color="#49a7e5" size="5">前半&nbsp;</font><font size="6">「mBaaS Shop List」アプリを作ろう！</font>__
+__<font color="#49a7e5" size="5">第１回&nbsp;</font><font size="6">「mBaaS Shop List」アプリを作ろう！</font>__
 
 .size_large[
 1. ハンズオンの準備
@@ -223,14 +226,14 @@ __<font color="#49a7e5" size="5">前半&nbsp;</font><font size="6">「mBaaS Shop
 1. Shop情報の設定
 ]
 
-__<font color="#49a7e5" size="5">前半&nbsp;</font><font size="6">「mBaaS Shop List」アプリ、お気に入りとプッシュ通知準備！</font>__
+__<font color="#49a7e5" size="5">第２回&nbsp;</font><font size="6">お気に入り機能とプッシュ通知準備！</font>__
 
 .size_large[
 1. お気に入り機能の作成
 1. プッシュ通知の準備
 ]
 
-__<font color="#49a7e5" size="5">後半&nbsp;</font><font size="6">プッシュ通知を送ろう！</font>__
+__<font color="#49a7e5" size="5">第３回&nbsp;</font><font size="6">プッシュ通知を送ろう！</font>__
 .size_large[
 1. プッシュ通知を送信：セグメント配信
 1. プッシュ通知を送信：リッチプッシュ
@@ -848,6 +851,17 @@ try {
 [エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
 
+
+---
+layout: true
+class: center, middle, inverse_sub
+---
+# お気に入り機能とプッシュ通知準備！
+
+.size_large[
+＜第２回＞
+]
+
 ---
 layout: true
 class: center, middle, inverse
@@ -963,16 +977,6 @@ common.currentUser.saveInBackground(new DoneCallback() {
 
 ---
 layout: true
-class: center, middle, inverse_sub
----
-# プッシュ通知を送ろう！
-
-.size_large[
-＜後半＞
-]
-
----
-layout: true
 class: center, middle, inverse
 ---
 # 1.プッシュ通知の準備
@@ -1076,6 +1080,18 @@ apply plugin: 'com.google.gms.google-services'
 ### プッシュ通知①：端末を登録
 
 * 端末を登録処理はSDK初期化時に行われますので、追加実装不要
+
+
+---
+layout: true
+class: center, middle, inverse_sub
+---
+# プッシュ通知を送ろう！
+
+.size_large[
+＜第３回＞
+]
+
 ---
 layout: true
 class: center, middle, inverse
