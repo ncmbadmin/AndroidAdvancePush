@@ -411,10 +411,11 @@ new AlertDialog.Builder(LoginActivity.this)
 ```
 
 ---
-## 会員管理機能の作成
+### 会員管理機能の作成
 ### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
 
 * それぞれ処理を追記しています（続き）
+
 
 ```java
 //ログインに成功した場合の処理
@@ -730,7 +731,6 @@ holder.img.setImageBitmap(bmp);
 ]
 
 ---
-## Shop情報の設定
 ### ファイルストア②：Shop画像の取得[実装済み]
 
 * `ShopActivity.java`を開きます
@@ -1004,12 +1004,14 @@ apply plugin: 'com.google.gms.google-services'
 ```
 
 ---
+
 ## プッシュ通知の準備
 ### Firebaseの秘密鍵をmobile backendに設定
 
-* Firebaseのダッシュボードの左上付近の「Project OverView」という文章があります。その横に歯車ボタンがあり、そこにカーソルを合わせると文章が出てきます。その中の「プロジェクトの設定」をクリックします。
+Firebaseのダッシュボードの左上付近の「Project OverView」という文章があります。その横に歯車ボタンがあり、そこにカーソルを合わせると文章が出てきます。その中の「プロジェクトの設定」をクリックします。
 
-* クリックするとFirebaseのプロジェクトの設定画面が出てきます。その設定画面の上のメニューの中から「サービスアカウント」をクリックします。
+クリックするとFirebaseのプロジェクトの設定画面が出てきます。その設定画面の上のメニューの中から「サービスアカウント」をクリックします。
+
 ---
 ## プッシュ通知の準備
 ### Firebaseの秘密鍵をmobile backendに設定
@@ -1094,6 +1096,11 @@ startActivityForResult(intent, REQUEST_RESULT );
 
 * `FavoriteActivity.java`開きます
 * `doFavoriteSave()`を開きます
+
+---
+## プッシュ通知を送信：セグメント配信
+### プッシュ通知③：installationにユーザー情報を紐づける<br>[実装済み]
+
 * 同様に、お気に入り画面でお気に入り情報が更新されるたびに、installation情報が書き換えられます
 
 ```java
@@ -1121,6 +1128,11 @@ currInstallation.saveInBackground(new DoneCallback() {
 
 * `ShopActivity.java`開きます
 * `doFavoriteRegister()`開きます
+
+---
+## プッシュ通知を送信：セグメント配信
+### プッシュ通知④：installationにユーザー情報を紐づける<br>[実装済み]
+
 * 同様に、Shop画面でもお気に入り情報が更新されるたびに、installation情報が書き換えられます
 
 ```java
@@ -1326,13 +1338,13 @@ layout: false
 * 以下のコメントの直下にコードを追加します
 
 ```java
-//**************** 【mBaaS：プッシュ通知⑥】リッチプッシュ通知を表示させる処理 ***************
+//********** 【mBaaS：プッシュ通知⑥】リッチプッシュ通知を表示させる処理 *********
 ```
 
 * 次のように追記します
 
 ```java
-//**************** 【mBaaS：プッシュ通知⑥】リッチプッシュ通知を表示させる処理 ***************
+//********* 【mBaaS：プッシュ通知⑥】リッチプッシュ通知を表示させる処理 **********
 //リッチプッシュ通知の表示
 NCMBPush.richPushHandler(this, getIntent());
 
@@ -1407,17 +1419,15 @@ layout: false
 * `onMessageReceived()`メソッド外に次のメソッドを実装します
 
 ```java
-//**************** 【mBaaS：プッシュ通知⑦】アプリがプッシュ通知からデータを取得する***************
+//******** 【mBaaS：プッシュ通知⑦】アプリがプッシュ通知からデータを取得する********
 ```
 
 ---
-## プッシュ通知を送信：ペイロード
-### プッシュ通知⑦：アプリがプッシュ通知からデータを取得する
 
 以下のように追記します
 
 ```java
-//**************** 【mBaaS：プッシュ通知⑦】アプリが起動中にプッシュ通知からデータを取得する***************
+//******** 【mBaaS：プッシュ通知⑦】アプリがプッシュ通知からデータを取得する********
 //ペイロードデータの取得
 if (remoteMessage != null && remoteMessage.getData() != null) {
     //ペイロードデータの取得
@@ -1446,9 +1456,8 @@ if (remoteMessage != null && remoteMessage.getData() != null) {
 ```
 
 ---
-## プッシュ通知を送信：ペイロード
-### プッシュ通知⑦：アプリがプッシュ通知からデータを取得する
-
+### プッシュ通知を送信：ペイロード
+### プッシュ通知⑦：アプリがプッシュ通知からデータを取得する</br>
 * ペイロード処理実装します
 * 指定した時間でローカルプッシュ通知を表示させます。
 
@@ -1469,7 +1478,8 @@ Intent notificationIntent = new Intent(this, AlarmReceiver.class);
 notificationIntent.addCategory("android.intent.category.DEFAULT");
 notificationIntent.putExtra("message", message);
 
-PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, 
+notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerlMilli , broadcast);
 ```
 
