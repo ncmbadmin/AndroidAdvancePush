@@ -45,19 +45,23 @@ https://mbaas.nifcloud.com/en/
 
 ---
 ## 動作環境
+
+本セミナーのプロジェクトは以下の環境で動作を確認しております。
 * Android Studio ver3.6.1
 * Android OS ver.9 (実機)
+* ニフクラmobile backend Android SDK ver.3.0.4
 
 ---
 ## 今回のハンズオンセミナーについて
 ### セミナーの形式
 
 - ３回分けて機能を実施していきます。
-- 講義形式で説明と演習を繰り返してアプリを作成します
-- 途中で動作確認タイムと休憩タイムで全体進捗を確認します
-- 質疑応答は随時行います
-- 事前にお詫びですが、資料などなるべく翻訳を行っていますが、アプリ画面や管理画面や機能は日本語のままになっているところがあります。
-随時その場で翻訳を対応します、よろしくお願いします。
+- 講義形式で説明と演習を繰り返してアプリを作成します。
+- 途中で動作確認タイムと休憩タイム取りながら進み、全体進捗を確認させていただきます。
+- 質疑応答は随時行います。
+- （英語資料をご覧の方へ）事前にお詫びですが、資料などなるべく翻訳を行っていますが、
+アプリ画面や管理画面や機能は日本語のままになっているところがあります。
+随時その場で補足して翻訳を対応しますが、何卒よろしくお願いします。
 
 ---
 ## ハンズオンの概要
@@ -416,7 +420,7 @@ NCMB.initialize(this.getApplicationContext(),"YOUR_APPLICATION_KEY","YOUR_CLIENT
 ### APIキーの設定とSDKの初期化
 
 * 初期化処理の「`YOUR_APPLICATION_KEY`」，「`YOUR_CLIENT_KEY`」の部分をアプリ作成時に発行されたAPIキーに書き換えてください。
- * 先ほどメモされていない方は、APIキーを再度確認するには、mBaaSのダッシュボードから「アプリ設定」→「基本」にありますので、そちらで確認することが可能です。
+ * 先ほどメモされていない方は、APIキーを再度確認するには、mBaaSの管理画面から「アプリ設定」→「基本」にありますので、そちらで確認することが可能です。
 
 .center[
 ![mBaaSアプリキー設定](readme-image/apikey.png)
@@ -455,10 +459,12 @@ layout: false
 ## 会員管理機能の作成
 ### 会員管理①：会員登録用メールを要求する
 
-* `SignupActivity.java`を開きます
-* `doSignupByEmail()`メソッドを開きます
-* 会員登録処理は以下のように実装コードを追記してください
-
+* `SignupActivity.java`を開きます。
+* `doSignupByEmail()`メソッドを開きます。以下のコメントが書かれているところを開きます。
+```java
+//**************** 【mBaaS/User①】: 会員登録用メールを要求する】***************
+```
+* 会員登録処理は以下のように実装コードを追記してください。
 ```java
 //**************** 【mBaaS/User①】: 会員登録用メールを要求する】***************
 String email = _signupEmail.getText().toString();
@@ -515,9 +521,12 @@ new AlertDialog.Builder(SignupActivity.this)
 ## 会員管理機能の作成
 ### 会員管理②：メールアドレスとパスワードでログイン
 
-* `LoginActivity.java`を開きます
-* `doLogin()`メソッドを開きます
-* ログイン処理は以下のように追記してください
+* `LoginActivity.java`を開きます。
+* `doLogin()`メソッドを開きます。以下のコメントが書かれているところを開きます。
+```java
+//**************** 【mBaaS/User②】: メールアドレスとパスワードでログイン】***************
+```
+* ログイン処理は以下のように追記してください。
 
 ```java
 //**************** 【mBaaS/User②】: メールアドレスとパスワードでログイン】***************
@@ -538,7 +547,7 @@ NCMBUser.loginWithMailAddressInBackground(email, password, new LoginCallback() {
 
 ---
 ## 会員管理機能の作成
-### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
+### 会員管理②：メールアドレスとパスワードでログイン<
 
 * それぞれ処理を追記してください
 
@@ -552,7 +561,7 @@ new AlertDialog.Builder(LoginActivity.this)
 ```
 
 ---
-### 会員管理②：メールアドレスとパスワードでログイン<br>[実装済み]
+### 会員管理②：メールアドレスとパスワードでログイン
 
 * それぞれ処理を追記してください（続き）
 
@@ -571,9 +580,9 @@ AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
                     startActivityForResult(intent, REQUEST_RESULT);
                 } else {
                     //初期ログイン会員登録画面遷移します
-                    Toast.makeText(LoginActivity.this, "Register user information 
+                    Toast.makeText(LoginActivity.this, "Register user information
                     for the first time!", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getApplicationContext(), 
+                    Intent intent = new Intent(getApplicationContext(),
                     RegisterActivity.class);
                     startActivityForResult(intent, REQUEST_RESULT);
                 }
@@ -615,10 +624,11 @@ AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
 ## 会員管理機能の作成
 ### 動作確認(1)ログインをしてみましょう
 
-* 再びログイン画面に戻り「メールアドレス」と「パスワード」でログインします
- * ログを確認してください
-* mBaaSのダッシュボードを確認してください
- * 会員管理にユーザーが登録されました
+* 再びログイン画面に戻り「メールアドレス」と「パスワード」でログインします。正常にログインされることを確認してください。
+ * ログを確認してください。
+* また、mBaaSの管理画面にて、登録されたユーザー情報も確認してください。
+ * 管理画面の右側のタブに「会員管理」を選択し、「すべての会員」を選択します。
+ * ユーザー一覧にてユーザーが登録されました
 
 .center[
 ![動作確認①会員登録完了](readme-image/動作確認①会員登録完了.png)
@@ -629,20 +639,32 @@ AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
 
 ---
 ## 会員管理機能の作成
-### 動作確認(1)ログインをしてみましょう
+### コード解説(1)ログインをしてみましょう
 
-* ここでコードを簡単に解説します
-* 会員登録用メールを要求する為に、Android SDKが提供している「」メソッドを利用して、APIリクエストを実施しました。
+* 会員登録用メールを要求する為に、Android SDKが提供している以下のメソッドを利用して、APIリクエストを実施します。
 ```java
 NCMBUser.requestAuthenticationMailInBackground(email, DoneCallback());
 ```
 * emailで渡されたメールアドレスにデフォルト会員登録メールフォーマットが送られます（今回日本語のままになってしまいますが、メールフォーマット、ドメインはカスタマイズ可能）
 
+---
+## 会員管理機能の作成
+### コード解説(1)ログインをしてみましょう
+
+* 会員登録が完了しましたら、今度会員ログインを実施します。ログインを実施する為に、Android SDKが以下のメソッドを利用して、
+ログインするAPIリクエストを実施します。
+```java
+NCMBUser.loginWithMailAddressInBackground(email, password, new LoginCallback());
+```
+* パラメタとしてはemail, passwordは入力フォームから受け取って、メソッド内にリクエストを生成し、サーバに通信実施します。
+サーバ側から、結果が返却された場合、LoginCallback()にて、NCMBException判断で正常・エラーにてパターン処理を実施しています。
 
 ---
 ## 会員管理機能の作成
 ### 会員管理③：ユーザー情報更新
 
+* ログインした後、初めてログインの場合、以下のようにユーザの属性を登録する画面が出てきます。
+* ユーザ情報を登録処理をこれから実施していきます。
 .center[
 ![UserInfoRegistration](readme-image/UserInfoRegistration.png)
 ]
@@ -663,11 +685,13 @@ NCMBUser.requestAuthenticationMailInBackground(email, DoneCallback());
 
 ```
 
-* かなり下の方にあります
+* かなり下の方にありますので、ご注意ください。
 
 ---
 ## 会員管理機能の作成
 ### 会員管理③：ユーザー情報更新
+
+* 追記するコードは以下となります。
 
 ```java
 //**************** 【mBaaS/User③: ユーザー情報更新】***************
@@ -719,6 +743,13 @@ new AlertDialog.Builder(RegisterActivity.this)
        })
        .show();
 ```
+--
+## 会員管理機能の作成
+### 会員管理③：ユーザー情報更新
+
+* これでユーザー情報更新の実装の準備は完了しました。
+* 動作確認については次のステップ「Shop情報の設定」の実装が完了しましたら、合わせて行いましょう。
+* 次のステップに進みます。
 
 ---
 layout: true
@@ -731,8 +762,8 @@ layout: false
 ## Shop情報の設定
 ### mBaaSにShop情報を用意する（データストア）
 
-* ニフクラ mobile backendのダッシュボードから「データストア」を開き、「＋作成▼」ボタンをクリックし、「インポート」をクリックします
-* クラス名に「__Shop__」と入力します
+* ニフクラ mobile backendの管理画面から「データストア」を開き、「＋作成▼」ボタンをクリックし、「インポート」をクリックします
+* クラス名に「__Shop__」と入力します(Sが大文字なのでご注意ください！)
 * ダウンロードしたサンプルプロジェクトにあるSettingフォルダ内の「__Shop.json__」を選択してアップロードします
 
 .center[
@@ -753,7 +784,7 @@ layout: false
 ## Shop情報の設定
 ### mBaaSにShop情報を用意する（ファイルストア）
 
-* ニフクラ mobile backendのダッシュボードから「ファイルストア」を開き、「↑アップロード」ボタンをクリックします
+* ニフクラ mobile backendの管理画面から「ファイルストア」を開き、「↑アップロード」ボタンをクリックします
 * ダウンロードしたサンプルプロジェクトにあるSettingフォルダ内の「icon」「Shop」「Sale」内にあるファイルをすべてをアップロードします
 
 .center[
@@ -774,6 +805,7 @@ layout: false
 ## Shop情報の設定
 ### データストア：「Shop」クラスのデータを取得
 
+* まず、データストアの処理を実装していきます。
 * `MainActivity.java`を開きます
 * `doLoadShop()`を開きます
 * インポートしたShopクラスのデータを取得する処理を実装します
@@ -788,6 +820,8 @@ layout: false
 ---
 ## Shop情報の設定
 ### データストア：「Shop」クラスのデータを取得
+
+* 追記するコードはこちらです。
 
 ```java
 //**************** 【mBaaS/Shop①: 「Shop」クラスのデータを取得】***************
@@ -806,6 +840,7 @@ lv.setAdapter(new ShopListAdapter(this, results));
 ## Shop情報の設定
 ### ファイルストア①：icon画像の取得
 
+* お店一覧に表示されるアイコンの画像処理を実装していきます。
 .center[
 ![icon](readme-image/icon.png)
 ]
@@ -814,6 +849,7 @@ lv.setAdapter(new ShopListAdapter(this, results));
 ## Shop情報の設定
 ### ファイルストア①：icon画像の取得
 
+* ファイルストアに登録した画像取得処理を行います。
 * `ShopListAdapter.java`を開きます
  * `ShopListAdapter.java`はリストの項目を作成するファイルです
 * トップ画面に各ショップのアイコンをmBaaSから取得して表示する処理を実装します
@@ -829,6 +865,7 @@ lv.setAdapter(new ShopListAdapter(this, results));
 ## Shop情報の設定
 ### ファイルストア①：icon画像の取得
 
+* 追記するコードは以下となっています。
 
 ```java
 //**************** 【mBaaS/File①: ショップ画像を取得】***************
@@ -879,16 +916,32 @@ holder.img.setImageBitmap(bmp);
 ## Shop情報の設定
 ### ファイルストア②：Shop画像の取得
 
+* お店の詳細画面の表示を実施していきます。
 .center[
 ![Shop](readme-image/Shop.png)
 ]
 
 ---
-### ファイルストア②：Shop画像の取得[実装済み]
+## Shop情報の設定
+### ファイルストア②：Shop画像の取得
 
+* ファイルストアに登録した画像取得処理を行います。
 * `ShopActivity.java`を開きます
 * `onCreate()`を開きます
 * Shop画面に各ショップの画像をmBaaSから取得して表示する処理も同様に実装できます
+- コメントの下にコードを追記していきます
+
+```java
+////**************** 【mBaaS/File②: ショップ詳細画像を取得】***************
+
+
+```
+
+---
+## Shop情報の設定
+### ファイルストア②：Shop画像の取得
+
+* 追記するコードは以下となっています。
 
 
 ```java
@@ -916,6 +969,7 @@ try {
     e.printStackTrace();
 }
 ```
+* これで、お店関連の実装準備ができました、動作確認(2)に進めます。
 
 ---
 ## Shop情報の設定
@@ -923,8 +977,9 @@ try {
 
 * 再びシュミレーターでビルドし、動作確認を行います
 * ログイン後初回のみ、ユーザー情報登録画面が表示されます
-* 入力し「登録」をタップします
- * このとき、会員情報が更新されますので、mBaaSのダッシュボードを確認してみましょう
+* 適当に値を入力し「登録」をタップします
+ * このとき、会員情報が更新されますので、mBaaSの管理画面を再度登録ユーザー情報を確認してみましょう。
+ 正しく登録されているかぜひご確認ください。
  * ログを確認してください
 
 .center[
@@ -938,11 +993,12 @@ try {
 ## Shop情報の設定
 ### 動作確認(2)会員情報登録とShop情報表示
 
-* トップ画面に「icon画像」「Shop名」「カテゴリ」が表示されます
-* Shopを１つ選んでタップします
- * mBaaSに登録されているimageにアクセスし、Shopページ（画像）が表示されます
-* 会員ページをタップします
- * ユーザー情報が表示されます
+* ユーザー情報登録（初回のみ）が完了しましたら、アプリのトップ画面が表示されます。（次回からはログインが完了しましたら、トップ画面が表示されます。）
+* トップ画面に「icon画像」「Shop名」「カテゴリ」が表示されます。
+* Shopを１つ選んでタップします。
+ * mBaaSに登録されているimageにアクセスし、Shopページ（画像）が表示されます。
+* アプリメニューから「User info」をクリックし、会員ページをタップします。
+ * 登録したユーザー情報が表示されます。
 
 .center[
 ![動作確認②](readme-image/動作確認②.png)
@@ -951,6 +1007,36 @@ try {
 [エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
 
+---
+## Shop情報の設定
+### コード解説(2)会員情報登録とShop情報表示
+
+* お店一覧を表示する為に、データストアに登録しいるShopクラスのデータを検索して取得するようにしています。
+全件のデータを検索する為には、以下のようにNCMBQueryクラスが提供しているfind()メソッドを利用しています。
+```java
+// 「Shop」クラスのクエリを作成
+NCMBQuery<NCMBObject> query = new NCMBQuery<>("Shop");
+//データストアからデータを検索
+List<NCMBObject> results = query.find();
+```
+* 今回は全件のため、検索条件は指定していませんが、mBaaSでは検索条件を指定することができます。
+検索については[ドキュメント](https://mbaas.nifcloud.com/doc/current/datastore/basic_usage_android.html#%E5%9F%BA%E6%9C%AC%E7%9A%84%E3%81%AA%E6%A4%9C%E7%B4%A2%E3%81%AE%E5%88%A9%E7%94%A8&gsc.tab=0)をご覧ください。
+* また、検索する際、データが多い時、取得件数の制限（limit）を設定するようにしてください。(limitはデフォルト100件、
+  最大1000件指定可能となっています。1000件以上の場合、スキップしたデータ件数を指定し、取得データのスタート位置として設定可能のskip項目と合わせて利用してください。)
+
+---
+## Shop情報の設定
+### コード解説(2)会員情報登録とShop情報表示
+
+* ファイルストアの画像取得については、以下のようにNCMBFileのインスタンスを生成する際、
+ファイル名を指定し、fetchInBackground()を利用し、ファイルダウンロードを行います。
+
+```java
+NCMBFile file = new NCMBFile(filename);
+file.fetchInBackground(new FetchFileCallback());
+```
+
+※第１回目の内容はこれで終わります。s
 
 ---
 layout: true
@@ -983,16 +1069,25 @@ layout: false
 
 ---
 ## お気に入り機能の作成
-### 会員管理④：ユーザー情報の更新[実装済み]
+### 会員管理④：ユーザー情報の更新
 
+* 「お気に入り」画面でのログイン中ユーザーのお気に入り登録する機能を実装します。
 * `FavoriteActivity.java`を開きます
 * `doFavoriteSave()`を開きます
+- コメントの下にコードを追記していきます
+
+```java
+////**************** 【mBaaS/User ④: 会員情報更新】***************
+
+
+```
 * お気に入り画面からfavoriteデータの更新処理はユーザー情報の登録と同様にして実装できます
 
 ---
 ### お気に入り機能の作成
-### 会員管理④：ユーザー情報の更新[実装済み]
+### 会員管理④：ユーザー情報の更新
 
+* 追記するコードは以下となります。
 
 ```java
 //**************** 【mBaaS/User ④: 会員情報更新】***************
@@ -1012,7 +1107,7 @@ common.currentUser.saveInBackground(new DoneCallback() {
                     .setMessage("お気に入り保存成功しました!")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(getApplicationContext(), 
+                            Intent intent = new Intent(getApplicationContext(),
                             FavoriteActivity.class);
                             startActivityForResult(intent, REQUEST_RESULT);
                         }
@@ -1026,18 +1121,25 @@ common.currentUser.saveInBackground(new DoneCallback() {
 ---
 ## お気に入り機能の作成
 
-### 会員管理⑤：ユーザー情報の更新[実装済み]
+### 会員管理⑤：ユーザー情報の更新
 
+* 次はShop画面の処理を実装していきます。
 * `ShopActivity.java`を開きます
 * `doFavoriteRegister()`を開きます
+- コメントの下にコードを追記していきます
+
+```java
+////**************** 【mBaaS/User⑤: 会員情報更新】***************
+
+
+```
 * Shop画面からもfavoriteデータの更新処理はユーザー情報の登録と同様にして実装できます
 
 ---
 ## お気に入り機能の作成
 
-### 会員管理⑤：ユーザー情報の更新[実装済み]
-
-
+### 会員管理⑤：ユーザー情報の更新
+* 追記するコードは以下となります。
 ```java
 //**************** 【mBaaS/User⑤: 会員情報更新】***************
 List<String> list = new ArrayList<String>();
@@ -1049,13 +1151,46 @@ common.currentUser.saveInBackground(new DoneCallback() {
     public void done(NCMBException e) {
         if (e != null) {
             //更新失敗時の処理
-            <<省略>>
+
         } else {
             //更新成功時の処理
-          　<<省略>>
+
         }
     }
 });
+```
+
+---
+## お気に入り機能の作成
+
+### 会員管理⑤：ユーザー情報の更新
+
+* それぞれ処理を追記します
+
+```java
+// 更新失敗時の処理
+new AlertDialog.Builder(ShopActivity.this)
+        .setTitle("Notification from mBaas")
+        .setMessage("Save failed! Error:" + e.getMessage())
+        .setPositiveButton("OK", null)
+        .show();
+```
+
+```java
+// 更新成功時の処理
+new AlertDialog.Builder(ShopActivity.this)
+        .setTitle("Notification from mBaas")
+        .setMessage("お気に入り保存成功しました")
+        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getApplicationContext(), ShopActivity.class);
+                intent.putExtra("objectId", objId);
+                intent.putExtra("name", name);
+                intent.putExtra("shop_image", shop_image);
+                startActivityForResult(intent, REQUEST_RESULT);
+            }
+        })
+        .show();
 ```
 
 ---
@@ -1075,6 +1210,13 @@ common.currentUser.saveInBackground(new DoneCallback() {
 .footnote[
 [エラーコード一覧](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
 ]
+
+---
+## お気に入り機能の作成
+### コード解説(3)お気に入り情報登録・更新
+
+
+
 
 ---
 layout: true
@@ -1163,7 +1305,7 @@ apply plugin: 'com.google.gms.google-services'
 ## プッシュ通知の準備
 ### Firebaseの秘密鍵をmobile backendに設定
 
-Firebaseのダッシュボードの左上付近の「Project OverView」という文章があります。その横に歯車ボタンがあり、そこにカーソルを合わせると文章が出てきます。その中の「プロジェクトの設定」をクリックします。
+Firebaseの管理画面の左上付近の「Project OverView」という文章があります。その横に歯車ボタンがあり、そこにカーソルを合わせると文章が出てきます。その中の「プロジェクトの設定」をクリックします。
 
 クリックするとFirebaseのプロジェクトの設定画面が出てきます。その設定画面の上のメニューの中から「サービスアカウント」をクリックします。
 
@@ -1341,7 +1483,7 @@ currInstallation.saveInBackground(new DoneCallback() {
 端末情報を保存成功しました。
 ```
 
-* デバイストークンの取得に成功したら、mBaaSダッシュボードで確認します
+* デバイストークンの取得に成功したら、mBaaS管理画面で確認します
 
 .center[
 ![動作確認④デバイストークン](readme-image/動作確認④デバイストークン.png)
@@ -1356,7 +1498,7 @@ currInstallation.saveInBackground(new DoneCallback() {
 ### 動作確認の準備
 
 * ログインをし、再びユーザー登録をします
- * このとき、installationが更新されますのでダッシュボードを確認します
+ * このとき、installationが更新されますので管理画面を確認します
  * ログを確認してください
 
 .center[
@@ -1373,7 +1515,7 @@ currInstallation.saveInBackground(new DoneCallback() {
 __shopB__ をお気に入り登録しているユーザーに絞り込んでプッシュ通知を配信してみましょう！
 
 * あらかじめshopBをお気に入りに設定しておきます(アプリ側)
-* mBaaSのダッシュボードからShopクラスのデータを開き、shopBの「objectId」をコピーします
+* mBaaSの管理画面からShopクラスのデータを開き、shopBの「objectId」をコピーします
 
 .center[
 ![動作確認④セグメント2](readme-image/動作確認④セグメント2.png)
@@ -1468,7 +1610,7 @@ layout: false
 ## プッシュ通知を送信：リッチプッシュ
 ### 公開ファイル設定
 
-* mBaaSのダッシュボードで、公開ファイル設定「HTTPでの取得」を有効にします
+* mBaaSの管理画面で、公開ファイル設定「HTTPでの取得」を有効にします
 
 .center[
 ![mBaaS公開ファイル設定](readme-image/mBaaS公開ファイル設定.png)
@@ -1645,7 +1787,7 @@ Intent notificationIntent = new Intent(this, AlarmReceiver.class);
 notificationIntent.addCategory("android.intent.category.DEFAULT");
 notificationIntent.putExtra("message", message);
 
-PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, 
+PendingIntent broadcast = PendingIntent.getBroadcast(this, 100,
 notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerlMilli , broadcast);
 ```
