@@ -1036,7 +1036,7 @@ NCMBFile file = new NCMBFile(filename);
 file.fetchInBackground(new FetchFileCallback());
 ```
 
-※第１回目の内容はこれで終わります。s
+※第１回目の内容はこれで終わります。
 
 ---
 layout: true
@@ -1215,6 +1215,26 @@ new AlertDialog.Builder(ShopActivity.this)
 ## お気に入り機能の作成
 ### コード解説(3)お気に入り情報登録・更新
 
+* お気に入りの登録は基本的に登録したユーザーの情報にfavoriteというデータを設けて、
+洗濯したお店のID（objectId）の配列として保存しています。
+* mBaaSの管理画面の会員管理にて登録されているデータをご確認ください。
+.center[
+![コード解説③](readme-image/favoriteDataInUserData.png)
+]
+
+---
+## お気に入り機能の作成
+### コード解説(3)お気に入り情報登録・更新
+
+* コード実装については、以下のようにcommon.currentUserにて現在ログイン中ユーザのインスタンスを取得します。
+* put(key, value)の形で、保存する値を設定します。
+* saveInBackground()メソッドにてユーザー情報を保存実施します。
+
+```java
+list = common.currentUser.getList("favorite");
+common.currentUser.put("favorite", list);
+common.currentUser.saveInBackground(new DoneCallback());
+```
 
 
 
@@ -1230,18 +1250,56 @@ layout: false
 ### このあとのデバッグについて
 
 * 以下の用意が必要です
- * デバッグ用のAndroid実機 (4.0~)
- * プッシュ通知設定ファイル(json)
-* プッシュ通知設定ファイル(json)がまだの場合は下記をご参照ください
+ * デバッグ用のAndroid実機 (7.0~)
+ * Googleアカウント（Android向けのプッシュ通知Firebase Cloud Messagingを利用するため）
+* これから主に行う設定
+ * Firebaseの秘密鍵をmobile backendに設定
+ * google-service.jsonをアプリに配置
+* これから説明するプッシュ通知設定ファイル(json)の手順は下記を詳細が書かれていますのでご参照ください
  * [【サンプル】アプリにプッシュ通知を組み込もう！](https://github.com/NIFCLOUD-mbaas/android_push_demo#手順)
 
 
 ---
-## プッシュ通知の準備
-### mBaaSの設定
 
-* プッシュ通知の許可を行います
-* プッシュ通知設定ファイル(json)を設定します
+## プッシュ通知の準備
+### Firebaseの秘密鍵をmobile backendに設定
+
+* APIキーの取得は、Firebase Consoleにて行います。お持ちのGoogleアカウントで以下のリンクをアクセスして、ログインを行います。
+https://console.firebase.google.com/
+* プロジェクトはまだない場合、プロジェクトの作成が必要です。
+.center[
+![コード解説③](readme-image/Firebase_newproject.png)
+]
+* 作成Wizardにてプロジェクト名を入力し、必要に応じてAnalytics機能を有効・無効に設定してください。（今回のハンズオンではAnalytics機能を利用する予定がありません。）
+
+---
+
+## プッシュ通知の準備
+### Firebaseの秘密鍵をmobile backendに設定
+
+* 作成されたプロジェクトの左上付近の「Project OverView/プロジェクト概要」というリンクがあります。
+その横に歯車ボタンがあり、そこにカーソルを合わせるとメニューが出てきます。「プロジェクトの設定」をクリックします。
+* Firebaseのプロジェクトの設定画面が出てきます。その設定画面の上のタブメニューの中から「サービスアカウント」を選択します。
+
+ ---
+## プッシュ通知の準備
+### Firebaseの秘密鍵をmobile backendに設定
+
+ * 「サービスアカウント」画面の中の「新しい秘密鍵の生成」をクリックし、出てくるモーダルの中の「キーを生成」をクリックします。
+ * Firebaseの秘密鍵が生成され、ダウンロードをしてください。
+
+ .center[
+ ![projectnumber](readme-image/projectnumber.png)
+ ]
+
+
+---
+## プッシュ通知の準備
+### Firebaseの秘密鍵をmobile backendに設定
+
+* mBaaS管理画面の右上にある「アプリ設定」を選択肢、「プッシュ通知」を選択します。
+* プッシュ通知の許可を行います。
+* 前の手順でダウンロードした秘密鍵をプッシュ通知設定ファイル(json)として設定します。
 
 .center[
 ![mBaaSプッシュ通知設定](readme-image/mBaaSプッシュ通知設定.png)
@@ -1249,8 +1307,9 @@ layout: false
 
 ---
 ## プッシュ通知の準備
-### google.service.jsonファイルの作成
-1. [Firebase](https://console.firebase.google.com/u/0/) にログインして、新規プロジェクトを作成します。
+### google-services.jsonファイルの作成
+
+1. [Firebase](https://console.firebase.google.com/u/0/) にログインして、プロジェクトを開いてください。
 2. 「プロジェクトの概要」の右側にある![設定アイコン](readme-image/settingIcon.png)をクリックして、「プロジェクトを設定」を選択します。
 3. 「全般」タブで下のマイアプリで「Android」プラットフォームのアイコンを選択します。
 
@@ -1261,10 +1320,11 @@ layout: false
 ---
 
 ## プッシュ通知の準備
-### google.service.jsonファイルの設定
-4.google-services.jsonを発行してアプリに登録
+### google-services.jsonファイルの設定
+
+4. google-services.jsonを発行してアプリに登録
 * アプリケーション ID を [Android パッケージ名] フィールドに入力します。</br>
-例) com.nifcloud.AndroidAdvancePushApp
+例) com.nifcloud.AndroidAdvancePushApp ※利用中プロジェクトのパッケージ名
 
 .center[
 ![アプリ登録](readme-image/RegisterApp.png)
@@ -1272,11 +1332,11 @@ layout: false
 
 ---
 ## プッシュ通知の準備
-### google.service.jsonファイルの設定
+### google-services.jsonファイルの設定
 
-5.google-services.jsonを追加する</br>
+5. google-services.jsonを追加する
 * 「Download google-services.json」 をクリックして、Firebase Android 構成ファイル（google-services.json）を取得します。
-* 構成ファイルをアプリのモジュール（アプリレベル）ディレクトリに移動します。
+* Android Studioで利用中プロジェクトを開き、アプリのモジュール（アプリレベル）ディレクトリに移動します。
 
 .center[
 ![設定ファイルダウンロード](readme-image/DownloadFile.png)
@@ -1284,48 +1344,86 @@ layout: false
 
 ---
 ## プッシュ通知の準備
-### google.service.jsonファイルの設定
+### google-services.jsonファイルの設定
 
-6.アプリで Firebase プロダクトを有効にするには、Gradle ファイルに google-services プラグインを追加します。
+6. アプリで Firebase プロダクトを有効にするには、Gradle ファイルに google-services プラグインを追加します。
 
-* ルートレベル（プロジェクト レベル）の Gradle ファイル（build.gradle）に、Google サービス プラグインを含めるためのルールを追加します。
+* ルートレベル（プロジェクト レベル）の Gradleファイル（build.gradle）に、
+Googleサービス プラグインを含めるためのルールを追加します。
 
 ```
 classpath 'com.google.gms:google-services:4.3.3'
 ```
 
-* モジュール（アプリレベル）の Gradle ファイル（通常は app/build.gradle）で、ファイルの末尾に以下の行を追加します。
+* モジュール（アプリレベル）の Gradle ファイル（通常は app/build.gradle）で、
+ファイルの末尾に以下の行を追加します。
 
 ```
 apply plugin: 'com.google.gms.google-services'
 ```
+※なお、アプリ側の上記以外の設定、詳細は[ドキュメント](https://mbaas.nifcloud.com/doc/current/push/basic_usage_android.html#%E3%82%A2%E3%83%97%E3%83%AA%E3%81%A7%E3%81%AE%E8%A8%AD%E5%AE%9A)を参照してください。
 
----
-
-## プッシュ通知の準備
-### Firebaseの秘密鍵をmobile backendに設定
-
-Firebaseの管理画面の左上付近の「Project OverView」という文章があります。その横に歯車ボタンがあり、そこにカーソルを合わせると文章が出てきます。その中の「プロジェクトの設定」をクリックします。
-
-クリックするとFirebaseのプロジェクトの設定画面が出てきます。その設定画面の上のメニューの中から「サービスアカウント」をクリックします。
 
 ---
 ## プッシュ通知の準備
-### Firebaseの秘密鍵をmobile backendに設定
+### プッシュ通知①：プッシュ通知の受信設定
 
-* クリックすると以下のような画面が出てきます。この画面の中の「新しい秘密鍵の生成」をクリックして、出てくるモーダルの中の「キーを生成」をクリックします。
-* そうするとFirebaseの秘密鍵がダウンロードできます。
+* AndroidManifestファイルを開き、applicationタグの要素としてserviceの登録を行います。(デフォルトのAndroid SDK
+  が提供するサービス)
 
-.center[
-![projectnumber](readme-image/projectnumber.png)
-]
+```
+ <service
+     android:name="com.nifcloud.mbaas.core.NCMBFirebaseMessagingService"
+     android:exported="false">
+     <intent-filter>
+         <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+     </intent-filter>
+ </service>
+```
+
 
 ---
 ## プッシュ通知の準備
 ### プッシュ通知①：端末を登録
 
-* 端末を登録処理はSDK初期化時に行われますので、追加実装不要
+* 端末を登録処理は以下の実施済みのSDK初期化時に行われますので、追加実装不要
 
+```java
+NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
+```
+
+---
+## プッシュ通知の準備
+### 動作確認①：端末を登録
+
+* 端末にアプリをビルドしましょう。
+* アプリを起動してください。端末の情報が登録されているかどうか、mBaaSの管理画面にて、以下のようにご確認ください。
+
+.center[
+![アプリ登録](readme-image/installation_registered_mbaas.png)
+]
+
+---
+## プッシュ通知の準備
+### 動作確認①：テストプッシュ通知配信を実施
+
+* プッシュ通知を送ってみましょう。
+* mBaaS管理画面の「プッシュ通知」を開き、「＋新しいプッシュ通知」をクリックします。
+* プッシュ通知の設定画面にて、
+ * メッセージ、タイトルを自由に入力してください
+ * [今すぐ配信]はそのままにします
+ * [Android端末に配信する]にてチェックを入れます
+ * [プッシュ通知を作成する]をクリックし、配信を実施します
+
+---
+## プッシュ通知の準備
+### 動作確認①：テストプッシュ通知配信を実施
+
+* 端末にて配信アイコンが表示されることを確認
+* mBaaS管理画面の「プッシュ通知」を開き、プッシュ通知一覧にて、作成したプッシュ通知のステータスを確認します。
+* 正常の場合、「配信済み」となりますが、エラーが発生した場合、[ドキュメント](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#%E3%80%8C%E9%85%8D%E4%BF%A1%E3%82%A8%E3%83%A9%E3%83%BC%E5%86%85%E5%AE%B9%E3%80%8D%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)を参考して、再度設定などを見直してください。
+
+* ※今回のセミナー内容はこれで終わります。次回はプッシュ通知を活用する方法と実践を行います。
 
 ---
 layout: true
