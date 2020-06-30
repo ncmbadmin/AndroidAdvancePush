@@ -1950,6 +1950,9 @@ if (remoteMessage != null && remoteMessage.getData() != null) {
 * ペイロード処理実装します
 * 指定した時間でローカルプッシュ通知を表示させます。
 
+
+---
+
 ```java
 //ペイロード処理実装
 // 変換対象の日付文字列
@@ -2005,6 +2008,10 @@ alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerlMilli , broadcast);
 * プッシュ通知を作成します
  * タイトル、メッセージを入力が無い場合、サイレントプッシュとして送られます
  * 「JSON」に作成したJSONデータを貼り付けます
+
+---
+## プッシュ通知を送信：ペイロード
+### 動作確認(6)ペイロード（アプリ起動時）
 
 .center[
 ![動作確認⑥ペイロード1](readme-image/動作確認⑥ペイロード1.png)
