@@ -239,6 +239,9 @@ __<font color="#49a7e5" size="3">第２回&nbsp;</font><font size="6">お気に�
 1. プッシュ通知の準備
 ]
 
+---
+## ハンズオンの流れ（続き）
+
 __<font color="#49a7e5" size="3">第３回&nbsp;</font><font size="6">プッシュ通知を送ろう！</font>__
 .size_large[
 1. プッシュ通知を送信：セグメント配信
@@ -310,7 +313,7 @@ layout: false
 * mBaaS Android SDK v.3.0.4のインストール, build.graddleの設定, AndroidManifestの設定は実装済み
 * build.gradle
 
-```
+```text
 buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0'
