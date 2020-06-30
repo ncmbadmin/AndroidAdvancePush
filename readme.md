@@ -1319,12 +1319,12 @@ https://console.firebase.google.com/
 ## プッシュ通知の準備
 ### Firebaseの秘密鍵をmobile backendに設定
 
- * 「サービスアカウント」画面の中の「新しい秘密鍵の生成」をクリックし、出てくるモーダルの中の「キーを生成」をクリックします。
- * Firebaseの秘密鍵が生成され、ダウンロードをしてください。
+* 「サービスアカウント」画面の中の「新しい秘密鍵の生成」をクリックし、出てくるモーダルの中の「キーを生成」をクリックします。
+* Firebaseの秘密鍵が生成され、ダウンロードをしてください。
 
- .center[
- ![projectnumber](readme-image/projectnumber.png)
- ]
+.center[
+![projectnumber](readme-image/projectnumber.png)
+]
 
 
 ---
