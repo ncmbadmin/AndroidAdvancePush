@@ -1394,7 +1394,7 @@ NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
 
 ---
 ## プッシュ通知の準備
-### 動作確認①：端末を登録
+### 動作確認プッシュ通知①：端末を登録
 
 * 端末にアプリをビルドしましょう。
 * アプリを起動してください。端末の情報が登録されているかどうか、mBaaSの管理画面にて、以下のようにご確認ください。
@@ -1417,7 +1417,7 @@ NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
 
 ---
 ## プッシュ通知の準備
-### 動作確認①：テストプッシュ通知配信を実施
+### 動作確認プッシュ通知①：テストプッシュ通知配信を実施
 
 * 端末にて配信アイコンが表示されることを確認
 * mBaaS管理画面の「プッシュ通知」を開き、プッシュ通知一覧にて、作成したプッシュ通知のステータスを確認します。
@@ -1429,7 +1429,7 @@ NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
 layout: true
 class: center, middle, inverse_sub
 ---
-# プッシュ通知を送ろう！
+# プッシュ通知を送ろう！【実践編】
 
 .size_large[
 ＜第３回＞
@@ -1439,7 +1439,7 @@ class: center, middle, inverse_sub
 layout: true
 class: center, middle, inverse
 ---
-# 2.プッシュ通知を送信<br>セグメント配信
+# 実践１：プッシュ通知を送信<br>セグメント配信
 
 ---
 layout: false
@@ -1499,16 +1499,23 @@ startActivityForResult(intent, REQUEST_RESULT );
 
 ---
 ## プッシュ通知を送信：セグメント配信
-### プッシュ通知③：installationにユーザー情報を紐づける<br>[実装済み]
+### プッシュ通知③：installationにユーザー情報を紐づける<br>
 
 * `FavoriteActivity.java`開きます
 * `doFavoriteSave()`を開きます
+ - 以下のコメントを開きます
+
+```java
+//**************** 【mBaaS：プッシュ通知④】installationにユーザー情報を紐づける***************
+
+```
 
 ---
 ## プッシュ通知を送信：セグメント配信
-### プッシュ通知③：installationにユーザー情報を紐づける<br>[実装済み]
+### プッシュ通知③：installationにユーザー情報を紐づける
 
 * 同様に、お気に入り画面でお気に入り情報が更新されるたびに、installation情報が書き換えられます
+* 以下のようにコードを追記してください。
 
 ```java
 //**************** 【mBaaS：プッシュ通知④】installationにユーザー情報を紐づける***************
@@ -1531,16 +1538,23 @@ currInstallation.saveInBackground(new DoneCallback() {
 
 ---
 ## プッシュ通知を送信：セグメント配信
-### プッシュ通知④：installationにユーザー情報を紐づける<br>[実装済み]
+### プッシュ通知④：installationにユーザー情報を紐づける
 
 * `ShopActivity.java`開きます
 * `doFavoriteRegister()`開きます
+- 以下のコメントを開きます
+
+```java
+//****************【mBaaS：プッシュ通知⑤】installationにユーザー情報を紐づける***************
+
+```
 
 ---
 ## プッシュ通知を送信：セグメント配信
-### プッシュ通知④：installationにユーザー情報を紐づける<br>[実装済み]
+### プッシュ通知④：installationにユーザー情報を紐づける
 
 * 同様に、Shop画面でもお気に入り情報が更新されるたびに、installation情報が書き換えられます
+* 以下のようにコードを追記してください。
 
 ```java
 //****************【mBaaS：プッシュ通知⑤】installationにユーザー情報を紐づける***************
@@ -1674,7 +1688,7 @@ __shopB__ をお気に入り登録しているユーザーに絞り込んでプ�
 layout: true
 class: center, middle, inverse
 ---
-# 2.プッシュ通知を送信<br>リッチプッシュ
+# 実践２：プッシュ通知を送信<br>リッチプッシュ
 
 ---
 layout: false
@@ -1795,7 +1809,7 @@ getIntent().removeExtra("com.nifcloud.mbaas.RichUrl");
 layout: true
 class: center, middle, inverse
 ---
-# 2.プッシュ通知を送信<br>ペイロード
+# 実践３：プッシュ通知を送信<br>ペイロード
 
 ---
 layout: false
@@ -1814,9 +1828,36 @@ layout: false
 ### プッシュ通知⑦：アプリが起動中にプッシュ通知からデータを取得する
 
 * Androidの場合、受信する処理をカスタマイズするために、カスタムサービスを作成する必要があります
-* 今回、コード内にMyCustomFirebaseMessagingServiceは作成済み
-  - 作成に関して、実装方法はこちらのドキュメントをご参考ください。
+* 今回、コード内にMyCustomFirebaseMessagingServiceを利用します。デフォルトサービスを書き換えるようにしてください。
+  - 参考として、作成に関して、実装方法はこちらのドキュメントをご参考ください。
   - [プッシュ通知でJSONデータを取得する](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#REST%20APIのエラーコードについて)
+
+---
+## プッシュ通知を送信：ペイロード
+### プッシュ通知⑦：アプリが起動中にプッシュ通知からデータを取得する
+
+* AndroidManifestファイルを開きます
+* 修正前
+```
+<service
+    android:name="com.nifcloud.mbaas.core.NCMBFirebaseMessagingService"
+    android:exported="false">
+    <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+    </intent-filter>
+</service>
+```
+
+* 修正後
+```
+<service
+    android:name=".MyCustomFirebaseMessagingService"
+    android:exported="false">
+    <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+    </intent-filter>
+</service>
+```
 
 ---
 ## プッシュ通知を送信：ペイロード
@@ -2002,8 +2043,6 @@ layout: false
 ---
 ## 参考
 
-* 開催中の[セミナー](https://ncmb.connpass.com/)のご案内
- * 随時新しいセミナーを実施していきますのでぜひチェックしてください！
 * ハンズオン内容が実装された完全版プロジェクト
  * __[AndroidAdvancePush【完成版】](https://github.com/NIFCLOUD-mbaas/AndroidAdvancePush/archive/master.zip)__
 * コードは[GitHub](https://github.com/NIFCLOUD-mbaas/AndroidAdvancePush)に公開しています
