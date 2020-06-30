@@ -1,6 +1,4 @@
-package mbaas.com.nifty.advancepush;
-
-import java.util.List;
+package mbaas.com.nifcloud.advancepush;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,10 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nifty.cloud.mb.core.FetchFileCallback;
-import com.nifty.cloud.mb.core.NCMBException;
-import com.nifty.cloud.mb.core.NCMBFile;
-import com.nifty.cloud.mb.core.NCMBObject;
+import com.nifcloud.mbaas.core.FetchFileCallback;
+import com.nifcloud.mbaas.core.NCMBException;
+import com.nifcloud.mbaas.core.NCMBFile;
+import com.nifcloud.mbaas.core.NCMBObject;
+
+import java.util.List;
 
 
 public class ShopListAdapter extends BaseAdapter{
@@ -79,6 +79,27 @@ public class ShopListAdapter extends BaseAdapter{
         String filename = tmpObj.getString("icon_image");
 
         //**************** 【mBaaS/File①: ショップ画像を取得】***************
+        try {
+            NCMBFile file = new NCMBFile(filename);
+            file.fetchInBackground(new FetchFileCallback() {
+                @Override
+                public void done(byte[] data, NCMBException e) {
+                    if (e != null) {
+                        // 取得失敗時の処理
+                        Log.d(TAG, e.getMessage());
+                    } else {
+                        // 取得成功時の処理
+                        Bitmap bmp = null;
+                        if (data != null) {
+                            bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        }
+                        holder.img.setImageBitmap(bmp);
+                    }
+                }
+            });
+        } catch (NCMBException e) {
+            e.printStackTrace();
+        }
 
 
         rowView.setOnClickListener(new OnClickListener() {

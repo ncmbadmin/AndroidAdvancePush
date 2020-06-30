@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidAdvancePush.iml" filepath="$PROJECT_DIR$/AndroidAdvancePush.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidAdvancePush.iml" filepath="$PROJECT_DIR$/AndroidAdvancePush.iml" group="AndroidAdvancePush" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="AndroidAdvancePush/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sampleapp-AndroidAdvancePush.iml" filepath="$PROJECT_DIR$/.idea/modules/sampleapp-AndroidAdvancePush.iml" group="AndroidAdvancePush" />
     </modules>
   </component>
 </project>

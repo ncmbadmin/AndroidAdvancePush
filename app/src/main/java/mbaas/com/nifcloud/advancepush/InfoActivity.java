@@ -1,4 +1,4 @@
-package mbaas.com.nifty.advancepush;
+package mbaas.com.nifcloud.advancepush;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,7 +37,6 @@ public class InfoActivity extends AppCompatActivity {
         _prefecture.setText(common.currentUser.getString("prefecture"));
         _gender.setText(common.currentUser.getString("gender"));
         _email.setText(common.currentUser.getMailAddress());
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.onHomeInfoFab);
         fab.setOnClickListener(new View.OnClickListener() {

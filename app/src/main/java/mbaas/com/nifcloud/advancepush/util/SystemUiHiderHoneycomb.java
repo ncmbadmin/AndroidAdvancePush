@@ -1,4 +1,4 @@
-package mbaas.com.nifty.advancepush.util;
+package mbaas.com.nifcloud.advancepush.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

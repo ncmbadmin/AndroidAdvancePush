@@ -1,4 +1,4 @@
-package mbaas.com.nifty.advancepush;
+package mbaas.com.nifcloud.advancepush;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.nifty.cloud.mb.core.NCMBObject;
+import com.nifcloud.mbaas.core.NCMBException;
+import com.nifcloud.mbaas.core.NCMBObject;
 
 import java.util.List;
 
@@ -69,20 +70,23 @@ public class ShopListFavoriteAdapter extends BaseAdapter {
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                List<String> curFavList = common.currentUser.getList("favorite");
-
-                if(isChecked){
-                    if (!curFavList.contains(tmpShop.getObjectId())) {
-                        curFavList.add(tmpShop.getObjectId());
+                try {
+                    List<String> curFavList = common.currentUser.getList("favorite");
+                    if(isChecked){
+                        if (!curFavList.contains(tmpShop.getObjectId())) {
+                            curFavList.add(tmpShop.getObjectId());
+                        }
+                        common.currentUser.put("favorite", curFavList);
+                        Log.d(TAG, "true");
+                    } else {
+                        if (curFavList.contains(tmpShop.getObjectId())) {
+                            curFavList.remove(tmpShop.getObjectId());
+                        }
+                        common.currentUser.put("favorite", curFavList);
+                        Log.d(TAG," false");
                     }
-                    common.currentUser.put("favorite", curFavList);
-                    Log.d(TAG, "true");
-                } else {
-                    if (curFavList.contains(tmpShop.getObjectId())) {
-                        curFavList.remove(tmpShop.getObjectId());
-                    }
-                    common.currentUser.put("favorite", curFavList);
-                    Log.d(TAG," false");
+                } catch (NCMBException e) {
+                    e.printStackTrace();
                 }
             }
         });
