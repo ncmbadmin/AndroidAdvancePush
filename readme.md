@@ -224,7 +224,7 @@ obj.saveInBackground(new DoneCallback() {
 ---
 ## ハンズオンの流れ
 
-__<font color="#49a7e5" size="5">第１回&nbsp;</font><font size="6">「mBaaS Shop List」アプリを作ろう！</font>__
+__<font color="#49a7e5" size="3">第１回&nbsp;</font><font size="6">「mBaaS Shop List」アプリを作ろう！</font>__
 
 .size_large[
 1. ハンズオンの準備
@@ -232,14 +232,14 @@ __<font color="#49a7e5" size="5">第１回&nbsp;</font><font size="6">「mBaaS S
 1. Shop情報の設定
 ]
 
-__<font color="#49a7e5" size="5">第２回&nbsp;</font><font size="6">お気に入り機能とプッシュ通知準備！</font>__
+__<font color="#49a7e5" size="3">第２回&nbsp;</font><font size="6">お気に入り機能とプッシュ通知準備！</font>__
 
 .size_large[
 1. お気に入り機能の作成
 1. プッシュ通知の準備
 ]
 
-__<font color="#49a7e5" size="5">第３回&nbsp;</font><font size="6">プッシュ通知を送ろう！</font>__
+__<font color="#49a7e5" size="3">第３回&nbsp;</font><font size="6">プッシュ通知を送ろう！</font>__
 .size_large[
 1. プッシュ通知を送信：セグメント配信
 1. プッシュ通知を送信：リッチプッシュ
@@ -309,12 +309,9 @@ layout: false
 
 * mBaaS Android SDK v.3.0.4のインストール, build.graddleの設定, AndroidManifestの設定は実装済み
 * build.gradle
+
 ```
 buildscript {
-    repositories {
-        jcenter()
-        google()
-    }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0'
         classpath 'com.google.gms:google-services:4.3.3'
@@ -335,6 +332,7 @@ allprojects {
 
 
 * app/build.gradle
+
 ```
 repositories {
     maven {
@@ -388,9 +386,6 @@ dependencies {
 * mBaaSとの連携以外の処理のコーディング
  * アプリのデザインを`layoutフォルダー内ファイル`で作成し、処理は画面ごと`Activityのファイル`にコーディングしています
 
-.center[
-![AndroidStudio 4](readme-image/android4.png)
-]
 
 ---
 ## ハンズオンの準備
@@ -522,10 +517,16 @@ new AlertDialog.Builder(SignupActivity.this)
 ### 会員管理②：メールアドレスとパスワードでログイン
 
 * `LoginActivity.java`を開きます。
-* `doLogin()`メソッドを開きます。以下のコメントが書かれているところを開きます。
+* `doLogin()`メソッドを開きます。以下のコメントを開きます。
+
 ```java
 //**************** 【mBaaS/User②】: メールアドレスとパスワードでログイン】***************
 ```
+
+---
+## 会員管理機能の作成
+### 会員管理②：メールアドレスとパスワードでログイン
+
 * ログイン処理は以下のように追記してください。
 
 ```java
@@ -663,8 +664,7 @@ NCMBUser.loginWithMailAddressInBackground(email, password, new LoginCallback());
 ## 会員管理機能の作成
 ### 会員管理③：ユーザー情報更新
 
-* ログインした後、初めてログインの場合、以下のようにユーザの属性を登録する画面が出てきます。
-* ユーザ情報を登録処理をこれから実施していきます。
+* 初めてログインの場合、ログイン後、ユーザの属性を登録する画面が出てきます。ユーザ情報を登録処理を実施していきます。
 .center[
 ![UserInfoRegistration](readme-image/UserInfoRegistration.png)
 ]
@@ -743,7 +743,8 @@ new AlertDialog.Builder(RegisterActivity.this)
        })
        .show();
 ```
---
+
+---
 ## 会員管理機能の作成
 ### 会員管理③：ユーザー情報更新
 
@@ -786,6 +787,10 @@ layout: false
 
 * ニフクラ mobile backendの管理画面から「ファイルストア」を開き、「↑アップロード」ボタンをクリックします
 * ダウンロードしたサンプルプロジェクトにあるSettingフォルダ内の「icon」「Shop」「Sale」内にあるファイルをすべてをアップロードします
+
+---
+## Shop情報の設定
+### mBaaSにShop情報を用意する（ファイルストア）
 
 .center[
 ![imageUpload](readme-image/imageUpload.png)
@@ -934,7 +939,6 @@ holder.img.setImageBitmap(bmp);
 ```java
 ////**************** 【mBaaS/File②: ショップ詳細画像を取得】***************
 
-
 ```
 
 ---
@@ -982,6 +986,10 @@ try {
  正しく登録されているかぜひご確認ください。
  * ログを確認してください
 
+---
+## Shop情報の設定
+### 動作確認(2)会員情報登録とShop情報表示
+
 .center[
 ![動作確認②ユーザー情報追加](readme-image/動作確認②ユーザー情報追加.png)
 ]
@@ -1000,6 +1008,10 @@ try {
 * アプリメニューから「User info」をクリックし、会員ページをタップします。
  * 登録したユーザー情報が表示されます。
 
+---
+## Shop情報の設定
+### 動作確認(2)会員情報登録とShop情報表示
+
 .center[
 ![動作確認②](readme-image/動作確認②.png)
 ]
@@ -1013,12 +1025,14 @@ try {
 
 * お店一覧を表示する為に、データストアに登録しいるShopクラスのデータを検索して取得するようにしています。
 全件のデータを検索する為には、以下のようにNCMBQueryクラスが提供しているfind()メソッドを利用しています。
+
 ```java
 // 「Shop」クラスのクエリを作成
 NCMBQuery<NCMBObject> query = new NCMBQuery<>("Shop");
 //データストアからデータを検索
 List<NCMBObject> results = query.find();
 ```
+
 * 今回は全件のため、検索条件は指定していませんが、mBaaSでは検索条件を指定することができます。
 検索については[ドキュメント](https://mbaas.nifcloud.com/doc/current/datastore/basic_usage_android.html#%E5%9F%BA%E6%9C%AC%E7%9A%84%E3%81%AA%E6%A4%9C%E7%B4%A2%E3%81%AE%E5%88%A9%E7%94%A8&gsc.tab=0)をご覧ください。
 * また、検索する際、データが多い時、取得件数の制限（limit）を設定するようにしてください。(limitはデフォルト100件、
@@ -1099,23 +1113,42 @@ common.currentUser.saveInBackground(new DoneCallback() {
     public void done(NCMBException e) {
         if (e != null) {
             //保存失敗時の処理
-            <<省略>>
+
         } else {
             //保存成功時の処理
-            new AlertDialog.Builder(FavoriteActivity.this)
-                    .setTitle("Notification from NIFCLOUD")
-                    .setMessage("お気に入り保存成功しました!")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(getApplicationContext(),
-                            FavoriteActivity.class);
-                            startActivityForResult(intent, REQUEST_RESULT);
-                        }
-                    })
-                    .show();
+
         }
     }
 });
+```
+
+---
+### お気に入り機能の作成
+### 会員管理④：ユーザー情報の更新
+
+* それぞれ追記するコードは以下となります。
+
+```java
+//保存失敗時の処理
+new AlertDialog.Builder(FavoriteActivity.this)
+        .setTitle("Notification from mBaas")
+        .setMessage("Save failed! Error:" + e.getMessage())
+        .setPositiveButton("OK", null)
+        .show();
+```
+
+```java
+//保存成功時の処理
+new AlertDialog.Builder(FavoriteActivity.this)
+        .setTitle("Notification from mBaas")
+        .setMessage("お気に入り保存成功しました!")
+        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
+                startActivityForResult(intent, REQUEST_RESULT);
+            }
+        })
+        .show();
 ```
 
 ---
@@ -1236,8 +1269,6 @@ common.currentUser.put("favorite", list);
 common.currentUser.saveInBackground(new DoneCallback());
 ```
 
-
-
 ---
 layout: true
 class: center, middle, inverse
@@ -1281,7 +1312,7 @@ https://console.firebase.google.com/
 その横に歯車ボタンがあり、そこにカーソルを合わせるとメニューが出てきます。「プロジェクトの設定」をクリックします。
 * Firebaseのプロジェクトの設定画面が出てきます。その設定画面の上のタブメニューの中から「サービスアカウント」を選択します。
 
- ---
+---
 ## プッシュ通知の準備
 ### Firebaseの秘密鍵をmobile backendに設定
 
@@ -1300,6 +1331,10 @@ https://console.firebase.google.com/
 * mBaaS管理画面の右上にある「アプリ設定」を選択肢、「プッシュ通知」を選択します。
 * プッシュ通知の許可を行います。
 * 前の手順でダウンロードした秘密鍵をプッシュ通知設定ファイル(json)として設定します。
+
+---
+## プッシュ通知の準備
+### Firebaseの秘密鍵をmobile backendに設定
 
 .center[
 ![mBaaSプッシュ通知設定](readme-image/mBaaSプッシュ通知設定.png)
@@ -1421,8 +1456,8 @@ NCMB.initialize(this.getApplicationContext(),"APP_KEY","CLIENT_KEY");
 
 * 端末にて配信アイコンが表示されることを確認
 * mBaaS管理画面の「プッシュ通知」を開き、プッシュ通知一覧にて、作成したプッシュ通知のステータスを確認します。
-* 正常の場合、「配信済み」となりますが、エラーが発生した場合、[ドキュメント](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#%E3%80%8C%E9%85%8D%E4%BF%A1%E3%82%A8%E3%83%A9%E3%83%BC%E5%86%85%E5%AE%B9%E3%80%8D%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)を参考して、再度設定などを見直してください。
-
+* 正常の場合、「配信済み」となります。
+* エラーが発生した場合、 [ドキュメント](https://mbaas.nifcloud.com/doc/current/rest/common/error.html#%E3%80%8C%E9%85%8D%E4%BF%A1%E3%82%A8%E3%83%A9%E3%83%BC%E5%86%85%E5%AE%B9%E3%80%8D%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6) を参考して、再度設定などを見直してください。
 * ※今回のセミナー内容はこれで終わります。次回はプッシュ通知を活用する方法と実践を行います。
 
 ---
@@ -1439,7 +1474,7 @@ class: center, middle, inverse_sub
 layout: true
 class: center, middle, inverse
 ---
-# 実践１：プッシュ通知を送信<br>セグメント配信
+# プッシュ通知実践１：セグメント配信
 
 ---
 layout: false
@@ -1688,7 +1723,7 @@ __shopB__ をお気に入り登録しているユーザーに絞り込んでプ�
 layout: true
 class: center, middle, inverse
 ---
-# 実践２：プッシュ通知を送信<br>リッチプッシュ
+# プッシュ通知実践２：リッチプッシュ
 
 ---
 layout: false
@@ -1809,7 +1844,7 @@ getIntent().removeExtra("com.nifcloud.mbaas.RichUrl");
 layout: true
 class: center, middle, inverse
 ---
-# 実践３：プッシュ通知を送信<br>ペイロード
+# プッシュ通知実践３：ペイロード
 
 ---
 layout: false
@@ -1819,6 +1854,7 @@ layout: false
 * プッシュ通知にはJSON形式で任意のデータを含めることができ、通知を受信した時に、そのデータを受け取って処理を行うことができる機能です
 * 今回は、配信時間とメッセージのデータを設定し、時限式でローカルプッシュを表示させる内容を実装します
  * プッシュ通知に設定するJSON形式のデータの例
+
  ```text
  {"deliveryTime":"2016-09-22 17:00:00", "message":"タイムセールスタート！"}
  ```
@@ -1838,6 +1874,7 @@ layout: false
 
 * AndroidManifestファイルを開きます
 * 修正前
+
 ```
 <service
     android:name="com.nifcloud.mbaas.core.NCMBFirebaseMessagingService"
@@ -1849,6 +1886,7 @@ layout: false
 ```
 
 * 修正後
+
 ```
 <service
     android:name=".MyCustomFirebaseMessagingService"
