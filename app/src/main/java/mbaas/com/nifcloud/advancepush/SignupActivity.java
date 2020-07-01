@@ -59,33 +59,7 @@ public class SignupActivity extends AppCompatActivity {
 
     protected void doSignupByEmail() {
         //**************** 【mBaaS/User①】: 会員登録用メールを要求する】***************
-        String email = _signupEmail.getText().toString();
-        NCMBUser.requestAuthenticationMailInBackground(email, new DoneCallback() {
-            @Override
-            public void done(NCMBException e) {
-                if (e != null) {
-                    // 会員登録用メールの要求失敗時の処理
-                    new AlertDialog.Builder(SignupActivity.this)
-                            .setTitle("Notification from mBaas")
-                            .setMessage("Send failed! Error:" + e.getMessage())
-                            .setPositiveButton("OK", null)
-                            .show();
-                } else {
-                    // 会員登録用メールの要求失敗時の処理
-                    new AlertDialog.Builder(SignupActivity.this)
-                            .setTitle("Notification from mBaas")
-                            .setMessage("メール送信完了しました! メールをご確認ください。")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    //Login画面遷移します
-                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                    startActivityForResult(intent, REQUEST_RESULT);
-                                }
-                            })
-                            .show();
 
-                }
-            }
-        });
+
     }
 }

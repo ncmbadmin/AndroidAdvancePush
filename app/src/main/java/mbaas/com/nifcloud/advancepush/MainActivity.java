@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //**************** 【mBaaS/Initialization: APIキーを指定する】***************
-        NCMB.initialize(this.getApplicationContext(),"YOUR_APPLICATION_KEY","YOUR_CLIENT_KEY");
+
 
         // グローバル変数を扱うクラスを取得する
         common = (Common) getApplication();

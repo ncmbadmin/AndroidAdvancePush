@@ -63,58 +63,10 @@ public class FavoriteActivity extends AppCompatActivity {
 
     protected void doFavoriteSave() {
         //**************** 【mBaaS/User ④: 会員情報更新】***************
-        List<String> list = new ArrayList<String>();
-        list = common.currentUser.getList("favorite");
-        try {
-            common.currentUser.put("favorite", list);
-            common.currentUser.saveInBackground(new DoneCallback() {
-                @Override
-                public void done(NCMBException e) {
-                    if (e != null) {
-                        //保存失敗時の処理
-                        new AlertDialog.Builder(FavoriteActivity.this)
-                                .setTitle("Notification from mBaas")
-                                .setMessage("Save failed! Error:" + e.getMessage())
-                                .setPositiveButton("OK", null)
-                                .show();
-                    } else {
-                        //保存成功時の処理
-                        new AlertDialog.Builder(FavoriteActivity.this)
-                                .setTitle("Notification from mBaas")
-                                .setMessage("お気に入り保存成功しました!")
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
-                                        startActivityForResult(intent, REQUEST_RESULT);
-                                    }
-                                })
-                                .show();
-                    }
-                }
-            });
-        } catch (NCMBException e) {
-            e.printStackTrace();
-        }
+
 
         //**************** 【mBaaS：プッシュ通知④】installationにユーザー情報を紐づける***************
-        //端末情報を保存する
-        try {
-            NCMBInstallation currInstallation = NCMBInstallation.getCurrentInstallation();
-            currInstallation.put("favorite", list);
-            currInstallation.saveInBackground(new DoneCallback() {
-                @Override
-                public void done(NCMBException e) {
-                    if (e != null) {
-                        //保存失敗
-                        Log.d(TAG, "端末情報を保存失敗しました。");
-                    } else {
-                        //保存成功
-                        Log.d(TAG, "端末情報を保存成功しました。");
-                    }
-                }
-            });
-        } catch (NCMBException e) {
-            e.printStackTrace();
-        }
+
+
     }
 }

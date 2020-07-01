@@ -59,44 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
     protected void doLogin() {
         //**************** 【mBaaS/User②】: メールアドレスとパスワードでログイン】***************
-        String email = _loginEmail.getText().toString();
-        String password = _loginPassword.getText().toString();
 
-        NCMBUser.loginWithMailAddressInBackground(email, password, new LoginCallback() {
-            @Override
-            public void done(NCMBUser user, NCMBException e) {
-                if (e != null) {
-                    //ログインに失敗した場合の処理
-                    new AlertDialog.Builder(LoginActivity.this)
-                            .setTitle("Notification from mBaas")
-                            .setMessage("Login failed! Error:" + e.getMessage())
-                            .setPositiveButton("OK", null)
-                            .show();
-                } else {
-                    //ログインに成功した場合の処理
-                    common.currentUser = NCMBUser.getCurrentUser();
-                    AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
-                            .setTitle("Notification from mBaas")
-                            .setMessage("ログイン成功")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    String nickname = common.currentUser.getString("nickname");
-                                    if (nickname != null && !nickname.isEmpty() && !nickname.equals("null")) {
-                                        //メイン画面遷移します
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivityForResult(intent, REQUEST_RESULT);
-                                    } else {
-                                        //初期ログイン会員登録画面遷移します
-                                        Toast.makeText(LoginActivity.this, "Register user information for the first time!", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-                                        startActivityForResult(intent, REQUEST_RESULT);
-                                    }
-                                }
-                            })
-                            .show();
-                }
-            }
-        });
 
     }
 

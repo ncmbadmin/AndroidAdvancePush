@@ -60,27 +60,8 @@ public class ShopActivity extends AppCompatActivity {
             _shop_name.setText(name);
 
             //**************** 【mBaaS/File②: ショップ詳細画像を取得】***************
-            try {
-                NCMBFile file = new NCMBFile(shop_image);
-                file.fetchInBackground(new FetchFileCallback() {
-                    @Override
-                    public void done(byte[] data, NCMBException e) {
-                        if (e != null) {
-                            //取得失敗時の処理
-                            Log.d(TAG, e.getMessage());
-                        } else {
-                            //取得成功時の処理
-                            Bitmap bmp = null;
-                            if (data != null) {
-                                bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                            }
-                            _shop_image.setImageBitmap(bmp);
-                        }
-                    }
-                });
-            } catch (NCMBException e) {
-                e.printStackTrace();
-            }
+
+
 
             Log.d("test", common.currentUser.getList("favorite").toString());
             //Show favorite information
@@ -117,42 +98,6 @@ public class ShopActivity extends AppCompatActivity {
 
     protected void doFavoriteRegister(final String objId, final String name, final String shop_image) {
         //**************** 【mBaaS/User⑤: 会員情報更新】***************
-        List<String> list = new ArrayList<String>();
-        list = common.currentUser.getList("favorite");
-        list.add(objId);
-        try {
-            common.currentUser.put("favorite", list);
-            common.currentUser.saveInBackground(new DoneCallback() {
-                @Override
-                public void done(NCMBException e) {
-                    if (e != null) {
-                        //更新失敗時の処理
-                        new AlertDialog.Builder(ShopActivity.this)
-                                .setTitle("Notification from mBaas")
-                                .setMessage("Save failed! Error:" + e.getMessage())
-                                .setPositiveButton("OK", null)
-                                .show();
-                    } else {
-                        //更新成功時の処理
-                        new AlertDialog.Builder(ShopActivity.this)
-                                .setTitle("Notification from mBaas")
-                                .setMessage("お気に入り保存成功しました")
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(getApplicationContext(), ShopActivity.class);
-                                        intent.putExtra("objectId", objId);
-                                        intent.putExtra("name", name);
-                                        intent.putExtra("shop_image", shop_image);
-                                        startActivityForResult(intent, REQUEST_RESULT);
-                                    }
-                                })
-                                .show();
-                    }
-                }
-            });
-        } catch (NCMBException e) {
-            e.printStackTrace();
-        }
 
 
         //****************【mBaaS：プッシュ通知⑤】installationにユーザー情報を紐づける***************
