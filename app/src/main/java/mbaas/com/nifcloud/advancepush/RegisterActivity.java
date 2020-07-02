@@ -98,9 +98,12 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
             });
+        } catch (NCMBException e) {
+            e.printStackTrace();
+        }
 
-
-            //**************** 【mBaaS：プッシュ通知②】installationにユーザー情報を紐づける ***************
+        //**************** 【mBaaS：プッシュ通知②】installationにユーザー情報を紐づける ***************
+        try {
             NCMBInstallation currInstallation  = NCMBInstallation.getCurrentInstallation();
             currInstallation.put("prefecture", prefecture);
             currInstallation.put("gender", selectedGender);
