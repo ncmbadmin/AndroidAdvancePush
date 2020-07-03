@@ -4,20 +4,20 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="会員ページ (User page)"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="会員ページ"
-        android:id="@+id/textView12"
-        android:textSize="30dp"
-        android:layout_gravity="center_horizontal" />
+        android:textSize="30dp" />
 
     <TextView
+        android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ニックネーム"
-        android:id="@+id/textView13" />
+        android:text="ニックネーム (Nickname)"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,11 +27,11 @@
         android:id="@+id/txtNickname_Info" />
 
     <TextView
+        android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="性別"
-        android:id="@+id/textView14" />
+        android:text="性別 (Gender)"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,11 +41,11 @@
         android:id="@+id/txtGender_Info" />
 
     <TextView
+        android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="都道府県"
-        android:id="@+id/textView16" />
+        android:text="都道府県 (Postcode)"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,11 +55,11 @@
         android:id="@+id/txtPrefecture_Info" />
 
     <TextView
+        android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="メールアドレス"
-        android:id="@+id/textView18" />
+        android:text="メールアドレス (Mail address)"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:layout_width="wrap_content"

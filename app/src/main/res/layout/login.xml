@@ -5,21 +5,21 @@
     android:weightSum="1">
 
     <TextView
-        android:layout_width="349dp"
-        android:layout_height="36dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="mBaaS ショップ"
         android:id="@+id/textView"
+        android:layout_width="377dp"
+        android:layout_height="77dp"
+        android:layout_weight="0.07"
+        android:text="mBaaS ショップ (mBaaS Shop)"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textIsSelectable="false"
-        android:textSize="40dp"
-        android:layout_weight="0.07" />
+        android:textSize="40dp" />
 
     <TextView
+        android:id="@+id/Email"
         android:layout_width="295dp"
         android:layout_height="wrap_content"
+        android:text="メールアドレス (Mail address)"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="メールアドレス"
-        android:id="@+id/Email"
         android:textSize="25dp" />
 
     <EditText
@@ -31,13 +31,13 @@
         android:layout_weight="0.07" />
 
     <TextView
+        android:id="@+id/Password"
         android:layout_width="212dp"
         android:layout_height="wrap_content"
+        android:layout_weight="0.07"
+        android:text="パスワード (Password)"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="パスワード"
-        android:id="@+id/Password"
-        android:textSize="25dp"
-        android:layout_weight="0.07" />
+        android:textSize="25dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -49,24 +49,24 @@
         android:layout_weight="0.07" />
 
     <Button
+        android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ログイン"
-        android:id="@+id/btnLogin"
-        android:layout_weight="0.07" />
+        android:layout_weight="0.07"
+        android:text="ログイン (Login)" />
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="新規ユーザー？こちらで登録してください。"
-        android:id="@+id/textView4"
-        android:layout_weight="0.07" />
+        android:layout_weight="0.07"
+        android:text="新規ユーザー？こちらで登録してください。(Please register here if you are new user.)"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
+        android:id="@+id/btnSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="会員登録"
-        android:id="@+id/btnSignup"
-        android:layout_weight="0.07" />
+        android:layout_weight="0.07"
+        android:text="会員登録(USER REGISTER)" />
 </LinearLayout>

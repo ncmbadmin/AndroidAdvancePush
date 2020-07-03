@@ -8,17 +8,17 @@ import com.nifcloud.mbaas.core.NCMBUser;
 import java.util.List;
 
 /**
- * グローバル変数を扱うクラス.
+ * グローバル変数を扱うクラス. Global variables class
  */
 public class Common extends Application {
 
-    // ログイン中ユーザー情報
+    // ログイン中ユーザー情報 Login user var
     NCMBUser currentUser;
-    // サーバーからローディングしたショップの情報
+    // サーバーからローディングしたショップの情報 Shop list var
     List<NCMBObject> shops;
 
     /**
-     * 変数を初期化する
+     * 変数を初期化する Init variables
      */
     public void init() {
         currentUser = new NCMBUser();
