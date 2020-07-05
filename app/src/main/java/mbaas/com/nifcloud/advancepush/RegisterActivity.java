@@ -67,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
         final List<String> list = new ArrayList<>();
 
         //**************** 【mBaaS/User③: ユーザー情報更新】***************
+        //**************** 【mBaaS/User③: Update User Information】***************
         try {
             common.currentUser.put("nickname", nickname);
             common.currentUser.put("prefecture", prefecture);
@@ -78,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
                 public void done(NCMBException e) {
                     if (e != null) {
                         // 更新失敗時の処理
+                        // Process at Update Failures
                         new AlertDialog.Builder(RegisterActivity.this)
                                 .setTitle("Notification from mBaas")
                                 .setMessage("Save failed! Error:" + e.getMessage())
@@ -85,9 +87,10 @@ public class RegisterActivity extends AppCompatActivity {
                                 .show();
                     } else {
                         // 更新成功時の処理
+                        // Process on successful update
                         new AlertDialog.Builder(RegisterActivity.this)
                                 .setTitle("Notification from mBaas")
-                                .setMessage("保存成功しました! 入力ありがとうございます")
+                                .setMessage("保存成功しました! 入力ありがとうございます(Save succeeded! Thank you for entering.)")
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent intent = new Intent(getApplicationContext(), mbaas.com.nifcloud.advancepush.MainActivity.class);
@@ -103,6 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         //**************** 【mBaaS：プッシュ通知②】installationにユーザー情報を紐づける ***************
+        //**************** 【mBaaS：Push Notification②】link user information to installation ***************
         try {
             NCMBInstallation currInstallation  = NCMBInstallation.getCurrentInstallation();
             currInstallation.put("prefecture", prefecture);
@@ -113,10 +117,12 @@ public class RegisterActivity extends AppCompatActivity {
                 public void done(NCMBException e) {
                     if (e != null) {
                         //更新失敗時の処理
-                        Log.d(TAG, "端末情報を保存失敗しました。");
+                        //Process at update failure
+                        Log.d(TAG, "端末情報を保存失敗しました。(Failed to save device information.)");
                     } else {
                         //更新成功時の処理
-                        Log.d(TAG, "端末情報を保存成功しました。");
+                        //Process on successful update
+                        Log.d(TAG, "端末情報を保存成功しました。(Saving device information succeeded.)");
                         Intent intent = new Intent(getApplicationContext(), mbaas.com.nifcloud.advancepush.MainActivity.class);
                         startActivityForResult(intent, REQUEST_RESULT );
                     }

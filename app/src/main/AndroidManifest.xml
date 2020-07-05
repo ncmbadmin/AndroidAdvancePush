@@ -41,6 +41,7 @@
             </intent-filter>
         </receiver>
 
+        <!--  NOTICE: Push received service will be insert here -->
         <service
             android:name=".MyCustomFirebaseMessagingService"
             android:exported="false">

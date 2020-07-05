@@ -60,6 +60,7 @@ public class ShopActivity extends AppCompatActivity {
             _shop_name.setText(name);
 
             //**************** 【mBaaS/File②: ショップ詳細画像を取得】***************
+            //**************** 【mBaaS/File②: acquire shop detail image】***************
             try {
                 NCMBFile file = new NCMBFile(shop_image);
                 file.fetchInBackground(new FetchFileCallback() {
@@ -67,9 +68,11 @@ public class ShopActivity extends AppCompatActivity {
                     public void done(byte[] data, NCMBException e) {
                         if (e != null) {
                             //取得失敗時の処理
+                            //Process at acquiition failures
                             Log.d(TAG, e.getMessage());
                         } else {
                             //取得成功時の処理
+                            //Process on successful acquisition
                             Bitmap bmp = null;
                             if (data != null) {
                                 bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
@@ -117,6 +120,7 @@ public class ShopActivity extends AppCompatActivity {
 
     protected void doFavoriteRegister(final String objId, final String name, final String shop_image) {
         //**************** 【mBaaS/User⑤: 会員情報更新】***************
+        //**************** 【mBaaS/User⑤: Update member information】***************
         List<String> list = new ArrayList<String>();
         list = common.currentUser.getList("favorite");
         list.add(objId);
@@ -127,6 +131,7 @@ public class ShopActivity extends AppCompatActivity {
                 public void done(NCMBException e) {
                     if (e != null) {
                         //更新失敗時の処理
+                        //Process at update failures
                         new AlertDialog.Builder(ShopActivity.this)
                                 .setTitle("Notification from mBaas")
                                 .setMessage("Save failed! Error:" + e.getMessage())
@@ -134,9 +139,10 @@ public class ShopActivity extends AppCompatActivity {
                                 .show();
                     } else {
                         //更新成功時の処理
+                        //Process on successful update
                         new AlertDialog.Builder(ShopActivity.this)
                                 .setTitle("Notification from mBaas")
-                                .setMessage("お気に入り保存成功しました")
+                                .setMessage("お気に入り保存成功しました(Saved Favorites Successfully!)")
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent intent = new Intent(getApplicationContext(), ShopActivity.class);
@@ -156,6 +162,8 @@ public class ShopActivity extends AppCompatActivity {
 
 
         //****************【mBaaS：プッシュ通知⑤】installationにユーザー情報を紐づける***************
+        //****************【mBaaS：Push Notification⑤】link user information to installation***************
+
         try {
             NCMBInstallation currInstallation  = NCMBInstallation.getCurrentInstallation();
             currInstallation.put("favorite", list);
@@ -164,10 +172,12 @@ public class ShopActivity extends AppCompatActivity {
                 public void done(NCMBException e) {
                     if (e != null) {
                         //保存失敗した場合の処理
-                        Log.d(TAG, "端末情報を保存失敗しました。");
+                        //Process at saving fails
+                        Log.d(TAG, "端末情報を保存失敗しました。(Failed to save device information)");
                     } else {
                         //保存成功した場合の処理
-                        Log.d(TAG, "端末情報を保存成功しました。");
+                        //Process on successful save
+                        Log.d(TAG, "端末情報を保存成功しました。(Saving device information succeeded.)");
                     }
                 }
             });

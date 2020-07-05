@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //**************** 【mBaaS/Initialization: APIキーを指定する】***************
+        //**************** 【mBaaS/Initialization: Specify API key】***************
         NCMB.initialize(this.getApplicationContext(),"YOUR_APPLICATION_KEY","YOUR_CLIENT_KEY");
 
         // グローバル変数を扱うクラスを取得する
@@ -129,11 +130,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void doLoadShop() throws NCMBException {
         //**************** 【mBaaS/Shop①: 「Shop」クラスのデータを取得】***************
+        //**************** 【mBaaS/Shop①: Obtain data of "Shop" class】***************
+
         // 「Shop」クラスのクエリを作成
+        // Create query for "Shop" class
         NCMBQuery<NCMBObject> query = new NCMBQuery<>("Shop");
         //データストアからデータを検索
+        //Search data from datastore
         List<NCMBObject> results = query.find();
         //グローバル変数を更新する
+        //Update Global Variables
         common.shops = results;
         ListView lv = (ListView) findViewById(R.id.lstShop);
         lv.setAdapter(new mbaas.com.nifcloud.advancepush.ShopListAdapter(this, results));
@@ -145,10 +151,14 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         //**************** 【mBaaS：プッシュ通知⑥】リッチプッシュ通知を表示させる処理 ***************
+        //********** 【mBaaS：Push Notification⑥】process for displaying rich push notifications *********
+
         //リッチプッシュ通知の表示
+        //Diplay rich push notifications
         NCMBPush.richPushHandler(this, getIntent());
 
         //リッチプッシュを再表示させたくない場合はintentからURLを削除します
+        //If you don't want the rich push to re-display, delete the URL from the intent
         getIntent().removeExtra("com.nifcloud.mbaas.RichUrl");
     }
 

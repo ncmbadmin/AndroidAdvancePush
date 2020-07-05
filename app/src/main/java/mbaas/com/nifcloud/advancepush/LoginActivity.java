@@ -59,6 +59,8 @@ public class LoginActivity extends AppCompatActivity {
 
     protected void doLogin() {
         //**************** 【mBaaS/User②】: メールアドレスとパスワードでログイン】***************
+        //**************** 【mBaaS/User②】: Login with email address and password】***************
+
         String email = _loginEmail.getText().toString();
         String password = _loginPassword.getText().toString();
 
@@ -67,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             public void done(NCMBUser user, NCMBException e) {
                 if (e != null) {
                     //ログインに失敗した場合の処理
+                    //process for log in failures
                     new AlertDialog.Builder(LoginActivity.this)
                             .setTitle("Notification from mBaas")
                             .setMessage("Login failed! Error:" + e.getMessage())
@@ -74,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                             .show();
                 } else {
                     //ログインに成功した場合の処理
+                    //process for successful login
                     common.currentUser = NCMBUser.getCurrentUser();
                     AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
                             .setTitle("Notification from mBaas")
@@ -83,10 +87,12 @@ public class LoginActivity extends AppCompatActivity {
                                     String nickname = common.currentUser.getString("nickname");
                                     if (nickname != null && !nickname.isEmpty() && !nickname.equals("null")) {
                                         //メイン画面遷移します
+                                        //main screen transition
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivityForResult(intent, REQUEST_RESULT);
                                     } else {
                                         //初期ログイン会員登録画面遷移します
+                                        // transition to member registration screen for initial login.
                                         Toast.makeText(LoginActivity.this, "Register user information for the first time!", Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                                         startActivityForResult(intent, REQUEST_RESULT);
