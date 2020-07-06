@@ -58,7 +58,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="都道府県 Postcode"
+        android:text="都道府県（Postcode）"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="23dp" />
 
