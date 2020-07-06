@@ -112,7 +112,7 @@ public class FavoriteActivity extends AppCompatActivity {
                     if (e != null) {
                         //保存失敗
                         //Save Failed
-                        Log.d(TAG, "端末情報を保存失敗しました。(Failed to save device information.)");
+                        Log.d(TAG, "端末情報の保存失敗しました。(Failed to save device information.)");
                     } else {
                         //保存成功
                         //Save Successful
