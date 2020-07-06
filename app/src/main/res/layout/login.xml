@@ -60,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.07"
-        android:text="新規ユーザー？こちらで登録してください。(Please register here if you are new user.)"
+        android:text="新規ユーザーはこちらで登録してください。(Please register here if you are new user.)"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
