@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         //********** 【mBaaS：Push Notification⑥】process for displaying rich push notifications *********
 
         //リッチプッシュ通知の表示
-        //Diplay rich push notifications
+        //Display rich push notifications
         NCMBPush.richPushHandler(this, getIntent());
 
         //リッチプッシュを再表示させたくない場合はintentからURLを削除します
