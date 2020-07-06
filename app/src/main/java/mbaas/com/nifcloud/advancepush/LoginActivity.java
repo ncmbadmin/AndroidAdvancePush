@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                     common.currentUser = NCMBUser.getCurrentUser();
                     AlertDialog show = new AlertDialog.Builder(LoginActivity.this)
                             .setTitle("Notification from mBaas")
-                            .setMessage("ログイン成功")
+                            .setMessage("ログイン成功(Login Succeeded)")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     String nickname = common.currentUser.getString("nickname");
