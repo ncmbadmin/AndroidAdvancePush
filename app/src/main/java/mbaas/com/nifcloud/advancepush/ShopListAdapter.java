@@ -79,6 +79,8 @@ public class ShopListAdapter extends BaseAdapter{
         String filename = tmpObj.getString("icon_image");
 
         //**************** 【mBaaS/File①: ショップ画像を取得】***************
+        //**************** 【mBaaS/File①: shop image acquisition】***************
+
         try {
             NCMBFile file = new NCMBFile(filename);
             file.fetchInBackground(new FetchFileCallback() {
@@ -86,9 +88,11 @@ public class ShopListAdapter extends BaseAdapter{
                 public void done(byte[] data, NCMBException e) {
                     if (e != null) {
                         // 取得失敗時の処理
+                        // Process at acquiition failures
                         Log.d(TAG, e.getMessage());
                     } else {
                         // 取得成功時の処理
+                        // Process on successful acquisition
                         Bitmap bmp = null;
                         if (data != null) {
                             bmp = BitmapFactory.decodeByteArray(data, 0, data.length);

@@ -10,11 +10,13 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity">
 
-    <TextView android:text="mBaaS ショップ一覧" android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="mBaaS ショップ一覧 (Shop List)"
+        android:textSize="30dp" />
 
     <ListView
         android:id="@+id/lstShop"

@@ -27,8 +27,10 @@ public class MyCustomFirebaseMessagingService extends NCMBFirebaseMessagingServi
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         //**************** 【mBaaS：プッシュ通知⑦】プッシュ通知からデータを取得する***************
+        //******** 【mBaaS：Push Notification⑦】App Obtains Data from Push Notification********
         if (remoteMessage != null && remoteMessage.getData() != null) {
             //ペイロードデータの取得
+            //acquisition of payload data
             Bundle data = new Bundle();
             Map<String, String> d = remoteMessage.getData();
             for (String key : d.keySet()) {
@@ -40,13 +42,16 @@ public class MyCustomFirebaseMessagingService extends NCMBFirebaseMessagingServi
                     JSONObject json = new JSONObject(data.getString("com.nifcloud.mbaas.Data"));
 
                     if (json.has("deliveryTime") && json.has("message")) {
-                        Log.d(TAG, "ペイロードを取得しました！");
+                        Log.d(TAG, "ペイロードを取得しました！(Acquired payload!)");
                         //ペイロード処理実装
+                        //implement payload processing
                         // 変換対象の日付文字列
+                        // Date string to be converted
                         String dateStr = json.getString("deliveryTime");
                         String message = json.getString("message");
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         // Date型変換
+                        // Date type conversions
                         Date formatDate = sdf.parse(dateStr);
                         long triggerlMilli = formatDate.getTime();
 
@@ -63,6 +68,7 @@ public class MyCustomFirebaseMessagingService extends NCMBFirebaseMessagingServi
 
                 } catch (JSONException e) {
                     //エラー処理
+                    //error handling
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
