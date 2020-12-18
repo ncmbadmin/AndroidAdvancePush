@@ -1,0 +1,34 @@
+{"results":[
+	{
+		"acl":{"*":{"read":true,"write":true}},
+		"name":"shopA",
+		"category":"インテリア・雑貨",
+		"icon_image":"icon_shopA.png",
+		"sale_image":"shopA_sale.png",
+		"shop_image":"shopA.png"
+	},
+	{
+		"acl":{"*":{"read":true,"write":true}},
+		"name":"shopB",
+		"category":"回転寿司",
+		"icon_image":"icon_shopB.png",
+		"sale_image":"shopB_sale.png",
+		"shop_image":"shopB.png"
+	},
+	{
+		"acl":{"*":{"read":true,"write":true}},
+		"name":"shopC",
+		"category":"スイーツ・ケーキ",
+		"icon_image":"icon_shopC.png",
+		"sale_image":"shopC_sale.png",
+		"shop_image":"shopC.png"
+	},
+	{
+		"acl":{"*":{"read":true,"write":true}},
+		"name":"shopD",
+		"category":"化粧品・雑貨",
+		"icon_image":"icon_shopD.png",
+		"sale_image":"shopD_sale.png",
+		"shop_image":"shopD.png"
+	}
+]}
