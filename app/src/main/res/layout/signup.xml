@@ -4,20 +4,20 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="新規登録 (Register new user)"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="新規登録"
-        android:id="@+id/textView5"
-        android:textSize="40dp"
-        android:layout_gravity="center_horizontal" />
+        android:textSize="40dp" />
 
     <TextView
+        android:id="@+id/textView6"
         android:layout_width="246dp"
         android:layout_height="wrap_content"
+        android:text="メールアドレス (Mail address)"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="メールアドレス"
-        android:id="@+id/textView6"
         android:textSize="30dp" />
 
     <EditText
@@ -28,23 +28,23 @@
         android:id="@+id/txtSignupEmail" />
 
     <Button
+        android:id="@+id/btnSignupByEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="メールを送信する"
-        android:id="@+id/btnSignupByEmail"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:text="メールを送信する (Send mail)" />
 
     <TextView
+        android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="確認メールが送信されます。"
-        android:id="@+id/textView7" />
+        android:text="確認メールが送信されます。(Send confirmation mail to register mail address.)"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
+        android:id="@+id/btnBack_onsignup"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="戻る"
-        android:id="@+id/btnBack_onsignup" />
+        android:text="戻る (BACK)" />
 </LinearLayout>

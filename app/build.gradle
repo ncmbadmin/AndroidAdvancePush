@@ -1,15 +1,17 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
-        applicationId "mbaas.com.nifty.advancepush"
+        applicationId "mbaas.com.nifcloud.advancepush"
         minSdkVersion 19
-        targetSdkVersion 23
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -20,12 +22,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.0.0'
-    compile 'com.android.support:design:23.1.0'
-    compile 'com.android.support:support-v4:23.0.0'
-    compile 'com.google.android.gms:play-services:8.1.0'
-    compile 'com.google.code.gson:gson:2.3.1'
-    compile files('libs/NCMB.jar')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.google.firebase:firebase-messaging:17.6.0'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.google.android.gms:play-services-base:15.0.1'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation files('libs/NCMB.jar')
 }
